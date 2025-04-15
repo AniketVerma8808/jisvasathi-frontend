@@ -4,7 +4,7 @@ import JourneyBegins from "../components/JourneyBegins";
 import ConciergeSection from "../components/ConciergeSection";
 import TestimonialSection from "../components/TestimonialSection";
 import BlogSection from "../components/BlogSection";
-import Faqs from "../components/faqs";
+import Faqs from "../components/Faqs";
 import TrustedByMillions from "../components/TrustedByMillions";
 
 const Home = () => {
