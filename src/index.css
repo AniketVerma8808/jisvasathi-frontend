@@ -1,3 +1,7 @@
 @import "tailwindcss";
 @import "slick-carousel/slick/slick.css";
 @import "slick-carousel/slick/slick-theme.css";
+
+.text-gradient {
+  @apply text-transparent bg-clip-text bg-gradient-to-r from-[#A62C2C] to-[#CF0F47];
+}

@@ -91,7 +91,7 @@ const Footer = () => {
           href="https://techxpert.in"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-400 hover:underline"
+          className="text-gradient hover:underline"
         >
           techxpert.in
         </a>

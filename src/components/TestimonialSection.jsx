@@ -86,7 +86,7 @@ const TestimonialSection = () => {
     <section className="bg-white pt-12 px-4 md:px-8">
       <div className="max-w-7xl mx-auto relative">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-indigo-700 mb-2">
+          <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-2">
             What Our Happy Couples Say
           </h2>
           <p className="text-gray-600 text-sm md:text-base">
@@ -97,13 +97,13 @@ const TestimonialSection = () => {
         {/* Arrows */}
         <button
           onClick={() => sliderRef.current?.slickPrev()}
-          className="absolute -left-4 top-1/2 transform -translate-y-1/2 bg-indigo-100 hover:bg-indigo-200 text-indigo-700 p-3 rounded-full z-10 hidden md:block"
+          className="absolute -left-4 top-1/2 transform -translate-y-1/2 bg-indigo-100 hover:bg-indigo-200 text-gradient p-3 rounded-full z-10 hidden md:block"
         >
           <FaChevronLeft />
         </button>
         <button
           onClick={() => sliderRef.current?.slickNext()}
-          className="absolute -right-4 top-1/2 transform -translate-y-1/2 bg-indigo-100 hover:bg-indigo-200 text-indigo-700 p-3 rounded-full z-10 hidden md:block"
+          className="absolute -right-4 top-1/2 transform -translate-y-1/2 bg-indigo-100 hover:bg-indigo-200 text-gradient p-3 rounded-full z-10 hidden md:block"
         >
           <FaChevronRight />
         </button>

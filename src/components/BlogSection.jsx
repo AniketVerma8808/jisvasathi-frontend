@@ -45,7 +45,7 @@ const BlogSection = () => {
     <section className="pt-12 px-4 md:px-6 lg:px-8 bg-gray-50">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-indigo-700 mb-2">
+          <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-2">
             Latest From Our Blog
           </h2>
           <p className="text-gray-600 text-sm md:text-base">
@@ -76,7 +76,8 @@ const BlogSection = () => {
                 </p>
                 <button
                   onClick={() => handleReadMore(blog)}
-                  className="mt-3 text-indigo-600 hover:text-indigo-800"
+                  className="mt-3 text-gradient hover:underline transition duration-200"
+                  style={{ textDecorationColor: "#A62C2C" }}
                 >
                   Read More
                 </button>

@@ -40,7 +40,7 @@ const Faqs = () => {
       <section className="bg-white py-12 px-4 md:px-8">
         <div className="max-w-7xl mx-auto relative">
           <div className="text-start mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-indigo-700 mb-2">
+            <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-2">
               Frequently Asked Questions
             </h2>
           </div>
