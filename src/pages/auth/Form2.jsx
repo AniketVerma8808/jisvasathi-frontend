@@ -20,7 +20,7 @@ const Form2 = () => {
   };
 
   return (
-    <div className="min-h-[90] flex items-center justify-center px-4 py-10">
+    <div className="min-h-[90] flex items-center justify-center px-4 py-10 bg-gray-100">
       <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         {/* Left Image */}
         <div className="hidden md:flex justify-center">

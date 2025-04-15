@@ -1,30 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import LeftImageSection from "../../components/LeftImageSection";
+import Loader from "../../components/Loader";
+import { toast } from "react-toastify";
 
 const Form3 = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    const form1Data = JSON.parse(localStorage.getItem("form1Data")) || {};
-    const form2Data = JSON.parse(localStorage.getItem("form2Data")) || {};
-    const finalData = { ...form1Data, ...form2Data, ...data };
-    console.log("FINAL SUBMIT:", finalData);
+  const onSubmit = async (data) => {
+    try {
+      setLoading(true);
 
-    localStorage.removeItem("form1Data");
-    localStorage.removeItem("form2Data");
-    alert("Registration Complete!");
-    navigate("/");
+      // Simulate delay if needed (e.g., final API call)
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      const form1Data = JSON.parse(localStorage.getItem("form1Data")) || {};
+      const form2Data = JSON.parse(localStorage.getItem("form2Data")) || {};
+      const finalData = { ...form1Data, ...form2Data, ...data };
+
+      console.log("FINAL SUBMIT:", finalData);
+
+      // Clear localStorage
+      localStorage.removeItem("form1Data");
+      localStorage.removeItem("form2Data");
+      toast.success("Registration Complete!");
+      navigate("/login");
+    } catch (error) {
+      console.error("Submission error:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-white">
+    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-gray-100">
       <div className="max-w-7xl w-full grid md:grid-cols-2 gap-6 items-center">
         {/* Left Image Section */}
         <div className="hidden md:block">
@@ -102,9 +118,10 @@ const Form3 = () => {
             <div>
               <button
                 type="submit"
-                className="w-full bg-gradient-to-tr from-[#A62C2C] to-[#CF0F47] text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-300"
+                disabled={loading}
+                className="w-full flex justify-center items-center h-11 bg-gradient-to-tr from-[#A62C2C] to-[#CF0F47] text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-300"
               >
-                Complete Registration
+                {loading ? <Loader /> : "Complete Registration"}
               </button>
             </div>
           </form>
