@@ -9,6 +9,10 @@ import About from "./pages/About";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import ProfilePage from "./pages/ProfilePage";
+import Matches from "./components/Matches";
+import ActivityContent from "./components/ActivityContent";
+import SearchContent from "./components/SearchContent";
+import EditProfile from "./components/EditProfile";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -33,7 +37,12 @@ const App = () => {
           <Route path="/login" element={<Login />} />
 
           <Route path="/blog/:id" element={<BlogDetails />} />
-          <Route path="/profile/:tab?" element={<ProfilePage />} />
+          <Route path="/profile" element={<ProfilePage />}>
+            <Route index element={<Matches />} />
+            <Route path="activity" element={<ActivityContent />} />
+            <Route path="search" element={<SearchContent />} />
+            <Route path="editProfile" element={<EditProfile />} />
+          </Route>
 
           <Route path="/*" element={<NotFound />} />
         </Routes>

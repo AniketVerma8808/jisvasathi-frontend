@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
         updateAuthData,
         isEditProfile,
         setIsEditProfile,
-        logout, // ✅ Add logout function to context
+        logout, 
       }}
     >
       {children}
