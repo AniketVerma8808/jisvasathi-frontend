@@ -1,9 +1,9 @@
 import axios from "axios";
 
 // Base URL
-const API_URL = "http://localhost:3040/api";
+// const API_URL = "http://localhost:3040/api";
 
-// const API_URL = "https://api.learnlinks.in/santosh/api";
+const API_URL = "https://api.learnlinks.in/anuj/api";
 
 // Create Axios instance
 const apiClient = axios.create({

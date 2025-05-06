@@ -5,6 +5,7 @@ import LeftImageSection from "../../components/LeftImageSection";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
 import { useAuth } from "../../context/AuthContext";
+import { UserLoginService } from "../../services/api.service";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,25 +20,32 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
+      const response = await UserLoginService(data);
 
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      if (response?.data?.token) {
+        const user = response.data.user;
 
-      // Check with dummy credentials
-      if (data.email === "aniket@techxpert.in" && data.password === "1234567") {
-        // Update auth data in context
+        // Update your auth context
         updateAuthData({
           isAuthenticated: true,
-          email: data.email,
+          token: response.data.token,
+          user: {
+            id: user.id,
+            fullName: user.fullName,
+            email: user.email,
+            mobile: user.mobile,
+          },
         });
-        console.log(data);
 
         toast.success("Login Successful!");
-        navigate("/profile ");
+        navigate("/profile");
       } else {
         toast.error("Invalid email or password.");
       }
     } catch (error) {
-      toast.error("Login failed. Please try again.");
+      toast.error(
+        error?.response?.data?.message || "Login failed. Please try again."
+      );
       console.error("Login error:", error);
     } finally {
       setLoading(false);
