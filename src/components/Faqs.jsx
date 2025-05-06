@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion"; // Import motion from framer-motion
-
+import { FaChevronDown } from "react-icons/fa";
+import { FaChevronUp } from "react-icons/fa";
 const Faqs = () => {
   const [activeIndex, setActiveIndex] = useState(null);
 
@@ -37,26 +38,26 @@ const Faqs = () => {
   ];
   return (
     <>
-      <section className="bg-white py-12 px-4 md:px-8">
+      <section className="bg-gray-50 py-12 px-4 md:px-8">
         <div className="max-w-7xl mx-auto relative">
           <div className="text-start mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-2">
+          <h2 className="text-5xl text-amber-500  font-bold max-md:text-4xl max-sm:text-3xl font-['inter']">
               Frequently Asked Questions
             </h2>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-3">
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className="border border-gray-600 rounded-lg overflow-hidden"
+                className=" bg-white rounded-lg overflow-hidden py-3 shadow-sm px-4"
               >
                 <button
                   onClick={() => toggleAccordion(index)}
-                  className="w-full flex justify-between items-center px-4 py-3  text-gray-700 font-medium  transition"
+                  className="w-full flex justify-between items-center px-4 py-2  text-gray-700 font-medium  transition"
                 >
-                  <span>{faq.question}</span>
-                  <span className="text-xl">
-                    {activeIndex === index ? "-" : "+"}
+                  <span className="text-left text-gray-900 text-lg">{faq.question}</span>
+                  <span className="text-xl cursor-pointer">
+                    {activeIndex === index ? <FaChevronUp/> : <FaChevronDown/>}
                   </span>
                 </button>
                 <motion.div
@@ -69,7 +70,7 @@ const Faqs = () => {
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   className={`overflow-hidden `}
                 >
-                  <div className="px-4 py-3 text-gray-700 font-thin text-[16px] md:font-normal">
+                  <div className="px-4  text-gray-700 font-thin text-[16px] md:font-normal">
                     {faq.answer}
                   </div>
                 </motion.div>

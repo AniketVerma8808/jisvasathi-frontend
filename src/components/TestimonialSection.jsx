@@ -77,19 +77,21 @@ const TestimonialSection = () => {
         breakpoint: 640,
         settings: {
           slidesToShow: 1,
+          dots:true,
+          autoplay: true,
         },
       },
     ],
   };
 
   return (
-    <section className="bg-white pt-12 px-4 md:px-8">
+    <section className="bg-gray-50 pt-12 px-4 md:px-8 py-15">
       <div className="max-w-7xl mx-auto relative">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-2">
-            What Our Happy Couples Say
+        <h2 className="text-5xl text-amber-500  font-bold max-md:text-4xl max-sm:text-3xl font-['inter']">
+            What Our Happy <br className="sm:hidden"/> Couples Say
           </h2>
-          <p className="text-gray-600 text-sm md:text-base">
+          <p className="text-gray-600 text-sm md:text-base mt-2">
             Real stories from real people
           </p>
         </div>
@@ -110,19 +112,19 @@ const TestimonialSection = () => {
 
         <Slider ref={sliderRef} {...settings}>
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="px-2">
-              <div className="bg-white border border-gray-200 rounded-2xl shadow-lg  h-full">
-                <div className="w-full h-64 md:h-72 lg:h-80 overflow-hidden rounded-t-2xl">
+            <div key={index} className=" p-1 px-2    group">
+              <div className="shadow-sm rounded-2xl bg-white  h-full">
+                <div className="w-full h-64 md:h-72 lg:h-80 overflow-hidden rounded-2xl">
                   <img
                     src={testimonial.image}
                     alt={testimonial.name}
-                    className="w-full h-full object-cover object-center"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500"
                   />
                 </div>
 
                 <div className="p-6">
                   <div className="mb-4">
-                    <h4 className="text-lg md:text-xl font-semibold text-gray-800">
+                    <h4 className="text-lg md:text-xl font-semibold text-red-800 font-['poppins'] capitalize">
                       {testimonial.name}
                     </h4>
                     <p className="text-sm md:text-base text-gray-500">

@@ -42,28 +42,28 @@ const BlogSection = () => {
   };
 
   return (
-    <section className="pt-12 px-4 md:px-6 lg:px-8 bg-gray-50">
+    <section className="pt-12 px-4 md:px-6 lg:px-8 bg-white py-15">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-2">
+        <h2 className="text-5xl text-amber-500  font-bold max-md:text-4xl max-sm:text-3xl font-['inter']">
             Latest From Our Blog
           </h2>
-          <p className="text-gray-600 text-sm md:text-base">
+          <p className="text-gray-600 text-sm md:text-base mt-2">
             Advice, stories, and insights from our team and happy couples.
           </p>
         </div>
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 max-sm:gap-4">
           {blogs.map((blog) => (
             <div
               key={blog.id}
-              className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+              className="bg-gray-50   rounded-2xl  p-1 shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300"
             >
-              <div className="h-56 md:h-64 overflow-hidden">
+              <div className="h-56 md:h-64 overflow-hidden group">
                 <img
                   src={blog.image}
                   alt={blog.title}
-                  className="w-full h-full object-cover object-center"
+                  className="w-full h-full object-cover rounded-2xl object-top group-hover:scale-105 transition duration-500"
                 />
               </div>
               <div className="p-5">
@@ -76,10 +76,11 @@ const BlogSection = () => {
                 </p>
                 <button
                   onClick={() => handleReadMore(blog)}
-                  className="mt-3 text-gradient hover:underline transition duration-200"
+                  className="mt-3 relative  group text-red-800 hover:text-white  border-black py-1.5 px-4  transition cursor-pointer duration-100"
                   style={{ textDecorationColor: "#A62C2C" }}
                 >
-                  Read More
+                 <span className="relative z-10 "> Read More</span>
+                  <div className="absolute left-0 top-0 w-0 h-full group-hover:w-full transition-all bg-red-700 duration-300"></div>
                 </button>
               </div>
             </div>
