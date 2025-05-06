@@ -6,6 +6,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Form = () => {
   const navigate = useNavigate();
@@ -14,10 +15,11 @@ const Form = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { updateAuthData } = useAuth();
 
   const onForm1Submit = (data) => {
-    localStorage.setItem("form1Data", JSON.stringify(data));
-    navigate("/register/step2");
+    updateAuthData(data);
+    navigate("/register");
   };
 
   return (

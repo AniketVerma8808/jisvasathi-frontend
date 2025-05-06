@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LeftImageSection from "../../components/LeftImageSection";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
+import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { updateAuthData } = useAuth();
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -18,12 +20,22 @@ const Login = () => {
     try {
       setLoading(true);
 
-      // Simulate API call (replace this with actual login logic if needed)
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      console.log(data); // Debug: log submitted data
-      toast.success("Login Successful!");
-      navigate("/");
+      // Check with dummy credentials
+      if (data.email === "aniket@techxpert.in" && data.password === "1234567") {
+        // Update auth data in context
+        updateAuthData({
+          isAuthenticated: true,
+          email: data.email,
+        });
+        console.log(data);
+
+        toast.success("Login Successful!");
+        navigate("/profile "); 
+      } else {
+        toast.error("Invalid email or password.");
+      }
     } catch (error) {
       toast.error("Login failed. Please try again.");
       console.error("Login error:", error);
@@ -114,9 +126,12 @@ const Login = () => {
 
             {/* Forgot Password */}
             <div className="text-center mt-4">
-              <a href="#" className="text-sm text-blue-600 hover:text-blue-700">
+              <Link
+                to="#"
+                className="text-sm text-blue-600 hover:text-blue-700"
+              >
                 Forgot Password?
-              </a>
+              </Link>
             </div>
           </form>
 
@@ -124,12 +139,12 @@ const Login = () => {
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-500">
               Don't have an account?{" "}
-              <a
-                href="/register"
+              <Link
+                to="/"
                 className="text-blue-600 hover:text-blue-700 font-medium"
               >
                 Sign up
-              </a>
+              </Link>
             </p>
           </div>
         </div>

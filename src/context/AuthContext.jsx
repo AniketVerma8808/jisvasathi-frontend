@@ -1,42 +1,40 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 
 const AuthContext = createContext();
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [authData, setAuthData] = useState(() => {
+    const storedData = localStorage.getItem("authData");
+    return storedData ? JSON.parse(storedData) : {};
+  });
 
-  const login = (email, password) => {
-    // Mock API call
-    fetch("https://your-api-url.com/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-          setUser(data.user);
-        } else {
-          alert("Invalid credentials");
-        }
-      })
-      .catch((error) => alert("Something went wrong"));
+  const [isEditProfile, setIsEditProfile] = useState(false);
+
+  const updateAuthData = (data) => {
+    setAuthData((prev) => {
+      const newData = { ...prev, ...data };
+      localStorage.setItem("authData", JSON.stringify(newData));
+      return newData;
+    });
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
-    setUser(null);
+    setAuthData({});
+    localStorage.removeItem("authData");
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        authData,
+        updateAuthData,
+        isEditProfile,
+        setIsEditProfile,
+        logout, // ✅ Add logout function to context
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
