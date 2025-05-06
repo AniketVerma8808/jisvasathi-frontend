@@ -11,8 +11,6 @@ import { useAuth } from "../context/AuthContext";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { motion } from "framer-motion";
 
-
-
 const Form = () => {
   const navigate = useNavigate();
   const {
@@ -37,12 +35,11 @@ const Form = () => {
           Find your perfect match today
         </p>
       </div>
-{/* main form */}
+      {/* main form */}
       <div className="rounded-b-3xl px-6  animate-fade-in mt-8 font-['poppins']">
         <form onSubmit={handleSubmit(onForm1Submit)} className="">
           {/* Profile For */}
           <div>
-           
             <div className="relative">
               <select
                 {...register("profileFor", {
@@ -66,13 +63,16 @@ const Form = () => {
 
           {/* Full Name */}
           <div className="mt-4">
-            <label htmlFor="fullName"  className="block text-sm font ml-1 font-medium text-gray-500">
+            <label
+              htmlFor="fullName"
+              className="block text-sm font ml-1 font-medium text-gray-500"
+            >
               Full Name:
             </label>
             <div className="relative">
               <input
                 {...register("fullName", { required: "Name is required" })}
-                placeholder="e.g. Ayush Singh"
+                placeholder="e.g. User Name"
                 className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
                 id="fullName"
               />
@@ -85,11 +85,17 @@ const Form = () => {
 
           {/* Mobile Number */}
           <div className="mt-4">
-            <label htmlFor="mobile" className="block text-sm font ml-1 font-medium text-gray-500">
+            <label
+              htmlFor="mobile"
+              className="block text-sm font ml-1 font-medium text-gray-500"
+            >
               Mobile Number:
             </label>
             <div className="flex gap-2 items-center  mt-2">
-              <select className="w-24 shadow-sm  shadow-gray-300 rounded-xl text-gray-500 px-2 py-3  focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm" id="mobile">
+              <select
+                className="w-24 shadow-sm  shadow-gray-300 rounded-xl text-gray-500 px-2 py-3  focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                id="mobile"
+              >
                 <option>+91</option>
               </select>
               <div className="relative w-full">
@@ -112,29 +118,30 @@ const Form = () => {
               )}
             </div>
           </div>
- {/* T&C */}
- <p className="text-xs text-center mt-4">
-          By clicking <strong className="text-primary">Register Free</strong>, I agree to the{" "}
-          <span className="underline hover:text-green-300 cursor-pointer">
-            T&C
-          </span>{" "}
-          and{" "}
-          <span className="underline hover:text-green-300 cursor-pointer">
-            Privacy Policy
-          </span>
-          .
-        </p>
+          {/* T&C */}
+          <p className="text-xs text-center mt-4">
+            By clicking <strong className="text-primary">Register Free</strong>,
+            I agree to the{" "}
+            <span className="underline hover:text-green-300 cursor-pointer">
+              T&C
+            </span>{" "}
+            and{" "}
+            <span className="underline hover:text-green-300 cursor-pointer">
+              Privacy Policy
+            </span>
+            .
+          </p>
           {/* Submit Button */}
           <button
             type="submit"
             className="bg-gradient-to-b group flex items-center justify-center gap-2 bg-primary cursor-pointer  mt-4 text-white font-bold py-2.5 rounded-xl w-full text-lg  transition-all duration-300 shadow-md hover:shadow-md hover:shadow-red-200 max-sm:text-base"
           >
-<span>REGISTER FREE </span>
-<span className="group-hover:translate-x-1/2 transition text-2xl max-sm:text-xl"><FaLongArrowAltRight/></span>
+            <span>REGISTER FREE </span>
+            <span className="group-hover:translate-x-1/2 transition text-2xl max-sm:text-xl">
+              <FaLongArrowAltRight />
+            </span>
           </button>
         </form>
-
-       
       </div>
     </div>
   );

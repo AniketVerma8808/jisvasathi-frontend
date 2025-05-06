@@ -32,7 +32,7 @@ const Login = () => {
         console.log(data);
 
         toast.success("Login Successful!");
-        navigate("/profile "); 
+        navigate("/profile ");
       } else {
         toast.error("Invalid email or password.");
       }
@@ -54,7 +54,7 @@ const Login = () => {
 
         {/* Right Login Form */}
         <div className="bg-white p-10 rounded-3xl shadow-xl w-full max-w-md mx-auto">
-          <h2 className="text-3xl font-semibold text-center text-gradient mb-6">
+          <h2 className="text-3xl font-semibold text-center text-amber-500 mb-6">
             Login to Your Account
           </h2>
 
@@ -78,7 +78,7 @@ const Login = () => {
                     message: "Invalid email address",
                   },
                 })}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-rose-300"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
               />
               {errors.email && (
                 <p className="text-xs text-red-500 mt-1">
@@ -106,7 +106,8 @@ const Login = () => {
                     message: "Password must be at least 6 characters",
                   },
                 })}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-rose-300"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                // id="fullName"
               />
               {errors.password && (
                 <p className="text-xs text-red-500 mt-1">
@@ -119,7 +120,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex justify-center items-center h-11 bg-gradient-to-tr from-[#A62C2C] to-[#CF0F47] text-white font-bold py-2 rounded-lg  transition-all"
+              className="w-full flex justify-center items-center h-11 bg-primary cursor-pointer text-white font-bold py-2 rounded-lg  transition-all"
             >
               {loading ? <Loader /> : "Login"}
             </button>

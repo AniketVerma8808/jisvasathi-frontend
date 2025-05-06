@@ -36,7 +36,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-10 bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center px-4 py-10 bg-white ">
       <div className="max-w-7xl w-full grid md:grid-cols-2 gap-10 items-start">
         {/* Left Image */}
         <div className="hidden md:block">
@@ -45,7 +45,7 @@ const Register = () => {
 
         {/* Right Form */}
         <div className="bg-white p-10 rounded-3xl shadow-2xl w-full">
-          <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">
+          <h2 className="text-3xl font-extrabold text-center text-amber-500 mb-6">
             💍 Create Your Matrimony Profile
           </h2>
           <form
@@ -58,7 +58,8 @@ const Register = () => {
               <input
                 type="date"
                 {...register("dob", { required: "DOB is required" })}
-                className="w-full border p-3 rounded-xl shadow-inner"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                id="fullName"
               />
               {errors.dob && (
                 <p className="text-xs text-red-500">{errors.dob.message}</p>
@@ -72,7 +73,8 @@ const Register = () => {
                 type="text"
                 {...register("religion", { required: "Religion is required" })}
                 placeholder="Enter your religion"
-                className="w-full border p-3 rounded-xl shadow-inner"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                id="fullName"
               />
               {errors.religion && (
                 <p className="text-xs text-red-500">
@@ -88,7 +90,8 @@ const Register = () => {
                 {...register("motherTongue", {
                   required: "Mother Tongue is required",
                 })}
-                className="w-full border p-3 rounded-xl shadow-inner"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                id="fullName"
               >
                 <option value="">Select</option>
                 <option value="hindi">Hindi</option>
@@ -117,7 +120,8 @@ const Register = () => {
                   },
                 })}
                 placeholder="Enter your email"
-                className="w-full border p-3 rounded-xl shadow-inner"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                id="fullName"
               />
               {errors.email && (
                 <p className="text-xs text-red-500">{errors.email.message}</p>
@@ -134,7 +138,8 @@ const Register = () => {
                   minLength: { value: 6, message: "At least 6 characters" },
                 })}
                 placeholder="Enter your password"
-                className="w-full border p-3 rounded-xl shadow-inner"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                id="fullName"
               />
               {errors.password && (
                 <p className="text-xs text-red-500">
@@ -148,7 +153,8 @@ const Register = () => {
               <label className="block text-sm font-medium">Caste</label>
               <select
                 {...register("caste", { required: "Caste is required" })}
-                className="w-full border p-3 rounded-xl shadow-inner"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                id="fullName"
               >
                 <option value="">Select</option>
                 <option value="general">General</option>
@@ -171,7 +177,8 @@ const Register = () => {
                 type="text"
                 {...register("subcaste")}
                 placeholder="Enter your subcaste"
-                className="w-full border p-3 rounded-xl shadow-inner"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                id="fullName"
               />
             </div>
 
@@ -184,7 +191,8 @@ const Register = () => {
                 type="text"
                 {...register("gothram")}
                 placeholder="Enter your gothram"
-                className="w-full border p-3 rounded-xl shadow-inner"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                id="fullName"
               />
             </div>
 
@@ -197,7 +205,8 @@ const Register = () => {
                 type="text"
                 {...register("dosh")}
                 placeholder="Enter your dosh"
-                className="w-full border p-3 rounded-xl shadow-inner"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                id="fullName"
               />
             </div>
 
@@ -206,7 +215,7 @@ const Register = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-tr flex items-center justify-center h-11 from-[#A62C2C] to-[#CF0F47] text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-300"
+                className="w-full bg-primary cursor-pointer flex items-center justify-center h-11  text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-300"
               >
                 {loading ? <Loader /> : "Complete Registration 💌"}
               </button>
