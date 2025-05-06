@@ -48,12 +48,12 @@ const Navbar = () => {
 
             {/* Conditional Login/Profile Icon */}
             {authData?.isAuthenticated ? (
-              <button
-                onClick={() => setMobileSidebarOpen(true)}
-                className="relative flex items-center gap-2 text-gray-700 hover:text-blue-600 transition"
+              <Link
+                to="/profile"
+                className="relative flex items-center gap-2 text-gray-700  transition"
               >
                 <FaUserCircle className="text-2xl" />
-              </button>
+              </Link>
             ) : (
               <>
                 <Link

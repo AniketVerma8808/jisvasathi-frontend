@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { CgProfile } from "react-icons/cg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LiaUserFriendsSolid } from "react-icons/lia";
 import { SiActivitypub } from "react-icons/si";
 import { IoSearchSharp } from "react-icons/io5";
-import { RiMessengerLine } from "react-icons/ri";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { GiUpgrade } from "react-icons/gi";
+import { useAuth } from "../context/AuthContext";
+import { FiLogOut } from "react-icons/fi";
+
 const SideNav = () => {
+  const { logout, authData } = useAuth();
+  const navigate = useNavigate();
+
   const [current, setcurrent] = useState(
     JSON.parse(sessionStorage.getItem("current") || 0)
   );
@@ -34,6 +39,12 @@ const SideNav = () => {
       path: "/profile/editProfile",
     },
   ];
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   return (
     <div className=" border-gray-100 py-6 px-4  rounded-lg bg-white  shadow-sm max-lg:hidden">
       <div className="flex items-center gap-4 px-4">
@@ -68,10 +79,22 @@ const SideNav = () => {
           );
         })}
       </ul>
-      <Link className="px-5 mt-4 flex items-center justify-start gap-2  text-white tracking-wide font-bold text-lg rounded-lg py-2.5 bg-gradient-to-br from-orange-400 to-red-400">
-        <GiUpgrade className="text-xl" />
-        <span> Upgrade to Pro</span>
-      </Link>
+
+      <div className="mt-auto">
+        <Link className="px-5 mt-4 flex items-center justify-start gap-2 text-white tracking-wide font-bold text-lg rounded-lg py-2.5 bg-gradient-to-br from-orange-400 to-red-400">
+          <GiUpgrade className="text-xl" />
+          <span>Upgrade to Pro</span>
+        </Link>
+
+        {/* Logout Button */}
+        <button
+          onClick={handleLogout}
+          className="mt-3 w-full text-left px-5 py-2.5 flex items-center gap-2 rounded-lg text-red-500 font-semibold hover:bg-red-50 transition"
+        >
+          <FiLogOut className="text-xl" />
+          <span>Logout</span>
+        </button>
+      </div>
     </div>
   );
 };
