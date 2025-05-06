@@ -6,11 +6,12 @@ import LeftImageSection from "../../components/LeftImageSection";
 import Loader from "../../components/Loader";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
+import { UserRegisterService } from "../../services/api.service";
 
 const Register = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { authData } = useAuth();
+  const { authData, setAuthData } = useAuth();
   const {
     register,
     handleSubmit,
@@ -20,14 +21,17 @@ const Register = () => {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      await new Promise((res) => setTimeout(res, 1500));
+      setAuthData(data);
+      const finalData = {
+        ...authData,
+        ...data,
+      };
 
-      console.log("FINAL SUBMIT:", { ...authData, ...data });
+      const response = await UserRegisterService(finalData);
+      console.log(response);
 
-      // Submit API call here (if needed)
-
-      toast.success("Registration Complete!");
-      navigate("/login");
+      toast.success(response.data.message);
+      navigate("/verifyemail");
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -104,6 +108,23 @@ const Register = () => {
                 <p className="text-xs text-red-500">
                   {errors.motherTongue.message}
                 </p>
+              )}
+            </div>
+            <div className="space-y-2">
+              <label className="block text-sm font-medium">Gender</label>
+              <select
+                {...register("gender", {
+                  required: "Gender is required",
+                })}
+                className="w-full shadow-sm shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3 mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+              >
+                <option value="">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+              {errors.gender && (
+                <p className="text-xs text-red-500">{errors.gender.message}</p>
               )}
             </div>
 

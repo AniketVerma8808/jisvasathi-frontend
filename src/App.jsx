@@ -13,6 +13,9 @@ import Matches from "./components/Matches";
 import ActivityContent from "./components/ActivityContent";
 import SearchContent from "./components/SearchContent";
 import EditProfile from "./components/EditProfile";
+import VerifyEmail from "./pages/auth/Verify_Email";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -34,7 +37,11 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/verifyemail" element={<VerifyEmail />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
 
           <Route path="/blog/:id" element={<BlogDetails />} />
           <Route path="/profile" element={<ProfilePage />}>

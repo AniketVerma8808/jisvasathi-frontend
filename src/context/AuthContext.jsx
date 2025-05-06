@@ -32,7 +32,8 @@ export const AuthProvider = ({ children }) => {
         updateAuthData,
         isEditProfile,
         setIsEditProfile,
-        logout, 
+        logout,
+        setAuthData,
       }}
     >
       {children}
