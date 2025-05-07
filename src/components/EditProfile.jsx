@@ -2,6 +2,10 @@ import { useState, useRef } from "react";
 import { Camera, Save, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
+import React from "react";
+import { MdOutlineModeEdit } from "react-icons/md";
+import { FaRegSave } from "react-icons/fa";
+import { cn } from "../../utils/toggleClass";
 
 export default function EditProfile() {
   // State for form data
@@ -81,6 +85,7 @@ export default function EditProfile() {
     "/placeholder.svg?height=300&width=300"
   );
 
+  const [edit, setedit] = useState(false);
   // Ref for file input
   const fileInputRef = useRef(null);
 
@@ -112,10 +117,10 @@ export default function EditProfile() {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically send the data to your backend
-    console.log("Form submitted:", formData);
-    console.log("Profile photo:", profilePhoto);
-    alert("Profile updated successfully!");
+    // // Here you would typically send the data to your backend
+    // console.log("Form submitted:", formData);
+    // console.log("Profile photo:", profilePhoto);
+    // alert("Profile updated successfully!");
   };
   const references = {
     personal: useRef(null),
@@ -131,9 +136,9 @@ export default function EditProfile() {
   const getHeight = (key) => {
     return current == key ? references[key]?.current?.scrollHeight : 0;
   };
-
+0
   return (
-    <div className="    border-black bg-white  px-8 py-4 rounded-lg shadow-sm max-lg:w-full max-lg:mt-18 max-lg:pb-22">
+    <div className="   border-black bg-white  px-8 max-sm:px-0  py-4 rounded-lg shadow-sm max-lg:w-full m ">
       {/* Header */}
       <div className="p-4   flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -151,7 +156,7 @@ export default function EditProfile() {
         </button>
       </div>
 
-      <form className="p-4 space-y-6" onSubmit={handleSubmit}>
+      <form className="p-4 space-y-6 h-max" onSubmit={handleSubmit}>
         {/* Profile Photo */}
         <div className="flex flex-col items-center sm:flex-row sm:items-start gap-6 pb-6 ">
           <div className="relative">
@@ -160,7 +165,8 @@ export default function EditProfile() {
               alt="Profile"
               className="w-32 h-32 rounded-full object-cover border-2 border-gray-200"
             />
-            <input
+               <input 
+      readOnly={!edit}
               type="file"
               ref={fileInputRef}
               className="hidden"
@@ -209,56 +215,71 @@ export default function EditProfile() {
 
         {/* Personal Information */}
         <h2
-          onClick={() =>
+          onClick={() =>{
             setcurrent((prev) => (prev === "personal" ? null : "personal"))
+            setedit(false)
           }
-          className="text-lg py-4 m-0  bg-red-50 px-8 rounded-lg select-none cursor-pointer font-semibold text-gray-900"
+          }
+          className="text-lg py-4 my-3  bg-red-50 px-8 max-sm:px-4 max-sm:text-lg rounded-lg select-none cursor-pointer font-semibold text-gray-900"
         >
           Personal Information
         </h2>
         <motion.div
           initial={{
+           
             maxHeight: 0,
           }}
           animate={{
             maxHeight: getHeight("personal"),
           }}
           ref={references.personal}
-          className="grid  grid-cols-1 m-0 px-8 my-2  overflow-hidden sm:grid-cols-2 gap-4 "
+          className="grid  grid-cols-1 m-0 px-8 max-sm:px-0  relative  overflow-hidden sm:grid-cols-2 gap-4 "
         >
-          <div>
+
+          
+            <div className="flex items-center justify-end gap-x-4 w-50  absolute right-4">
+              
+               <button onClick={()=>setedit(false)} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
+              <button onClick={()=>setedit(true)}   className="       text-xl cursor-pointer"><MdOutlineModeEdit /></button>
+    </div>
+          
+          <div className="pt-8 max-sm:pt-2">
             <label
               htmlFor="firstName"
               className="block text-sm font-medium text-gray-700 mb-1"
             >
               First Name
             </label>
-            <input
+               <input 
+      readOnly={!edit}
+            
               type="text"
               id="firstName"
               name="firstName"
               value={formData.firstName}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500 "
+              className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
             />
           </div>
 
-          <div>
+          <div className="pt-8 max-sm:pt-2">
             <label
               htmlFor="lastName"
               className="block text-sm font-medium text-gray-700 mb-1"
             >
               Last Name
             </label>
-            <input
-              type="text"
+               <input 
+      readOnly={!edit} 
+           
+            type="text"
               id="lastName"
               name="lastName"
               value={formData.lastName}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500"
+              className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
             />
           </div>
 
@@ -269,13 +290,14 @@ export default function EditProfile() {
             >
               Gender
             </label>
-            <select
+            <select 
+disabled={!edit} 
               id="gender"
               name="gender"
               value={formData.gender}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500 "
+              className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100 appearance-none' ) }
             >
               <option value="male">Male</option>
               <option value="female">Female</option>
@@ -290,7 +312,8 @@ export default function EditProfile() {
             >
               Age
             </label>
-            <input
+               <input 
+      readOnly={!edit}
               type="number"
               id="age"
               name="age"
@@ -299,7 +322,7 @@ export default function EditProfile() {
               min="18"
               max="80"
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500 "
+              className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
             />
           </div>
 
@@ -310,13 +333,14 @@ export default function EditProfile() {
             >
               Height
             </label>
-            <input
+               <input 
+      readOnly={!edit}
               id="height"
               name="height"
               value={formData.height}
               onChange={handleChange}
               placeholder="e.g 5&#34;6&#39;(167cm)"
-              className="w-full px-4 py-2 border border-gray-300 max-h-50 overflow-y-scroll rounded-lg focus:outline-none  focus:ring-rose-500 "
+              className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
             />
           </div>
 
@@ -327,12 +351,13 @@ export default function EditProfile() {
             >
               Religion
             </label>
-            <select
+            <select 
+disabled={!edit}
               id="religion"
               name="religion"
               value={formData.religion}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500 "
+              className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100 appearance-none' ) }
             >
               <option value="Christian">Christian</option>
               <option value="Hindu">Hindu</option>
@@ -345,19 +370,20 @@ export default function EditProfile() {
             </select>
           </div>
 
-          <div>
+          <div className="pb-8 max-sm:pb-2">
             <label
               htmlFor="maritalStatus"
               className="block text-sm font-medium text-gray-700 mb-1"
             >
               Marital Status
             </label>
-            <select
+            <select 
+disabled={!edit}
               id="maritalStatus"
               name="maritalStatus"
               value={formData.maritalStatus}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500 "
+              className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100 appearance-none' ) }
             >
               <option value="Never Married">Never Married</option>
               <option value="Divorced">Divorced</option>
@@ -366,31 +392,34 @@ export default function EditProfile() {
             </select>
           </div>
 
-          <div>
+          <div className="pb-8 max-sm:pb-2">
             <label
               htmlFor="location"
               className="block text-sm font-medium text-gray-700 mb-1"
             >
               Location
             </label>
-            <input
+               <input 
+      readOnly={!edit}
               type="text"
               id="location"
               name="location"
               value={formData.location}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500 "
+              className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
             />
           </div>
         </motion.div>
 
         {/* Career & Education */}
         <h2
-          onClick={() =>
+          onClick={() =>{
             setcurrent((prev) => (prev === "education" ? null : "education"))
+            setedit(false)
           }
-          className="text-lg m-0 bg-red-50 px-8 rounded-lg   py-4 select-none cursor-pointer font-semibold text-gray-900"
+          }
+          className="text-lg m-0 bg-red-50 px-8 max-sm:px-4 max-sm:text-lg rounded-lg   py-4 select-none cursor-pointer font-semibold text-gray-900"
         >
           Career & Education
         </h2>
@@ -402,22 +431,28 @@ export default function EditProfile() {
             maxHeight: getHeight("education"),
           }}
           ref={references.education}
-          className=" overflow-hidden px-8 my-2"
+          className=" overflow-hidden px-8 max-sm:px-0 my-2 relative"
         >
+           <div className="flex items-center justify-end gap-x-4 w-50  absolute right-4">
+              
+              <button onClick={()=>setedit(false)} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
+             <button onClick={()=>setedit(true)}   className="       text-xl cursor-pointer"><MdOutlineModeEdit /></button>
+   </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
+            <div className="pt-8 max-sm:pt-2">
               <label
                 htmlFor="education"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
                 Highest Education
               </label>
-              <select
+              <select 
+disabled={!edit}
                 id="education"
                 name="highestEducation"
                 value={formData.highestEducation}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500 "
+                className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100 appearance-none' ) }
               >
                 <option value="High School">High School</option>
                 <option value="Bachelor's Degree">Bachelor's Degree</option>
@@ -426,19 +461,20 @@ export default function EditProfile() {
                 <option value="Other">Other</option>
               </select>
             </div>
-            <div>
+            <div className="pt-8 max-sm:pt-2">
               <label
                 htmlFor="educationDetails"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
                 Education Details
               </label>
-              <input
+                 <input 
+      readOnly={!edit}
                 id="educationDetails"
                 name="educationDetails"
                 value={formData.educationDetails}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500 "
+                className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
               />
             </div>{" "}
             <div>
@@ -448,12 +484,13 @@ export default function EditProfile() {
               >
                 Employment Type
               </label>
-              <select
+              <select 
+disabled={!edit}
                 id="employment"
                 name="employmentType"
                 value={formData.employmentType}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500 "
+                className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100 appearance-none' ) }
               >
                 <option value="Private Job">Private Job</option>
                 <option value="Government Job">Government Job</option>
@@ -469,29 +506,31 @@ export default function EditProfile() {
               >
                 Occupation
               </label>
-              <input
+                 <input 
+      readOnly={!edit}
                 type="text"
                 id="occupation"
                 name="occupation"
                 value={formData.occupation}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500"
+                className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
               />
             </div>
-            <div>
+            <div >
               <label
                 htmlFor="company"
                 className="block text-sm capitalize font-medium text-gray-700 mb-1"
               >
                 Company
               </label>
-              <input
+                 <input 
+      readOnly={!edit}
                 type="text"
                 id="company"
                 name="company"
                 value={formData.company}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border capitalize border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500"
+                className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
               />
             </div>
             <div>
@@ -501,29 +540,31 @@ export default function EditProfile() {
               >
                 annual Income
               </label>
-              <input
+                 <input 
+      readOnly={!edit}
                 type="text"
                 id="annualIncome"
                 name="annualIncome"
                 value={formData.annualIncome}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border capitalize border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500"
+                className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
               />
             </div>
-            <div>
+            <div className="pb-8 max-sm:pb-2">
               <label
                 htmlFor="workLocation"
                 className="block text-sm capitalize font-medium text-gray-700 mb-1"
               >
                 Work Location
               </label>
-              <input
+                 <input 
+      readOnly={!edit}
                 type="text"
                 id="workLocation"
                 name="workLocation"
                 value={formData.workLocation}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border capitalize border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500"
+                className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
               />
             </div>
           </div>
@@ -532,10 +573,12 @@ export default function EditProfile() {
         {/* About Me  */}
 
         <h2
-          onClick={() =>
+          onClick={() =>{
             setcurrent((prev) => (prev === "about" ? null : "about"))
+            setedit(false)
           }
-          className="text-lg m-0 bg-red-50 px-8 rounded-lg   py-4 select-none cursor-pointer font-semibold text-gray-900"
+          }
+          className="text-lg m-0 bg-red-50 px-8 max-sm:px-4 max-sm:text-lg rounded-lg   py-4 select-none cursor-pointer font-semibold text-gray-900"
         >
           About Me
         </h2>
@@ -547,10 +590,15 @@ export default function EditProfile() {
             maxHeight: getHeight("about"),
           }}
           ref={references.about}
-          className=" overflow-hidden px-8 my-2"
+          className=" overflow-hidden px-8 max-sm:px-0 my-2 relative"
         >
-          <div className="space-y-4">
-            <div>
+           <div className="flex items-center justify-end gap-x-4 w-50  absolute right-4">
+              
+              <button onClick={()=>setedit(false)} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
+             <button onClick={()=>setedit(true)}   className="       text-xl cursor-pointer"><MdOutlineModeEdit /></button>
+   </div>
+          <div className="space-y-3">
+            <div className="pt-8 max-sm:pt-2">
               <label
                 htmlFor="aboutMe"
                 className="block text-sm font-medium text-gray-700 mb-1"
@@ -564,25 +612,26 @@ export default function EditProfile() {
                 onChange={handleChange}
                 rows={4}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500 "
+                className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
                 placeholder="Tell potential matches about yourself..."
               ></textarea>
             </div>
 
-            <div>
+            <div className="pb-8 max-sm:pb-2">
               <label
                 htmlFor="interests"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
                 Interests & Hobbies
               </label>
-              <input
+                 <input 
+      readOnly={!edit}
                 type="text"
                 id="interests"
                 name="interests"
                 value={formData.interests}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500 "
+                className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
                 placeholder="Separate interests with commas (e.g., Hiking, Reading, Cooking)"
               />
             </div>
@@ -590,10 +639,12 @@ export default function EditProfile() {
         </motion.div>
         {/* contact information */}
         <h2
-          onClick={() =>
+          onClick={() =>{
             setcurrent((prev) => (prev === "contact" ? null : "contact"))
+            setedit(false)
           }
-          className="text-lg m-0 bg-red-50 px-8 rounded-lg   py-4 select-none cursor-pointer font-semibold text-gray-900"
+          }
+          className="text-lg m-0 bg-red-50 px-8 max-sm:px-4 max-sm:text-lg rounded-lg   py-4 select-none cursor-pointer font-semibold text-gray-900"
         >
           Contact Information
         </h2>
@@ -605,41 +656,48 @@ export default function EditProfile() {
             maxHeight: getHeight("contact"),
           }}
           ref={references.contact}
-          className=" overflow-hidden px-8 my-2"
+          className=" overflow-hidden px-8 max-sm:px-0 my-2 relative"
         >
+           <div className="flex items-center justify-end gap-x-4 w-50  absolute right-4">
+              
+              <button onClick={()=>setedit(false)} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
+             <button onClick={()=>setedit(true)}   className="       text-xl cursor-pointer"><MdOutlineModeEdit /></button>
+   </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
+            <div className="pt-8 max-sm:pt-2">
               <label
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
                 Email Address
               </label>
-              <input
+                 <input 
+      readOnly={!edit}
                 type="email"
                 id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500 "
+                className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
               />
             </div>
 
-            <div>
+            <div className="pt-8 max-sm:pt-2">
               <label
                 htmlFor="phone"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
                 Phone Number
               </label>
-              <input
+                 <input 
+      readOnly={!edit}
                 type="tel"
                 id="phone"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500 "
+                className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
               />
             </div>
           </div>
@@ -647,10 +705,12 @@ export default function EditProfile() {
 
         {/* family information  */}
         <h2
-          onClick={() =>
+          onClick={() =>{
             setcurrent((prev) => (prev === "family" ? null : "family"))
+            setedit(false)
           }
-          className="text-lg py-4 m-0  bg-red-50 px-8 rounded-lg select-none cursor-pointer font-semibold text-gray-900"
+          }
+          className="text-lg py-4 m-0  bg-red-50 px-8 max-sm:px-4 max-sm:text-lg rounded-lg select-none cursor-pointer font-semibold text-gray-900"
         >
           Family Type
         </h2>
@@ -662,41 +722,48 @@ export default function EditProfile() {
             maxHeight: getHeight("family"),
           }}
           ref={references.family}
-          className="grid  grid-cols-1 m-0 px-8 my-2  overflow-hidden sm:grid-cols-2 gap-4 "
+          className="grid  grid-cols-1 m-0 px-8 max-sm:px-0 my-2  overflow-hidden sm:grid-cols-2 gap-4 relative "
         >
-          <div>
+           <div className="flex items-center justify-end gap-x-4 w-50  absolute right-4">
+              
+              <button onClick={()=>setedit(false)} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
+             <button onClick={()=>setedit(true)}   className="       text-xl cursor-pointer"><MdOutlineModeEdit /></button>
+   </div>
+          <div className="pt-8 max-sm:pt-2">
             <label
               htmlFor="fatherName"
               className="block text-sm capitalize font-medium text-gray-700 mb-1"
             >
               father's Name
             </label>
-            <input
+               <input 
+      readOnly={!edit}
               type="text"
               id="fatherName"
               name="fatherName"
               value={formData.fatherName}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500 "
+              className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
             />
           </div>
 
-          <div>
+          <div className="pt-8 max-sm:pt-2">
             <label
               htmlFor="fatherOccupation"
               className="block text-sm capitalize font-medium text-gray-700 mb-1"
             >
               father Occupation
             </label>
-            <input
+               <input 
+      readOnly={!edit}
               type="text"
               id="fatherOccupation"
               name="fatherOccupation"
               value={formData.fatherOccupation}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg capitalize focus:outline-none  focus:ring-rose-500"
+              className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
             />
           </div>
 
@@ -707,13 +774,14 @@ export default function EditProfile() {
             >
               mother Name
             </label>
-            <input
+               <input 
+      readOnly={!edit}
               id="motherName"
               name="motherName"
               value={formData.motherName}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg capitalize focus:outline-none  focus:ring-rose-500 "
+              className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
             />
           </div>
 
@@ -722,9 +790,10 @@ export default function EditProfile() {
               htmlFor="motherOccupation"
               className="block text-sm capitalize font-medium text-gray-700 mb-1"
             >
-              motherOccupation
+              mother Occupation
             </label>
-            <input
+               <input 
+      readOnly={!edit}
               type="text"
               id="motherOccupation"
               name="motherOccupation"
@@ -733,7 +802,7 @@ export default function EditProfile() {
               min="18"
               max="80"
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500 "
+              className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
             />
           </div>
 
@@ -744,13 +813,14 @@ export default function EditProfile() {
             >
               Number of brothers/sisters
             </label>
-            <input
+               <input 
+      readOnly={!edit}
               id="noOfSiblings"
               name="noOfSiblings"
               value={formData.noOfSiblings}
               onChange={handleChange}
               placeholder="e.g 5&#34;6&#39;(167cm)"
-              className="w-full px-4 py-2 border border-gray-300 max-h-50 capitalize overflow-y-scroll rounded-lg focus:outline-none  focus:ring-rose-500 "
+              className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
             />
           </div>
 
@@ -761,32 +831,34 @@ export default function EditProfile() {
             >
               Family Type
             </label>
-            <select
+            <select 
+disabled={!edit}
               id="familyType"
               name="familyType"
               value={formData.familyType}
               onChange={handleChange}
               placeholder="e.g 5&#34;6&#39;(167cm)"
-              className="w-full px-4 py-2 border border-gray-300 max-h-50 capitalize overflow-y-scroll rounded-lg focus:outline-none  focus:ring-rose-500 "
+              className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100 appearance-none' ) }
             >
               <option value={"Joint"}>Joint</option>
               <option value={"Nuclear"}>Nuclear</option>
             </select>
           </div>
-          <div>
+          <div className="pb-8 max-sm:pb-2">
             <label
               htmlFor="familyStatus"
               className="block text-sm capitalize font-medium text-gray-700 mb-1"
             >
               Family Status
             </label>
-            <select
+            <select 
+disabled={!edit}
               id="familyStatus"
               name="familyStatus"
               value={formData.familyStatus}
               onChange={handleChange}
               placeholder="e.g 5&#34;6&#39;(167cm)"
-              className="w-full px-4 py-2 border border-gray-300 max-h-50 capitalize overflow-y-scroll rounded-lg focus:outline-none  focus:ring-rose-500 "
+              className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100 appearance-none' ) }
             >
               <option value={"Lower Class"}>Lower Class</option>
               <option value={"Middle Class"}>Middle Class</option>
@@ -798,10 +870,12 @@ export default function EditProfile() {
 
         {/* lifestyle */}
         <h2
-          onClick={() =>
+          onClick={() =>{
             setcurrent((prev) => (prev === "lifestyle" ? null : "lifestyle"))
+            setedit(false)
           }
-          className="text-lg py-4 m-0  bg-red-50 px-8 rounded-lg select-none cursor-pointer font-semibold text-gray-900"
+          }
+          className="text-lg py-4 m-0  bg-red-50 px-8 max-sm:px-4 max-sm:text-lg rounded-lg select-none cursor-pointer font-semibold text-gray-900"
         >
           Lifestyle
         </h2>
@@ -809,18 +883,25 @@ export default function EditProfile() {
           initial={{ maxHeight: 0 }}
           animate={{ maxHeight: getHeight("lifestyle") }}
           ref={references.lifestyle}
-          className="overflow-hidden px-8 my-2"
+          className="overflow-hidden px-8 max-sm:px-0 my-2"
         >
-          <div className="container">
+          <div className="relative">
+          <div className="flex items-center justify-end gap-x-4 w-50  absolute right-4">
+              
+               <button onClick={()=>setedit(false)} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
+              <button onClick={()=>setedit(true)}   className="       text-xl cursor-pointer"><MdOutlineModeEdit /></button>
+    </div>
+            
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
+              <div className="pt-8 max-sm:pt-2">
                 <label
                   htmlFor="diet"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Diet
                 </label>
-                <select
+                <select 
+disabled={!edit}
                   id="diet"
                   name="diet"
                   value={formData.diet}
@@ -835,14 +916,15 @@ export default function EditProfile() {
                 </select>
               </div>
 
-              <div>
+              <div className="pt-8 max-sm:pt-2">
                 <label
                   htmlFor="smoking"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Smoking
                 </label>
-                <select
+                <select 
+disabled={!edit}
                   id="smoking"
                   name="smoking"
                   value={formData.smoking}
@@ -855,14 +937,15 @@ export default function EditProfile() {
                 </select>
               </div>
 
-              <div>
+              <div className="pb-8 max-sm:pb-2">
                 <label
                   htmlFor="drinking"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Drinking
                 </label>
-                <select
+                <select 
+disabled={!edit}
                   id="drinking"
                   name="drinking"
                   value={formData.drinking}
@@ -879,12 +962,13 @@ export default function EditProfile() {
         </motion.div>
 
         <h2
-          onClick={() =>
+          onClick={() =>{
             setcurrent((prev) =>
-              prev === "religionAstro" ? null : "religionAstro"
-            )
+              prev === "religionAstro" ? null : "religionAstro")
+            setedit(false)
           }
-          className="text-lg py-4 m-0  bg-red-50 px-8 rounded-lg select-none cursor-pointer font-semibold text-gray-900"
+          }
+          className="text-lg py-4 m-0  bg-red-50 px-8 max-sm:px-4 max-sm:text-lg rounded-lg select-none cursor-pointer font-semibold text-gray-900"
         >
           Religious/Spiritual Details
         </h2>
@@ -892,78 +976,87 @@ export default function EditProfile() {
           initial={{ maxHeight: 0 }}
           animate={{ maxHeight: getHeight("religionAstro") }}
           ref={references.religionAstro}
-          className="overflow-hidden px-8 my-2"
+          className="overflow-hidden px-8 max-sm:px-0 my-2"
         >
-          <div className="container">
+          <div className="relative">
+          <div className="flex items-center justify-end gap-x-4 w-50  absolute right-4">
+              
+              <button onClick={()=>setedit(false)} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
+             <button onClick={()=>setedit(true)}   className="       text-xl cursor-pointer"><MdOutlineModeEdit /></button>
+   </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Religion */}
-              <div>
+              <div className="pt-8 max-sm:pt-2">
                 <label
                   htmlFor="religion"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Religion
                 </label>
-                <input
+                   <input 
+      readOnly={!edit}
                   type="text"
                   id="religion"
                   name="religion"
                   value={formData.religion}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-rose-500"
+                  className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
                 />
               </div>
 
               {/* Caste / Sub-caste */}
-              <div>
+              <div  className="pt-8 max-sm:pt-2">
                 <label
                   htmlFor="caste"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Caste / Sub-caste
                 </label>
-                <input
+                   <input 
+      readOnly={!edit}
                   type="text"
                   id="caste"
                   name="caste"
                   value={formData.caste}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-rose-500"
+                  className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
                 />
               </div>
 
               {/* Gothra / Gotra */}
-              <div>
+              <div  className="pb-8 max-sm:pb-2">
                 <label
                   htmlFor="gotra"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Gothra / Gotra
                 </label>
-                <input
+                   <input 
+      readOnly={!edit}
                   type="text"
                   id="gotra"
                   name="gotra"
                   value={formData.gotra}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-rose-500"
+                  className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
                 />
               </div>
 
               {/* Manglik / Non-Manglik */}
-              <div>
+              <div  className="pb-8 max-sm:pb-2">
                 <label
                   htmlFor="manglikStatus"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Manglik
                 </label>
-                <select
+                <select 
+disabled={!edit}
                   id="manglikStatus"
                   name="manglikStatus"
                   value={formData.manglikStatus}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-rose-500"
+                  className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
                 >
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
@@ -974,12 +1067,15 @@ export default function EditProfile() {
         </motion.div>
         {/* partner preferences */}
         <h2
-          onClick={() =>
+          onClick={() =>{
             setcurrent((prev) =>
-              prev === "partnerPreferences" ? null : "partnerPreferences"
-            )
+              prev === "partnerPreferences" ? null : "partnerPreferences")
+              setedit(false)
+}
+            
+            
           }
-          className="text-lg py-4 m-0  bg-red-50 px-8 rounded-lg select-none cursor-pointer font-semibold text-gray-900"
+          className="text-lg py-4 m-0  bg-red-50 px-8 max-sm:px-4 max-sm:text-lg rounded-lg select-none cursor-pointer font-semibold text-gray-900"
         >
           Partner Preferences
         </h2>
@@ -988,45 +1084,52 @@ export default function EditProfile() {
           initial={{ maxHeight: 0 }}
           animate={{ maxHeight: getHeight("partnerPreferences") }}
           ref={references.partnerPreferences}
-          className="overflow-hidden px-8 my-2"
+          className="overflow-hidden px-8 max-sm:px-0 my-2"
         >
-          <div className="container">
+          <div className="relative">
+          <div className="flex items-center justify-end gap-x-4 w-50  absolute right-4">
+              
+              <button onClick={()=>setedit(false)} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
+             <button onClick={()=>setedit(true)}   className="       text-xl cursor-pointer"><MdOutlineModeEdit /></button>
+   </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Preferred Age Range */}
-              <div>
+              <div  className="pt-8 max-sm:pt-2">
                 <label
                   htmlFor="preferredAgeRange"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Preferred Age Range
                 </label>
-                <input
+                   <input 
+      readOnly={!edit}
                   type="text"
                   id="preferredAgeRange"
                   name="preferredAgeRange"
                   value={formData.preferredAgeRange}
                   onChange={handleChange}
                   placeholder="e.g., 25-30"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-rose-500"
+                  className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
                 />
               </div>
 
               {/* Preferred Height Range */}
-              <div>
+              <div  className="pt-8 max-sm:pt-2">
                 <label
                   htmlFor="preferredHeightRange"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Preferred Height Range
                 </label>
-                <input
+                   <input 
+      readOnly={!edit}
                   type="text"
                   id="preferredHeightRange"
                   name="preferredHeightRange"
                   value={formData.preferredHeightRange}
                   onChange={handleChange}
                   placeholder="e.g., 5'3&quot; - 5'8&quot;"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-rose-500"
+                  className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
                 />
               </div>
 
@@ -1038,12 +1141,13 @@ export default function EditProfile() {
                 >
                   Preferred Marital Status
                 </label>
-                <select
+                <select 
+disabled={!edit}
                   id="preferredMaritalStatus"
                   name="preferredMaritalStatus"
                   value={formData.preferredMaritalStatus}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-rose-500"
+                  className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100 appearance-none' ) }
                 >
                   <option value="">Select</option>
                   <option value="Never Married">Never Married</option>
@@ -1061,14 +1165,15 @@ export default function EditProfile() {
                 >
                   Religion / Caste Preference
                 </label>
-                <input
+                   <input 
+      readOnly={!edit}
                   type="text"
                   id="religionCastePreference"
                   name="religionCastePreference"
                   value={formData.religionCastePreference}
                   onChange={handleChange}
                   placeholder="e.g., Hindu - Brahmin"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-rose-500"
+                  className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
                 />
               </div>
 
@@ -1080,14 +1185,15 @@ export default function EditProfile() {
                 >
                   Education & Profession Preferences
                 </label>
-                <input
+                   <input 
+      readOnly={!edit}
                   type="text"
                   id="educationProfessionPreference"
                   name="educationProfessionPreference"
                   value={formData.educationProfessionPreference}
                   onChange={handleChange}
                   placeholder="e.g., Master's Degree, IT Professional"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-rose-500"
+                  className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
                 />
               </div>
 
@@ -1099,31 +1205,33 @@ export default function EditProfile() {
                 >
                   Country / State / City Preference
                 </label>
-                <input
+                   <input 
+      readOnly={!edit}
                   type="text"
                   id="locationPreference"
                   name="locationPreference"
                   value={formData.locationPreference}
                   onChange={handleChange}
                   placeholder="e.g., India, Maharashtra, Mumbai"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-rose-500"
+                  className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100' ) }
                 />
               </div>
 
               {/* Manglik Preference */}
-              <div>
+              <div  className="pb-8 max-sm:pb-2">
                 <label
                   htmlFor="manglikPreference"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Manglik Preference
                 </label>
-                <select
+                <select 
+disabled={!edit}
                   id="manglikPreference"
                   name="manglikPreference"
                   value={formData.manglikPreference}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-rose-500"
+                  className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100 appearance-none' ) }
                 >
                   <option value="">Select</option>
                   <option value="Manglik">Manglik</option>
@@ -1133,21 +1241,22 @@ export default function EditProfile() {
               </div>
 
               {/* Lifestyle Preferences (Diet, Habits) */}
-              <div>
+              <div  className="pb-8 max-sm:pb-2">
                 <label
                   htmlFor="lifestylePreferences"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Lifestyle Preferences (Diet, Habits)
                 </label>
-                <input
+                   <input 
+      readOnly={!edit}
                   type="text"
                   id="lifestylePreferences"
                   name="lifestylePreferences"
                   value={formData.lifestylePreferences}
                   onChange={handleChange}
                   placeholder="e.g., Vegetarian, Non-Smoker"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-rose-500"
+                  className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100 appearance-none' ) }
                 />
               </div>
             </div>
