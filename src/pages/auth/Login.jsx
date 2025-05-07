@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
 import { useAuth } from "../../context/AuthContext";
 import { UserLoginService } from "../../services/api.service";
+import { MdOutlineEmail } from "react-icons/md";
+import { TbLockPassword } from "react-icons/tb";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -75,6 +77,8 @@ const Login = () => {
               >
                 Email Address
               </label>
+             <div className="relative mt-2"> 
+              <span className=" absolute left-3 text-xl top-1/2 -translate-y-1/2"><MdOutlineEmail /></span>
               <input
                 type="email"
                 id="email"
@@ -86,8 +90,8 @@ const Login = () => {
                     message: "Invalid email address",
                   },
                 })}
-                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-              />
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+              /></div>
               {errors.email && (
                 <p className="text-xs text-red-500 mt-1">
                   {errors.email.message}
@@ -103,6 +107,8 @@ const Login = () => {
               >
                 Password
               </label>
+              <div className="relative mt-2">
+              <span className=" absolute left-3 text-xl top-1/2 -translate-y-1/2"><TbLockPassword /></span>
               <input
                 type="password"
                 id="password"
@@ -114,9 +120,10 @@ const Login = () => {
                     message: "Password must be at least 6 characters",
                   },
                 })}
-                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3   focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
                 // id="fullName"
               />
+              </div>
               {errors.password && (
                 <p className="text-xs text-red-500 mt-1">
                   {errors.password.message}
