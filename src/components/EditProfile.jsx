@@ -906,7 +906,7 @@ disabled={!edit}
                   name="diet"
                   value={formData.diet}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-rose-500"
+                  className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100 appearance-none' ) }
                 >
                   <option value="Vegetarian">Vegetarian</option>
                   <option value="Non-Vegetarian">Non-Vegetarian</option>
@@ -929,7 +929,7 @@ disabled={!edit}
                   name="smoking"
                   value={formData.smoking}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-rose-500"
+                  className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100 appearance-none' ) }
                 >
                   <option value="No">No</option>
                   <option value="Yes">Yes</option>
@@ -950,7 +950,7 @@ disabled={!edit}
                   name="drinking"
                   value={formData.drinking}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-rose-500"
+                  className={ cn('w-full px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none  focus:ring-rose-500', !edit && 'border-gray-100 appearance-none' ) }
                 >
                   <option value="No">No</option>
                   <option value="Yes">Yes</option>
