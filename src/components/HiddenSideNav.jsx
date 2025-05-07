@@ -21,13 +21,13 @@ const panelVariants = {
 
 const HiddenSideNav = ({ setShowNav }) => {
   const navigate = useNavigate();
-  const { logout, authData } = useAuth();
+  const { clearAuthData, authData } = useAuth();
   const [current, setCurrent] = useState(null);
 
   const handleLogout = () => {
-    logout();
+    clearAuthData();
     setShowNav(false);
-    navigate("/login");
+    navigate("/");
   };
 
   const links = authData?.isAuthenticated
@@ -78,7 +78,6 @@ const HiddenSideNav = ({ setShowNav }) => {
 
         {/* Profile or App Title */}
         <div className="flex items-center gap-4 px-4">
-          
           {authData?.isAuthenticated ? (
             <div className="flex items-center gap-4 px-4">
               <div className="rounded-full w-16 h-16 border border-gray-100 text-4xl text-gray-400 flex items-center justify-center bg-gray-100">

@@ -10,7 +10,7 @@ import { useAuth } from "../context/AuthContext";
 import { FiLogOut } from "react-icons/fi";
 
 const SideNav = () => {
-  const { logout, authData } = useAuth();
+  const { clearAuthData } = useAuth();
   const navigate = useNavigate();
 
   const [current, setcurrent] = useState(
@@ -41,7 +41,7 @@ const SideNav = () => {
   ];
 
   const handleLogout = () => {
-    logout();
+    clearAuthData();
     navigate("/");
   };
 
