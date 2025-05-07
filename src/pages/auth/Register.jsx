@@ -11,7 +11,7 @@ import { UserRegisterService } from "../../services/api.service";
 const Register = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { authData, setAuthData } = useAuth();
+  const { authData, updateAuthData } = useAuth();
   const {
     register,
     handleSubmit,
@@ -21,15 +21,13 @@ const Register = () => {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      setAuthData(data);
       const finalData = {
         ...authData,
         ...data,
       };
-
       const response = await UserRegisterService(finalData);
       console.log(response);
-
+      updateAuthData(finalData);
       toast.success(response.data.message);
       navigate("/verifyemail");
     } catch (error) {

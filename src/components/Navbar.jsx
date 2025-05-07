@@ -10,6 +10,7 @@ import { AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const { authData } = useAuth();
+  // console.log(authData);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [showNav, setshowNav] = useState(false);
 

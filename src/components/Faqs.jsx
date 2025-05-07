@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion"; // Import motion from framer-motion
+import { motion } from "framer-motion";
 import { FaChevronDown } from "react-icons/fa";
 import { FaChevronUp } from "react-icons/fa";
 const Faqs = () => {
@@ -11,29 +11,29 @@ const Faqs = () => {
 
   const faqs = [
     {
-      question: "What is cybersecurity, and why is it important?",
+      question: "Who can create a profile on Vivah-sanyog?",
       answer:
-        "Cybersecurity is the practice of protecting systems, networks, and data from digital attacks. It is important to safeguard sensitive information, prevent unauthorized access, and ensure business continuity.",
+        "Anyone above the legal age of marriage can create a profile for themselves. Parents or guardians can also create profiles on behalf of their children.",
     },
     {
-      question: "What services does Cybitude offer?",
+      question: "Is there a fee to use Vivah-sanyog?",
       answer:
-        "Cybitude offers services such as penetration testing, cloud security, vulnerability assessments, incident response, security audits, managed security services, compliance consulting, and mobile app threat intelligence.",
+        "We offer both free and premium features. Basic registration and browsing are free. For enhanced visibility and more matches, you can explore our premium plans.",
     },
     {
-      question: "How does penetration testing help my business?",
+      question: "How are matches suggested?",
       answer:
-        "Penetration testing simulates real-world cyberattacks to identify and fix vulnerabilities before malicious actors can exploit them, strengthening your security defenses.",
+        "Matches are based on your set preferences—like community, education, profession, family background, and lifestyle choices.",
     },
     {
-      question: "What industries do you serve?",
+      question: "Is my data safe?",
       answer:
-        "We serve various industries, including finance, healthcare, technology, education, and more. Our solutions are tailored to meet the unique needs of each client.",
+        "Yes. We follow strict privacy protocols. Your contact details and sensitive information are never shared without your consent.",
     },
     {
-      question: "How can I get started with Cybitude’s services?",
+      question: "Can I delete or update my profile anytime?",
       answer:
-        "Getting started is easy! Contact us at contact@cybitude.com to discuss your needs, and our team will guide you through the process of securing your digital assets.",
+        "Absolutely. You have full control over your profile. You can update, hide, or delete it whenever you wish.",
     },
   ];
   return (
@@ -41,7 +41,7 @@ const Faqs = () => {
       <section className="bg-gray-50 py-12 px-4 md:px-8">
         <div className="max-w-7xl mx-auto relative">
           <div className="text-start mb-12">
-          <h2 className="text-5xl text-amber-500  font-bold max-md:text-4xl max-sm:text-3xl font-['inter']">
+            <h2 className="text-5xl text-amber-500  font-bold max-md:text-4xl max-sm:text-3xl font-['inter']">
               Frequently Asked Questions
             </h2>
           </div>
@@ -55,9 +55,15 @@ const Faqs = () => {
                   onClick={() => toggleAccordion(index)}
                   className="w-full flex justify-between items-center px-4 py-2  text-gray-700 font-medium  transition"
                 >
-                  <span className="text-left text-gray-900 text-lg">{faq.question}</span>
+                  <span className="text-left text-gray-900 text-lg">
+                    {faq.question}
+                  </span>
                   <span className="text-xl cursor-pointer">
-                    {activeIndex === index ? <FaChevronUp/> : <FaChevronDown/>}
+                    {activeIndex === index ? (
+                      <FaChevronUp />
+                    ) : (
+                      <FaChevronDown />
+                    )}
                   </span>
                 </button>
                 <motion.div

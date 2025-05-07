@@ -1,41 +1,54 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
+const defaultAuthState = {
+  isAuthenticated: false,
+  token: null,
+  user: null,
+};
+
 export const AuthProvider = ({ children }) => {
-  const [authData, setAuthData] = useState(() => {
-    const storedData = localStorage.getItem("authData");
-    return storedData ? JSON.parse(storedData) : {};
-  });
+  const [authData, setAuthData] = useState(defaultAuthState);
 
-  const [isEditProfile, setIsEditProfile] = useState(false);
+  // 🔄 Sync with localStorage on initial load
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const user = localStorage.getItem("user");
 
-  const updateAuthData = (data) => {
-    setAuthData((prev) => {
-      const newData = { ...prev, ...data };
-      localStorage.setItem("authData", JSON.stringify(newData));
-      return newData;
+    if (token && user) {
+      setAuthData({
+        isAuthenticated: true,
+        token,
+        user: JSON.parse(user),
+      });
+    }
+  }, []);
+
+  // ✅ Login/Update method
+  const updateAuthData = ({ token, user }) => {
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
+
+    setAuthData({
+      isAuthenticated: true,
+      token,
+      user,
     });
   };
 
-  const logout = () => {
-    setAuthData({});
-    localStorage.removeItem("authData");
+  // ❌ Logout/Clear method
+  const clearAuthData = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    setAuthData(defaultAuthState);
   };
 
   return (
-    <AuthContext.Provider
-      value={{
-        authData,
-        updateAuthData,
-        isEditProfile,
-        setIsEditProfile,
-        logout,
-        setAuthData,
-      }}
-    >
+    <AuthContext.Provider value={{ authData, updateAuthData, clearAuthData }}>
       {children}
     </AuthContext.Provider>
   );

@@ -49,6 +49,11 @@ const Form = () => {
               >
                 <option value="">Select profile for</option>
                 <option value="self">Self</option>
+                <option value="father">Father</option>
+                <option value="mother">Mother</option>
+                <option value="brother">Brother</option>
+                <option value="sister">Sister</option>
+                <option value="friend">Friend</option>
                 <option value="son">Son</option>
                 <option value="daughter">Daughter</option>
               </select>
