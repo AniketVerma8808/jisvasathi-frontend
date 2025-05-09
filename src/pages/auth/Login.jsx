@@ -77,21 +77,24 @@ const Login = () => {
               >
                 Email Address
               </label>
-             <div className="relative mt-2"> 
-              <span className=" absolute left-3 text-xl top-1/2 -translate-y-1/2"><MdOutlineEmail /></span>
-              <input
-                type="email"
-                id="email"
-                placeholder="Enter your email"
-                {...register("email", {
-                  required: "Email is required",
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                    message: "Invalid email address",
-                  },
-                })}
-                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-              /></div>
+              <div className="relative mt-2">
+                <span className=" absolute left-3 text-xl top-1/2 -translate-y-1/2">
+                  <MdOutlineEmail />
+                </span>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Enter your email"
+                  {...register("email", {
+                    required: "Email is required",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                      message: "Invalid email address",
+                    },
+                  })}
+                  className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                />
+              </div>
               {errors.email && (
                 <p className="text-xs text-red-500 mt-1">
                   {errors.email.message}
@@ -108,21 +111,23 @@ const Login = () => {
                 Password
               </label>
               <div className="relative mt-2">
-              <span className=" absolute left-3 text-xl top-1/2 -translate-y-1/2"><TbLockPassword /></span>
-              <input
-                type="password"
-                id="password"
-                placeholder="Enter your password"
-                {...register("password", {
-                  required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters",
-                  },
-                })}
-                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3   focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-                // id="fullName"
-              />
+                <span className=" absolute left-3 text-xl top-1/2 -translate-y-1/2">
+                  <TbLockPassword />
+                </span>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Enter your password"
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters",
+                    },
+                  })}
+                  className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3   focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                  // id="fullName"
+                />
               </div>
               {errors.password && (
                 <p className="text-xs text-red-500 mt-1">

@@ -34,18 +34,22 @@ const Navbar = () => {
           {/* Right Nav Items */}
           <div className="flex gap-4 items-center">
             {/* Static links */}
-            <Link
-              to="/about"
-              className="text-center pr-3 py-2 rounded transition max-sm:hidden"
-            >
-              About
-            </Link>
-            <Link
-              to="/contact"
-              className="text-center pr-3 py-2 rounded transition max-sm:hidden"
-            >
-              Contact
-            </Link>
+            {authData?.isAuthenticated && (
+              <>
+                <Link
+                  to="/about"
+                  className="text-center pr-3 py-2 rounded transition max-sm:hidden"
+                >
+                  About
+                </Link>
+                <Link
+                  to="/contact"
+                  className="text-center pr-3 py-2 rounded transition max-sm:hidden"
+                >
+                  Contact
+                </Link>
+              </>
+            )}
 
             {/* Conditional Login/Profile Icon */}
             {authData?.isAuthenticated ? (

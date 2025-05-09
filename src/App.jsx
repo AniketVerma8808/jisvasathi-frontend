@@ -16,6 +16,7 @@ import EditProfile from "./components/EditProfile";
 import VerifyEmail from "./pages/auth/Verify_Email";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -44,7 +45,14 @@ const App = () => {
           <Route path="/reset-password/:token" element={<ResetPassword />} />
 
           <Route path="/blog/:id" element={<BlogDetails />} />
-          <Route path="/profile" element={<ProfilePage />}>
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Matches />} />
             <Route path="activity" element={<ActivityContent />} />
             <Route path="search" element={<SearchContent />} />
