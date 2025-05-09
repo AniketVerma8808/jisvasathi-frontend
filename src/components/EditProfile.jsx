@@ -138,7 +138,7 @@ export default function EditProfile() {
   };
 0
   return (
-    <div className="   border-black bg-white  px-8 max-sm:px-0  py-4 rounded-lg shadow-sm max-lg:w-full m ">
+    <div className="   border-black bg-white  px-8 max-sm:px-0  py-4  shadow-sm max-lg:w-full m ">
       {/* Header */}
       <div className="p-4   flex items-center justify-between">
         <div className="flex items-center gap-2">

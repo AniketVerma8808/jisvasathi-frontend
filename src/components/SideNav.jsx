@@ -46,8 +46,8 @@ const SideNav = () => {
   };
 
   return (
-    <div className=" border-gray-100 py-6 px-4  rounded-lg bg-white  shadow-sm max-lg:hidden">
-      <div className="flex items-center gap-4 px-4">
+    <div className="  py-6 px-2   ">
+      <div className="flex items-center gap-4 px-4 max-xl:px-0">
         <div className="rounded-full w-16 h-16 border border-gray-100 text-4xl text-gray-400 flex items-center justify-center bg-gray-100">
           <CgProfile />
         </div>
@@ -56,7 +56,7 @@ const SideNav = () => {
         </div>
       </div>
       <hr className="text-gray-300 mt-5 w-[90%] m-auto" />
-      <ul className="mt-4 font-secondaryHead">
+      <ul className="mt-4 font-secondaryHead space-y-1">
         {links.map((link, i) => {
           return (
             <li
@@ -68,7 +68,7 @@ const SideNav = () => {
             >
               <Link
                 to={link.path}
-                className={`py-3 ${
+                className={`py-2.5  ${
                   current == i ? "bg-primary text-white" : "hover:bg-amber-100"
                 }  rounded-md transition duration-75  px-4 flex items-center justify-start gap-4`}
               >
@@ -81,7 +81,7 @@ const SideNav = () => {
       </ul>
 
       <div className="mt-auto">
-        <Link className="px-5 mt-4 flex items-center justify-start gap-2 text-white tracking-wide font-bold text-lg rounded-lg py-2.5 bg-gradient-to-br from-orange-400 to-red-400">
+        <Link className="px-5 mt-4 flex items-center justify-start gap-2 text-white tracking-wide font-semibold text-lg rounded-lg py-2 bg-gradient-to-br from-orange-400 to-red-400 max-xl:text-base">
           <GiUpgrade className="text-xl" />
           <span>Upgrade to Pro</span>
         </Link>
@@ -89,7 +89,7 @@ const SideNav = () => {
         {/* Logout Button */}
         <button
           onClick={handleLogout}
-          className="mt-3 w-full text-left px-5 py-2.5 flex items-center gap-2 rounded-lg text-red-500 font-semibold hover:bg-red-50 transition"
+          className="mt-3 w-full cursor-pointer text-left px-5 py-2.5 flex items-center gap-2 rounded-lg text-red-500 font-semibold hover:bg-red-50 transition"
         >
           <FiLogOut className="text-xl" />
           <span>Logout</span>

@@ -4,7 +4,7 @@ import { IoMdClose } from "react-icons/io";
 import { AiOutlineLogin } from "react-icons/ai";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import logo from "../assets/vivahLogo.jpg";
+import logo from "../assets/vivahLogo2.jpg";
 import HiddenSideNav from "./HiddenSideNav";
 import { AnimatePresence } from "framer-motion";
 
@@ -16,16 +16,16 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-white drop-shadow-lg z-50 sticky top-0 left-0 w-full">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <nav className="bg-white shadow-sm z-50 sticky top-0 left-0 w-full">
+        <div className=" xl:max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-4">
-            <img src={logo} alt="Logo" className="w-11 font-['montserrat']" />
+            <img src={logo} alt="Logo" className="w-11   font-['montserrat']" />
             <div>
-              <h3 className="font-bold text-2xl text-amber-500 leading-5 max-sm:text-xl">
+              <h3 className="font-bold logo text-2xl tracking-wider text-amber-500 leading-5 max-sm:text-xl">
                 Vivah Sanyog
               </h3>
-              <p className="text-xs text-amber-600 ml-1 capitalize max-sm:text-[11px]">
+              <p className="text-xs text-amber-600  ml-1 capitalize max-sm:text-[11px]">
                 Helping to love
               </p>
             </div>

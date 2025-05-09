@@ -6,7 +6,7 @@ import { RxCross1 } from "react-icons/rx";
 import { ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
-import logo from "../assets/logo.png";
+import logo from "../assets/vivahLogo2.jpg";
 const backdropVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },

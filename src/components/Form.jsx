@@ -26,7 +26,7 @@ const Form = () => {
   };
 
   return (
-    <div className=" max-w-md mx-auto p-1 rounded-4xl overflow-hidden bg-white pb-8  shadow-sm ">
+    <div className=" max-w-md mx-auto p-1 rounded-4xl overflow-hidden  bg-white pb-8  shadow-sm ">
       <div className="bg-gradient-to-b bg-primary  font-['inter'] text-white text-center py-5 rounded-t-4xl shadow-md  relative overflow-hidden">
         <h2 className="text-2xl font-bold text-white max-sm:text-xl">
           Create Your Matrimony Profile

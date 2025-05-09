@@ -47,7 +47,7 @@ const ActivityContent = () => {
   ];
 
   return (
-    <div className="space-y-6 bg-white  px-8 py-4 rounded-lg shadow-sm max-lg:w-full ">
+    <div className="space-y-6 bg-white  px-8 py-4  shadow-sm max-lg:w-full ">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">Recent Activity</h1>
         <button className="text-sm text-rose-600 font-medium hover:text-rose-700">
