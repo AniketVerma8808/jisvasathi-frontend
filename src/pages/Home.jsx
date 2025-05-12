@@ -6,12 +6,16 @@ import TestimonialSection from "../components/TestimonialSection";
 import BlogSection from "../components/BlogSection";
 import Faqs from "../components/Faqs";
 import TrustedByMillions from "../components/TrustedByMillions";
+import Steps from "../components/Steps";
+import AboutVivah from "../components/AboutVivah";
 
 const Home = () => {
   return (
     <>
       <HeroSection />
+      <Steps/>
       <JourneyBegins />
+      <AboutVivah/>
       <ConciergeSection />
       <TestimonialSection />
       <BlogSection />

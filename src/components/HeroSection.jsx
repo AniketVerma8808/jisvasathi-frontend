@@ -1,5 +1,5 @@
 import React from "react";
-import banner1 from "../assets/banner1.jpg";
+import banner1 from "../assets/firstbanner.jpeg";
 import Form from "./Form";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { motion, spring } from "motion/react";
