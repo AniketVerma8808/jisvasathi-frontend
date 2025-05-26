@@ -142,35 +142,35 @@ export default function Matches() {
               <br/>
               <h3 className="capitalize text-sm"><span className="font-semibold text-amber-500 tracking-wide" >compatiblity-</span><span className="font-semibold"> 90%</span></h3>
              </div>
-            <div className="flex items-center justify-start flex-wrap gap-2 py-4 max-lg:pb-2"> 
-               <p className="text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">age-</span><span className="text-black">{match.age} yrs</span></p>
-              <p className="text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">height-</span><span className="text-black">{match.height}&quot;</span></p>
-              <p className="text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">marriage status-</span><span className="text-black">{match.marriageStaus}</span></p>
-              <p className="text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">religion-</span><span className="text-black">{match.religion}</span></p>
-              <p className="text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">region-</span><span className="text-black">{match.region}</span></p>
-              <p className="text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">working status-</span><span className="text-black">{match.workingStatus}</span></p>
-              <p className="text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">education-</span><span className="text-black">{match.education}</span></p></div>
+            <div className="flex items-center justify-center flex-wrap gap-1 py-4 max-lg:pb-2"> 
+               <p className="w-full text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">age-</span><span className="text-black">{match.age} yrs</span></p>
+              <p className="w-full text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">height-</span><span className="text-black">{match.height}&quot;</span></p>
+              <p className="w-full text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">marriage status-</span><span className="text-black">{match.marriageStaus}</span></p>
+              <p className="w-full text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">religion-</span><span className="text-black">{match.religion}</span></p>
+              <p className="w-full text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">region-</span><span className="text-black">{match.region}</span></p>
+              <p className="w-full text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">working status-</span><span className="text-black">{match.workingStatus}</span></p>
+              <p className="w-full text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">education-</span><span className="text-black">{match.education}</span></p></div>
              
           
 
               <div className="mt-4 grid grid-cols-2 gap-2">
               <button className="p-2 rounded-lg bg-rose-100 px-4 max-xl:px-2 max-xl:py-1.5 flex-grow cursor-pointer hover:bg-rose-200 flex items-center justify-center gap-2 transition-colors">
-  <h2 className="text-sm font-medium capitalize ">  interest</h2>
+  <h2 className="text-xs font-medium capitalize "> Send Your Interest</h2>
   <Heart size={20} className="text-rose-600" />
 </button>
 
 <button className="p-2 rounded-lg bg-gray-100 px-4 flex-grow  max-xl:px-2 max-xl:py-1.5 cursor-pointer hover:bg-gray-200 flex items-center justify-center gap-2 transition-colors">
-  <h2 className="text-sm font-medium capitalize "> message</h2>
+  <h2 className="text-xs font-medium capitalize ">Send Message</h2>
   <MessageSquare size={20} className="text-blue-500" />
 </button>
 
 <button className="p-2 rounded-lg bg-gray-100 px-4 flex-grow max-xl:px-2 max-xl:py-1.5 cursor-pointer hover:bg-gray-200 flex items-center justify-center gap-2 transition-colors">
-  <h2 className="text-sm font-medium capitalize ">shortlist</h2>
+  <h2 className="text-xs font-medium capitalize ">Shortlist Profile</h2>
   <Star size={20} className="text-amber-500" />
 </button>
 
 <button className="p-2 rounded-lg bg-green-100 px-4 flex-grow max-xl:px-2 max-xl:py-1.5 cursor-pointer hover:bg-green-200 flex items-center justify-center gap-2 transition-colors">
-  <h2 className="text-sm font-medium capitalize ">  number</h2>
+  <h2 className="text-xs font-medium capitalize "> See Phone Number</h2>
   <PhoneCall size={20} className="text-green-600" />
 </button>
 

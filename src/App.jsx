@@ -17,9 +17,12 @@ import VerifyEmail from "./pages/auth/Verify_Email";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
 import ProtectedRoute from "./components/ProtectedRoute";
+import MessengerContent from "./components/MessengerContent";
+
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
+
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -35,7 +38,7 @@ const App = () => {
       <Navbar />
       <main className="antialiased">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/"   element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />
           <Route path="/register" element={<Register />} />
@@ -57,6 +60,7 @@ const App = () => {
             <Route path="activity" element={<ActivityContent />} />
             <Route path="search" element={<SearchContent />} />
             <Route path="editProfile" element={<EditProfile />} />
+            <Route path="chats" element={<MessengerContent/>}/>
           </Route>
 
           <Route path="/*" element={<NotFound />} />

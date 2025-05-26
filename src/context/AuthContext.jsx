@@ -17,8 +17,9 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("user");
-
-    if (token && user) {
+    if (token  && user) {
+     console.log(token)
+     
       setAuthData({
         isAuthenticated: true,
         token,
@@ -28,13 +29,13 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   // ✅ Login/Update method
-  const updateAuthData = ({ token, user }) => {
-    localStorage.setItem("token", token);
+  const updateAuthData = ( user ) => {
+
     localStorage.setItem("user", JSON.stringify(user));
 
     setAuthData({
       isAuthenticated: true,
-      token,
+      token:'',
       user,
     });
   };
@@ -43,7 +44,6 @@ export const AuthProvider = ({ children }) => {
   const clearAuthData = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-
     setAuthData(defaultAuthState);
   };
 

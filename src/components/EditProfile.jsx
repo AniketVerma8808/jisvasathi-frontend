@@ -113,7 +113,7 @@ export default function EditProfile() {
     };
   };
   const [current, setcurrent] = useState("");
-  console.log(current);
+ 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -132,6 +132,10 @@ export default function EditProfile() {
     religionAstro: useRef(null),
     partnerPreferences: useRef(null),
   };
+
+  function save(){
+    console.log(formData)
+  }
 
   const getHeight = (key) => {
     return current == key ? references[key]?.current?.scrollHeight : 0;
@@ -239,7 +243,11 @@ export default function EditProfile() {
           
             <div className="flex items-center justify-end gap-x-4 w-50  absolute right-4">
               
-               <button onClick={()=>setedit(false)} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
+               <button onClick={()=>{
+save()
+setedit(false)
+}
+} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
               <button onClick={()=>setedit(true)}   className="       text-xl cursor-pointer"><MdOutlineModeEdit /></button>
     </div>
           
@@ -435,7 +443,11 @@ disabled={!edit}
         >
            <div className="flex items-center justify-end gap-x-4 w-50  absolute right-4">
               
-              <button onClick={()=>setedit(false)} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
+              <button onClick={()=>{
+save()
+setedit(false)
+}
+} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
              <button onClick={()=>setedit(true)}   className="       text-xl cursor-pointer"><MdOutlineModeEdit /></button>
    </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -594,7 +606,11 @@ disabled={!edit}
         >
            <div className="flex items-center justify-end gap-x-4 w-50  absolute right-4">
               
-              <button onClick={()=>setedit(false)} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
+              <button onClick={()=>{
+save()
+setedit(false)
+}
+} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
              <button onClick={()=>setedit(true)}   className="       text-xl cursor-pointer"><MdOutlineModeEdit /></button>
    </div>
           <div className="space-y-3">
@@ -660,7 +676,11 @@ disabled={!edit}
         >
            <div className="flex items-center justify-end gap-x-4 w-50  absolute right-4">
               
-              <button onClick={()=>setedit(false)} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
+              <button onClick={()=>{
+save()
+setedit(false)
+}
+} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
              <button onClick={()=>setedit(true)}   className="       text-xl cursor-pointer"><MdOutlineModeEdit /></button>
    </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -726,7 +746,11 @@ disabled={!edit}
         >
            <div className="flex items-center justify-end gap-x-4 w-50  absolute right-4">
               
-              <button onClick={()=>setedit(false)} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
+              <button onClick={()=>{
+save()
+setedit(false)
+}
+} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
              <button onClick={()=>setedit(true)}   className="       text-xl cursor-pointer"><MdOutlineModeEdit /></button>
    </div>
           <div className="pt-8 max-sm:pt-2">
@@ -888,7 +912,11 @@ disabled={!edit}
           <div className="relative">
           <div className="flex items-center justify-end gap-x-4 w-50  absolute right-4">
               
-               <button onClick={()=>setedit(false)} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
+               <button onClick={()=>{
+save()
+setedit(false)
+}
+} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
               <button onClick={()=>setedit(true)}   className="       text-xl cursor-pointer"><MdOutlineModeEdit /></button>
     </div>
             
@@ -981,7 +1009,11 @@ disabled={!edit}
           <div className="relative">
           <div className="flex items-center justify-end gap-x-4 w-50  absolute right-4">
               
-              <button onClick={()=>setedit(false)} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
+              <button onClick={()=>{
+save()
+setedit(false)
+}
+} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
              <button onClick={()=>setedit(true)}   className="       text-xl cursor-pointer"><MdOutlineModeEdit /></button>
    </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -1089,7 +1121,11 @@ disabled={!edit}
           <div className="relative">
           <div className="flex items-center justify-end gap-x-4 w-50  absolute right-4">
               
-              <button onClick={()=>setedit(false)} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
+              <button onClick={()=>{
+save()
+setedit(false)
+}
+} className="rounded-full    text-xl  cursor-pointer"> <FaRegSave /></button> 
              <button onClick={()=>setedit(true)}   className="       text-xl cursor-pointer"><MdOutlineModeEdit /></button>
    </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

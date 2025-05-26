@@ -12,6 +12,7 @@ const Register = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { authData, updateAuthData } = useAuth();
+  console.log(authData)
   const {
     register,
     handleSubmit,
@@ -61,7 +62,7 @@ const Register = () => {
                 type="date"
                 {...register("dob", { required: "DOB is required" })}
                 className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-                id="fullName"
+                
               />
               {errors.dob && (
                 <p className="text-xs text-red-500">{errors.dob.message}</p>
@@ -76,7 +77,7 @@ const Register = () => {
                 {...register("religion", { required: "Religion is required" })}
                 placeholder="Enter your religion"
                 className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-                id="fullName"
+                
               />
               {errors.religion && (
                 <p className="text-xs text-red-500">
@@ -93,7 +94,7 @@ const Register = () => {
                   required: "Mother Tongue is required",
                 })}
                 className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-                id="fullName"
+                
               >
                 <option value="">Select</option>
                 <option value="hindi">Hindi</option>
@@ -140,7 +141,7 @@ const Register = () => {
                 })}
                 placeholder="Enter your email"
                 className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-                id="fullName"
+                
               />
               {errors.email && (
                 <p className="text-xs text-red-500">{errors.email.message}</p>
@@ -158,7 +159,7 @@ const Register = () => {
                 })}
                 placeholder="Enter your password"
                 className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-                id="fullName"
+                
               />
               {errors.password && (
                 <p className="text-xs text-red-500">
@@ -173,7 +174,7 @@ const Register = () => {
               <select
                 {...register("caste", { required: "Caste is required" })}
                 className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-                id="fullName"
+                
               >
                 <option value="">Select</option>
                 <option value="general">General</option>
@@ -197,7 +198,7 @@ const Register = () => {
                 {...register("subcaste")}
                 placeholder="Enter your subcaste"
                 className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-                id="fullName"
+                
               />
             </div>
 
@@ -211,7 +212,7 @@ const Register = () => {
                 {...register("gothram")}
                 placeholder="Enter your gothram"
                 className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-                id="fullName"
+                
               />
             </div>
 
@@ -225,7 +226,7 @@ const Register = () => {
                 {...register("dosh")}
                 placeholder="Enter your dosh"
                 className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-                id="fullName"
+                
               />
             </div>
 

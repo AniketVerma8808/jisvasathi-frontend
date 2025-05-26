@@ -91,7 +91,7 @@ export default function MessengerContent() {
   const activeContact = contacts.find((contact) => contact.id === activeChat);
 
   return (
-    <div className="h-[calc(100vh-120px)] flex flex-col bg-white w-[76%] ml-auto mt-24  rounded-lg max-lg:w-full max-xl:mt-18">
+    <div className="h-screen flex flex-col bg-white  ml-auto  max-lg:w-full max-xl:mt-18">
       <div className="flex h-full rounded-lg overflow-hidden border border-gray-200 shadow-sm">
         {/* Contacts sidebar */}
         <div className="w-80 bg-white border-r border-gray-200 flex flex-col">

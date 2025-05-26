@@ -8,6 +8,7 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { GiUpgrade } from "react-icons/gi";
 import { useAuth } from "../context/AuthContext";
 import { FiLogOut } from "react-icons/fi";
+import { BsChatSquareDots } from "react-icons/bs";  
 
 const SideNav = () => {
   const { clearAuthData } = useAuth();
@@ -37,6 +38,11 @@ const SideNav = () => {
       icon: <MdOutlineModeEdit />,
       text: "Edit Profile",
       path: "/profile/editProfile",
+    },
+    {
+      icon: <BsChatSquareDots />,
+      text: "Messenger",
+      path: "/profile/chats",
     },
   ];
 
