@@ -23,7 +23,7 @@ const Register = () => {
     try {
       setLoading(true);
       const finalData = {
-        ...authData,
+        ...authData.user,
         ...data,
       };
       const response = await UserRegisterService(finalData);

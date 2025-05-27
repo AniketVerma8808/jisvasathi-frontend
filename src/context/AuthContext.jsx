@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
     const user = localStorage.getItem("user");
     if (token  && user) {
      console.log(token)
+     console.log('hello')
      
       setAuthData({
         isAuthenticated: true,
@@ -32,11 +33,9 @@ export const AuthProvider = ({ children }) => {
   const updateAuthData = ( user ) => {
 
     localStorage.setItem("user", JSON.stringify(user));
-
+console.log(user)
     setAuthData({
-      isAuthenticated: true,
-      token:'',
-      user,
+     ...authData,user
     });
   };
 
