@@ -10,7 +10,6 @@ import { AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const { authData } = useAuth();
-  console.log(authData)
   const [showNav, setshowNav] = useState(false);
 
   return (
@@ -35,7 +34,7 @@ const Navbar = () => {
             {/* Static links (authenticated only) */}
             {authData?.isAuthenticated && (
               <div className="hidden lg:flex items-center space-x-8 text-gray-700 text-sm  font-medium">
-                <Link to="/">Home</Link>
+                <Link to="/profile">Home</Link>
                 <Link to="/profile/search">Search Your Partner</Link>
                 <Link to="/preferences">Compatible Preference</Link>
                 <Link to="/matches">Perfect Matches</Link>

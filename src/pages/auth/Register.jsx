@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import imageLeft from "../../assets/test4.png";
 import LeftImageSection from "../../components/LeftImageSection";
@@ -7,27 +7,31 @@ import Loader from "../../components/Loader";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import { UserRegisterService } from "../../services/api.service";
+import { ChevronDownIcon } from "lucide-react";
 
 const Register = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { authData, updateAuthData } = useAuth();
-  console.log(authData)
+const [isOpen, setisOpen] = useState(false);
+const [current, setcurrent] = useState(0);
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm();
 
   const onSubmit = async (data) => {
+    console.log(data)
+    const userData= JSON.parse(localStorage.getItem('user'))
     try {
       setLoading(true);
       const finalData = {
-        ...authData.user,
+        ...userData,
         ...data,
       };
       const response = await UserRegisterService(finalData);
-      console.log(response);
       updateAuthData(finalData);
       toast.success(response.data.message);
       navigate("/verifyemail");
@@ -37,7 +41,11 @@ const Register = () => {
       setLoading(false);
     }
   };
-
+useEffect(()=>{
+window.addEventListener('click',()=>{
+  setisOpen(false)
+})
+},[])
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-10 bg-white ">
       <div className="max-w-7xl w-full grid md:grid-cols-2 gap-10 items-start">
@@ -53,7 +61,7 @@ const Register = () => {
           </h2>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-gray-800"
+            className="space-y-6 text-gray-800"
           >
             {/* DOB */}
             <div className="space-y-2">
@@ -61,7 +69,7 @@ const Register = () => {
               <input
                 type="date"
                 {...register("dob", { required: "DOB is required" })}
-                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-5 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
                 
               />
               {errors.dob && (
@@ -76,7 +84,7 @@ const Register = () => {
                 type="text"
                 {...register("religion", { required: "Religion is required" })}
                 placeholder="Enter your religion"
-                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-5 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
                 
               />
               {errors.religion && (
@@ -89,20 +97,45 @@ const Register = () => {
             {/* Mother Tongue */}
             <div className="space-y-2">
               <label className="block text-sm font-medium">Mother Tongue</label>
-              <select
-                {...register("motherTongue", {
-                  required: "Mother Tongue is required",
-                })}
-                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-                
-              >
-                <option value="">Select</option>
-                <option value="hindi">Hindi</option>
-                <option value="english">English</option>
-                <option value="tamil">Tamil</option>
-                <option value="telugu">Telugu</option>
-                <option value="kannada">Kannada</option>
-              </select>
+             
+               <Controller
+            {...register('motherTongue',{required:'This is field is required'})}
+             name="motherTongue"
+        control={control}
+        defaultValue=""
+          render={({field})=>{
+            return  <div className=" shadow relative rounded-xl  cursor-pointer">
+              <div onClick={(e)=>{
+                e.stopPropagation()
+                setisOpen(!isOpen)
+                setcurrent(0)
+              }} className="py-3 px-4 relative">
+                  {!field.value ? <span className="text-gray-500">Choose gender</span> : field.value}
+                   <ChevronDownIcon  className="h-5 w-5 text-gray-400 absolute right-3 top-4 pointer-events-none" />
+              </div>
+             {
+              (isOpen && current==0) &&  <ul className="absolute right-0 top-full bg-amber-50 shadow-sm w-1/2 z-20 rounded-xl overflow-hidden">
+             {
+               [
+                'Hindi',
+                'English',
+                'Tamil',
+                'Telugu',
+                'Kannada',
+              ].map((option,index)=>{
+                  return <li className="px-4 py-1 hover:bg-amber-100 cursor-pointer  border-gray-200" key={index} onClick={()=>{
+                    setisOpen(false)
+                 field.onChange(option)
+                 }}>
+                    {option}
+                  </li>
+              })
+             }
+             </ul>
+             }
+            </div>
+          }}
+            />
               {errors.motherTongue && (
                 <p className="text-xs text-red-500">
                   {errors.motherTongue.message}
@@ -111,17 +144,42 @@ const Register = () => {
             </div>
             <div className="space-y-2">
               <label className="block text-sm font-medium">Gender</label>
-              <select
-                {...register("gender", {
-                  required: "Gender is required",
-                })}
-                className="w-full shadow-sm shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3 mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-              >
-                <option value="">Select</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
+              <Controller
+            {...register('gender',{required:'This is field is required'})}
+             name="gender"
+        control={control}
+        defaultValue=""
+          render={({field})=>{
+            return  <div className=" shadow relative rounded-xl  cursor-pointer">
+              <div onClick={(e)=>{
+                e.stopPropagation()
+                setisOpen(!isOpen)
+                setcurrent(1)
+              }} className="py-3 px-4 relative">
+                  {!field.value ? <span className="text-gray-500">Choose Gender</span> : field.value}
+                   <ChevronDownIcon  className="h-5 w-5 text-gray-400 absolute right-3 top-4 pointer-events-none" />
+              </div>
+             {
+              (isOpen && current==1) &&  <ul className="absolute right-0 top-full bg-amber-50 shadow-sm w-1/2 z-20 rounded-xl overflow-hidden">
+             {
+               [
+                'Male',
+                'Female',
+                'Other',
+              ].map((option,index)=>{
+                  return <li className="px-4 py-1 hover:bg-amber-100 cursor-pointer  border-gray-200" key={index} onClick={()=>{
+                    setisOpen(false)
+                 field.onChange(option)
+                 }}>
+                    {option}
+                  </li>
+              })
+             }
+             </ul>
+             }
+            </div>
+          }}
+            />
               {errors.gender && (
                 <p className="text-xs text-red-500">{errors.gender.message}</p>
               )}
@@ -140,7 +198,7 @@ const Register = () => {
                   },
                 })}
                 placeholder="Enter your email"
-                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-5 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
                 
               />
               {errors.email && (
@@ -158,7 +216,7 @@ const Register = () => {
                   minLength: { value: 6, message: "At least 6 characters" },
                 })}
                 placeholder="Enter your password"
-                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-5 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
                 
               />
               {errors.password && (
@@ -171,64 +229,50 @@ const Register = () => {
             {/* Caste */}
             <div className="space-y-2">
               <label className="block text-sm font-medium">Caste</label>
-              <select
-                {...register("caste", { required: "Caste is required" })}
-                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-                
-              >
-                <option value="">Select</option>
-                <option value="general">General</option>
-                <option value="obc">OBC</option>
-                <option value="sc">SC</option>
-                <option value="st">ST</option>
-                <option value="others">Others</option>
-              </select>
+             <Controller
+               {...register('caste',{required:'This is field is required'})}
+             name="caste"
+        control={control}
+        defaultValue=""
+          render={({field})=>{
+            return  <div className=" shadow relative rounded-xl  cursor-pointer">
+              <div onClick={(e)=>{
+                e.stopPropagation()
+                setisOpen(!isOpen)
+                setcurrent(2)
+              }} className="py-3 px-4 relative">
+                  {!field.value ? <span className="text-gray-500">Choose caste</span> : field.value}
+                   <ChevronDownIcon  className="h-5 w-5 text-gray-400 absolute right-3 top-4 pointer-events-none" />
+              </div>
+             {
+              (isOpen && current==2) &&  <ul className="absolute right-0 bottom-full bg-amber-50 shadow-sm w-1/2 z-20 rounded-xl overflow-hidden">
+             {
+               [
+                'General',
+'OBC',
+'SC',
+'ST',
+'Others',
+              ].map((option,index)=>{
+                  return <li className="px-4 py-1 hover:bg-amber-100 cursor-pointer  border-gray-200" key={index} onClick={()=>{
+                    setisOpen(false)
+                 field.onChange(option)
+                 }}>
+                    {option}
+                  </li>
+              })
+             }
+             </ul>
+             }
+            </div>
+          }}
+            />
               {errors.caste && (
                 <p className="text-xs text-red-500">{errors.caste.message}</p>
               )}
             </div>
 
-            {/* Subcaste */}
-            <div className="space-y-2">
-              <label className="block text-sm font-medium">
-                Subcaste (Optional)
-              </label>
-              <input
-                type="text"
-                {...register("subcaste")}
-                placeholder="Enter your subcaste"
-                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-                
-              />
-            </div>
-
-            {/* Gothram */}
-            <div className="space-y-2">
-              <label className="block text-sm font-medium">
-                Gothram (Optional)
-              </label>
-              <input
-                type="text"
-                {...register("gothram")}
-                placeholder="Enter your gothram"
-                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-                
-              />
-            </div>
-
-            {/* Dosh */}
-            <div className="space-y-2">
-              <label className="block text-sm font-medium">
-                Dosh (Optional)
-              </label>
-              <input
-                type="text"
-                {...register("dosh")}
-                placeholder="Enter your dosh"
-                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-10 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-                
-              />
-            </div>
+          
 
             {/* Submit */}
             <div className="col-span-full">
@@ -241,6 +285,7 @@ const Register = () => {
               </button>
             </div>
           </form>
+          
         </div>
       </div>
     </div>

@@ -120,7 +120,7 @@ export default function Matches() {
     <div className="space-y-6  bg-white ml-auto  py-4 px-5  shadow-sm  max-lg:w-full ">
       <h1 className="text-2xl font-bold text-gray-900">Your Matches</h1>
 
-      <div className="grid grid-cols-3 gap-4 max-md:grid-cols-2 max-sm:grid-cols-1">
+      <div className="grid grid-cols-5 gap-4 max-md:grid-cols-2 max-sm:grid-cols-1">
         {matches.map((match) => (
           <div
             key={match.id}
@@ -130,11 +130,11 @@ export default function Matches() {
               <img
                 src={match.image || "/placeholder.svg"}
                 alt={match.name}
-                className="w-full h-64 object-cover"
+                className="w-full h-54 object-cover"
               />
             </div>
 
-            <div className="p-4">
+            <div className="p-4 px-2">
              <div className="flex justify-between items-center flex-wrap gap-1">
              <h3 className="text-lg font-semibold">
                 {match.name}
@@ -153,7 +153,7 @@ export default function Matches() {
              
           
 
-              <div className="mt-4 grid grid-cols-2 gap-2">
+              <div className="flex flex-col space-y-2">
               <button className="p-2 rounded-lg bg-rose-100 px-4 max-xl:px-2 max-xl:py-1.5 flex-grow cursor-pointer hover:bg-rose-200 flex items-center justify-center gap-2 transition-colors">
   <h2 className="text-xs font-medium capitalize "> Send Your Interest</h2>
   <Heart size={20} className="text-rose-600" />

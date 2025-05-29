@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Navbar from "./components/Navbar";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Footer from "./components/Footer";
 import BlogDetails from "./pages/BlogDetails";
@@ -18,12 +18,13 @@ import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MessengerContent from "./components/MessengerContent";
+import { useAuth } from "./context/AuthContext";
 
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
 
-
+console.log(pathname)
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [pathname]);
@@ -32,6 +33,10 @@ const ScrollToTop = () => {
 };
 
 const App = () => {
+  const {authData}=useAuth();
+  const token= authData.token
+
+
   return (
     <>
       <ScrollToTop />
@@ -41,9 +46,8 @@ const App = () => {
           <Route path="/"   element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/register" element={<Register />} />
           <Route path="/verifyemail" element={<VerifyEmail />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={ token ? <Navigate to={'/profile'}/> : <Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
 
@@ -53,10 +57,10 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <ProfilePage />
-              </ProtectedRoute>
+             </ProtectedRoute>
             }
           >
-            <Route index element={<Matches />} />
+            <Route index  element={<Matches />} />
             <Route path="activity" element={<ActivityContent />} />
             <Route path="search" element={<SearchContent />} />
             <Route path="editProfile" element={<EditProfile />} />

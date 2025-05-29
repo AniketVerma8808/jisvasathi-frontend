@@ -12,14 +12,12 @@ const defaultAuthState = {
 
 export const AuthProvider = ({ children }) => {
   const [authData, setAuthData] = useState(defaultAuthState);
-
+console.log(authData)
   // 🔄 Sync with localStorage on initial load
   useEffect(() => {
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("user");
     if (token  && user) {
-     console.log(token)
-     console.log('hello')
      
       setAuthData({
         isAuthenticated: true,
@@ -31,13 +29,23 @@ export const AuthProvider = ({ children }) => {
 
   // ✅ Login/Update method
   const updateAuthData = ( user ) => {
-
-    localStorage.setItem("user", JSON.stringify(user));
-console.log(user)
+localStorage.setItem("user", JSON.stringify(user));
     setAuthData({
      ...authData,user
     });
   };
+
+  const login= (token,user)=>{
+      if(user&&token){
+        localStorage.setItem('user',JSON.stringify(user))
+        localStorage.setItem('token',token)
+        setAuthData({
+        isAuthenticated:true,
+        token,
+        user
+        })
+      }
+  }
 
   // ❌ Logout/Clear method
   const clearAuthData = () => {
@@ -47,7 +55,7 @@ console.log(user)
   };
 
   return (
-    <AuthContext.Provider value={{ authData, updateAuthData, clearAuthData }}>
+    <AuthContext.Provider value={{ authData, updateAuthData,login, clearAuthData }}>
       {children}
     </AuthContext.Provider>
   );

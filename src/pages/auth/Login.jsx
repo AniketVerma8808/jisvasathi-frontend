@@ -11,7 +11,7 @@ import { TbLockPassword } from "react-icons/tb";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { updateAuthData } = useAuth();
+  const { updateAuthData ,login} = useAuth();
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -23,22 +23,10 @@ const Login = () => {
     try {
       setLoading(true);
       const response = await UserLoginService(data);
-
+        
       if (response?.data?.token) {
         const user = response.data.user;
-
-        // Update your auth context
-        updateAuthData({
-          isAuthenticated: true,
-          token: response.data.token,
-          user: {
-            id: user.id,
-            fullName: user.fullName,
-            email: user.email,
-            mobile: user.mobile,
-          },
-        });
-
+          login(response.data.token,user)
         toast.success("Login Successful!");
         navigate("/profile");
       } else {

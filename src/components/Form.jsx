@@ -1,21 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   UserIcon,
   PhoneIcon,
   ChevronDownIcon,
 } from "@heroicons/react/24/solid";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 import { FaLongArrowAltRight } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 const Form = () => {
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm();
   const { updateAuthData } = useAuth();
@@ -24,6 +25,15 @@ const Form = () => {
     updateAuthData(data);
     navigate("/register");
   };
+
+useEffect(()=>{
+window.addEventListener('click',()=>{
+  setisOpen(false)
+})
+},[])
+
+  const [isOpen, setisOpen] = useState(false);
+
 
   return (
     <div className=" max-w-md mx-auto p-1 rounded-4xl overflow-hidden  bg-white pb-8  shadow-sm ">
@@ -40,25 +50,44 @@ const Form = () => {
         <form onSubmit={handleSubmit(onForm1Submit)} className="">
           {/* Profile For */}
           <div>
-            <div className="relative">
-              <select
-                {...register("profileFor", {
-                  required: "This field is required",
-                })}
-                className="w-full text-gray-700 cursor-pointer appearance-none shadow-sm  shadow-gray-300 border-gray-300 rounded-xl px-4 py-3  focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-              >
-                <option value="">Select profile for</option>
-                <option value="self">Self</option>
-                <option value="father">Father</option>
-                <option value="mother">Mother</option>
-                <option value="brother">Brother</option>
-                <option value="sister">Sister</option>
-                <option value="friend">Friend</option>
-                <option value="son">Son</option>
-                <option value="daughter">Daughter</option>
-              </select>
-              <ChevronDownIcon className="h-5 w-5 text-gray-400 absolute right-3 top-4 pointer-events-none" />
+            <Controller
+            {...register('profileFor',{required:'This is field is required'})}
+             name="profileFor"
+        control={control}
+        defaultValue=""
+          render={({field})=>{
+            return  <div className=" shadow relative rounded-xl  cursor-pointer">
+              <div onClick={(e)=>{
+                e.stopPropagation()
+                setisOpen(!isOpen)
+              }} className="py-3 px-4 relative">
+                  {!field.value ? <span className="text-gray-500">Create profile for</span> : field.value}
+                   <ChevronDownIcon  className="h-5 w-5 text-gray-400 absolute right-3 top-4 pointer-events-none" />
+              </div>
+             {
+              isOpen &&  <ul className="absolute right-0 top-full bg-amber-50 shadow-sm w-1/2 z-20 rounded-xl overflow-hidden">
+             {
+               [
+                'Self',
+                'Brother',
+                'Sister',
+                'Friend',
+                'Son',
+                'Daughter',
+              ].map((option,index)=>{
+                  return <li className="px-4 py-1 hover:bg-amber-100 cursor-pointer  border-gray-200" key={index} onClick={()=>{
+                    setisOpen(false)
+                 field.onChange(option)
+                 }}>
+                    {option}
+                  </li>
+              })
+             }
+             </ul>
+             }
             </div>
+          }}
+            />
             {errors.profileFor && (
               <p className="text-xs text-red-300">
                 {errors.profileFor.message}

@@ -8,10 +8,10 @@ import { UserVerifyEmailService } from "../../services/api.service";
 import { useAuth } from "../../context/AuthContext";
 
 const VerifyEmail = () => {
-  const { authData } = useAuth();
+
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const email = authData?.email;
+ 
   const {
     register,
     handleSubmit,
@@ -49,34 +49,6 @@ const VerifyEmail = () => {
             Verify Your Email
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            {/* Email */}
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                placeholder="Enter your email"
-                {...register("email", {
-                  required: "Email is required",
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "Invalid email address",
-                  },
-                })}
-                className="w-full shadow-sm shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-4 py-3 mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-              />
-              {errors.email && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
-
             {/* OTP */}
             <div>
               <label
