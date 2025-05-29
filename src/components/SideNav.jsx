@@ -8,8 +8,7 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { GiUpgrade } from "react-icons/gi";
 import { useAuth } from "../context/AuthContext";
 import { FiLogOut } from "react-icons/fi";
-import { BsChatSquareDots } from "react-icons/bs";  
-
+import { BsChatSquareDots } from "react-icons/bs";
 
 const SideNav = () => {
   const { clearAuthData } = useAuth();
@@ -52,13 +51,13 @@ const SideNav = () => {
     navigate("/");
   };
 
-  const linkClasses=({isActive})=>{
-  return `py-2.5       rounded-md transition duration-75  px-4 flex items-center justify-start gap-4    ${
-                  isActive  ? "bg-primary text-white" : "hover:bg-amber-100"
-                } 
-                
-               `
-              }
+  const linkClasses = ({ isActive }) => {
+    return `py-2.5       rounded-md transition duration-75  px-4 flex items-center justify-start gap-4    ${
+      isActive ? "bg-primary text-white" : "hover:bg-amber-100"
+    }
+
+               `;
+  };
 
   return (
     <div className="  py-6 px-2   ">
@@ -66,24 +65,23 @@ const SideNav = () => {
         <div className="rounded-full w-16 h-16 border border-gray-100 text-4xl text-gray-400 flex items-center justify-center bg-gray-100">
           <CgProfile />
         </div>
-        
-        
-        
       </div>
-        <h1 className="text-2xl text-center leading-5 font-semibold mt-4">Hi Tony!</h1>
+      <h1 className="text-2xl text-center leading-5 font-semibold mt-4">
+        Hi Tony!
+      </h1>
       <hr className="text-gray-300 mt-5 w-[90%] m-auto" />
       <div className="mt-4 font-secondaryHead space-y-1">
-        {links.map((link, i) => {
+        {links.map((link) => {
           return (
-              <NavLink
-                to={link.path}
-                key={link.path}
-                className={linkClasses}
-              >
-                <span className="text-2xl">{link.icon}</span>
-                <span className="capitalize">{link.text}</span>
-              </NavLink>
-           
+            <NavLink
+              to={link.path}
+              key={link.path}
+              end={link.path === "/profile"}
+              className={linkClasses}
+            >
+              <span className="text-2xl">{link.icon}</span>
+              <span className="capitalize">{link.text}</span>
+            </NavLink>
           );
         })}
       </div>
@@ -104,7 +102,6 @@ const SideNav = () => {
         </button>
       </div>
     </div>
- 
   );
 };
 
