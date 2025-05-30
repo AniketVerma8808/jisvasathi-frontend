@@ -9,6 +9,7 @@ import { GiUpgrade } from "react-icons/gi";
 import { useAuth } from "../context/AuthContext";
 import { FiLogOut } from "react-icons/fi";
 import { BsChatSquareDots } from "react-icons/bs";
+import { MdOutlineWorkspacePremium } from "react-icons/md";
 
 const SideNav = () => {
   const { clearAuthData } = useAuth();
@@ -43,6 +44,11 @@ const SideNav = () => {
       icon: <BsChatSquareDots />,
       text: "Messenger",
       path: "/profile/chats",
+    },
+    {
+      icon: <MdOutlineWorkspacePremium />,
+      text: "Packages",
+      path: "/packages",
     },
   ];
 

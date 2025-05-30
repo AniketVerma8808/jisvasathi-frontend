@@ -7,6 +7,7 @@ import { useAuth } from "../context/AuthContext";
 import logo from "../assets/vivahLogo2.jpg";
 import HiddenSideNav from "./HiddenSideNav";
 import { AnimatePresence } from "framer-motion";
+import { PersonStanding } from "lucide-react";
 
 const Navbar = () => {
   const { authData } = useAuth();
@@ -53,13 +54,22 @@ const Navbar = () => {
                 <FaUserCircle className="text-2xl" />
               </Link>
             ) : (
-              <Link
+             <div className="flex items-center justify-center gap-4">
+               <Link
+                to="/"
+                className="relative flex items-center gap-2 border border-primary hover:bg-amber-500 hover:text-white bg-white  text-secondary px-6 py-1.5 rounded font-semibold transition"
+              >
+                <PersonStanding fontSize={20} />
+                <span>Create your profile</span>
+              </Link>
+               <Link
                 to="/login"
                 className="relative flex items-center gap-2 border border-primary bg-amber-500 hover:bg-white text-white hover:text-secondary px-6 py-1.5 rounded font-semibold transition"
               >
                 <AiOutlineLogin fontSize={20} />
                 <span>Login</span>
               </Link>
+             </div>
             )}
 
             {/* Mobile Menu Toggle */}

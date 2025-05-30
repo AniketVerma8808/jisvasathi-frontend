@@ -19,6 +19,7 @@ import ResetPassword from "./pages/auth/ResetPassword";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MessengerContent from "./components/MessengerContent";
 import { useAuth } from "./context/AuthContext";
+import Packages from "./pages/Packages";
 
 
 const ScrollToTop = () => {
@@ -50,8 +51,8 @@ const App = () => {
           <Route path="/login" element={ token ? <Navigate to={'/profile'}/> : <Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
-
           <Route path="/blog/:id" element={<BlogDetails />} />
+          <Route path="/packages" element={<Packages/>}/>
           <Route
             path="/profile"
             element={

@@ -136,7 +136,7 @@ export default function Matches() {
 
             <div className="p-4 px-2">
              <div className="flex justify-between items-center flex-wrap gap-1">
-             <h3 className="text-lg font-semibold">
+             <h3 className=" font-semibold">
                 {match.name}
               </h3>
               <br/>
