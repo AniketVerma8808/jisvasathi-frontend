@@ -22,12 +22,13 @@ import { useAuth } from "./context/AuthContext";
 import Packages from "./pages/Packages";
 import MyProfile from "./components/MyProfile";
 import ProfileDetails from "./components/ViewProfile";
+import BottomNav from "./components/BottomNav";
 
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
 
-console.log(pathname)
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [pathname]);
@@ -44,6 +45,7 @@ const App = () => {
     <>
       <ScrollToTop />
       <Navbar />
+      <BottomNav/>
       <main className="antialiased">
         <Routes>
           <Route path="/"   element={<Home />} />

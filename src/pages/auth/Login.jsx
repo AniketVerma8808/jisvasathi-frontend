@@ -23,7 +23,7 @@ const Login = () => {
     try {
       setLoading(true);
       const response = await UserLoginService(data);
-        
+        console.log(response)
       if (response?.data?.token) {
         const user = response.data.user;
           login(response.data.token,user)

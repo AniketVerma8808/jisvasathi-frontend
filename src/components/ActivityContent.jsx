@@ -47,12 +47,12 @@ const ActivityContent = () => {
   ];
 
   return (
-    <div className="space-y-6 bg-white  px-8 py-4  shadow-sm max-lg:w-full ">
+    <div className="space-y-6 bg-white  px-6 max-sm:px-3 py-4  shadow-sm max-lg:w-full ">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">Recent Activity</h1>
-        <button className="text-sm text-rose-600 font-medium hover:text-rose-700">
+        {/* <button className="text-sm text-rose-600 font-medium hover:text-rose-700">
           Mark all as read
-        </button>
+        </button> */}
       </div>
 
       <div className="bg-white rounded-lg  border border-gray-200">
@@ -60,8 +60,7 @@ const ActivityContent = () => {
           {activities.map((activity) => (
             <div
               key={activity.id}
-              className="p-4 hover:bg-gray-50 transition-colors"
-            >
+              className="p-4 hover:bg-gray-50 transition-colors" >
               <div className="flex items-start gap-4">
                 <div className={`p-2 rounded-full ${activity.color}`}>
                   <activity.icon size={20} />

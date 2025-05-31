@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react"
 import { Camera, X, Save, ArrowLeft } from "lucide-react"
+import { Link } from "react-router-dom"
 
 export default function EditProfile() {
   // State for form data
@@ -110,9 +111,9 @@ export default function EditProfile() {
       {/* Header */}
       <div className="p-6 border-b border-gray-200 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <button className="p-2 rounded-full hover:bg-gray-100">
+          <Link to={'/profile'} className="p-2 rounded-full hover:bg-gray-100">
             <ArrowLeft size={20} />
-          </button>
+          </Link>
           <h1 className="text-2xl font-bold text-gray-900">Edit Profile</h1>
         </div>
         <button

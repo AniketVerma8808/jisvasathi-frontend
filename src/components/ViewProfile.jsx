@@ -15,7 +15,7 @@ import {
   Activity,
   Users,
 } from "lucide-react"
-import { useLocation } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 export default function ProfileDetails({ profileId = "1" }) {
   // Sample matched profile data using the exact fields from edit profile
@@ -138,13 +138,12 @@ const location= useLocation()
       {/* Header */}
       <div className="p-6 border-b border-gray-200">
         <div className="flex items-center justify-between mb-4">
-          <button
-            onClick={handleBack}
+          <Link to={'/profile'}
             className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
           >
             <ArrowLeft size={20} />
             <span>Back to Matches</span>
-          </button>
+          </Link>
 
           <div className="flex items-center gap-2">
             <button onClick={handleShare} className="p-2 rounded-full hover:bg-gray-100 transition-colors">

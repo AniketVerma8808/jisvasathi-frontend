@@ -38,11 +38,7 @@ export default function SearchContent() {
         <div className="lg:col-span-2 bg-white rounded-lg shadow-sm border border-gray-200 p-5">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold">Search Results</h2>
-            <select className="px-3 py-1 border border-gray-300 rounded-md text-sm">
-              <option>Newest First</option>
-              <option>Most Compatible</option>
-              <option>Recently Active</option>
-            </select>
+          
           </div>
 
           <div className="space-y-4">
