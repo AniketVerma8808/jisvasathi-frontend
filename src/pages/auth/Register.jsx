@@ -10,6 +10,7 @@ import { UserRegisterService } from "../../services/api.service";
 import { ChevronDownIcon } from "lucide-react";
 
 const Register = () => {
+  console.log('hello')
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { authData, updateAuthData } = useAuth();
@@ -48,28 +49,28 @@ window.addEventListener('click',()=>{
 },[])
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-10 bg-white ">
-      <div className="max-w-7xl w-full grid md:grid-cols-2 gap-10 items-start">
+      <div className="max-w-6xl w-full grid md:grid-cols-2 gap-10 items-start">
         {/* Left Image */}
-        <div className="hidden md:block">
+        <div className="hidden md:block ">
           <LeftImageSection images={[imageLeft, imageLeft, imageLeft]} />
         </div>
 
         {/* Right Form */}
-        <div className="bg-white p-10 rounded-3xl shadow-2xl w-full">
+        <div className="bg-white px-10 py-8 rounded-3xl shadow-2xl w-full">
           <h2 className="text-3xl font-extrabold text-center text-amber-500 mb-6">
             💍 Create Your Matrimony Profile
           </h2>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="space-y-6 text-gray-800"
+            className=" text-gray-800  grid grid-cols-2 gap-4"
           >
             {/* DOB */}
-            <div className="space-y-2">
+            <div className="">
               <label className="block text-sm font-medium">Date of Birth</label>
               <input
                 type="date"
                 {...register("dob", { required: "DOB is required" })}
-                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-5 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-5 py-2  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
                 
               />
               {errors.dob && (
@@ -78,15 +79,41 @@ window.addEventListener('click',()=>{
             </div>
 
             {/* Religion */}
-            <div className="space-y-2">
+            <div className="">
               <label className="block text-sm font-medium">Religion</label>
-              <input
-                type="text"
-                {...register("religion", { required: "Religion is required" })}
-                placeholder="Enter your religion"
-                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-5 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
-                
-              />
+               <Controller
+            {...register('religion',{required:'This is field is required'})}
+             name="religion"
+        control={control}
+        defaultValue=""
+          render={({field})=>{
+            return  <div className=" shadow relative rounded-xl  cursor-pointer mt-2">
+              <div onClick={(e)=>{
+                e.stopPropagation()
+                setisOpen(!isOpen)
+                setcurrent(3)
+              }} className="py-2 px-4 relative">
+                  {!field.value ? <span className="text-gray-500">Choose Religion</span> : field.value}
+                   <ChevronDownIcon  className="h-5 w-5 text-gray-400 absolute right-3 -translate-y-1/2 top-1/2 pointer-events-none" />
+              </div>
+             {
+              (isOpen && current==3) &&  <ul className="absolute right-0 top-full bg-amber-50 shadow-sm w-1/2 z-20 rounded-xl overflow-hidden">
+             {
+              ['Hindu', 'Muslim', 'Christian', 'Sikh', 'Jain', 'Parsi', 'Buddhist', 'Jewish', 'Other'].map((option,index)=>{
+                  return <li className="px-4 py-1 hover:bg-amber-100 cursor-pointer  border-gray-200" key={index} onClick={()=>{
+                    setisOpen(false)
+                 field.onChange(option)
+                 }}>
+                    {option}
+                  </li>
+              })
+             }
+             </ul>
+             }
+            </div>
+          }}
+            />
+             
               {errors.religion && (
                 <p className="text-xs text-red-500">
                   {errors.religion.message}
@@ -95,8 +122,8 @@ window.addEventListener('click',()=>{
             </div>
 
             {/* Mother Tongue */}
-            <div className="space-y-2">
-              <label className="block text-sm font-medium">Mother Tongue</label>
+            <div className="">
+              <label className="block text-sm font-medium ">Mother Tongue</label>
              
                <Controller
             {...register('motherTongue',{required:'This is field is required'})}
@@ -104,14 +131,14 @@ window.addEventListener('click',()=>{
         control={control}
         defaultValue=""
           render={({field})=>{
-            return  <div className=" shadow relative rounded-xl  cursor-pointer">
+            return  <div className=" shadow relative rounded-xl  cursor-pointer mt-2">
               <div onClick={(e)=>{
                 e.stopPropagation()
                 setisOpen(!isOpen)
                 setcurrent(0)
-              }} className="py-3 px-4 relative">
+              }} className="py-2 px-4  relative">
                   {!field.value ? <span className="text-gray-500">Choose gender</span> : field.value}
-                   <ChevronDownIcon  className="h-5 w-5 text-gray-400 absolute right-3 top-4 pointer-events-none" />
+                   <ChevronDownIcon  className="h-5 w-5 text-gray-400 absolute right-3 -translate-y-1/2 top-1/2 pointer-events-none" />
               </div>
              {
               (isOpen && current==0) &&  <ul className="absolute right-0 top-full bg-amber-50 shadow-sm w-1/2 z-20 rounded-xl overflow-hidden">
@@ -142,7 +169,7 @@ window.addEventListener('click',()=>{
                 </p>
               )}
             </div>
-            <div className="space-y-2">
+            <div className="">
               <label className="block text-sm font-medium">Gender</label>
               <Controller
             {...register('gender',{required:'This is field is required'})}
@@ -150,14 +177,14 @@ window.addEventListener('click',()=>{
         control={control}
         defaultValue=""
           render={({field})=>{
-            return  <div className=" shadow relative rounded-xl  cursor-pointer">
+            return  <div className=" shadow relative rounded-xl mt-2  cursor-pointer">
               <div onClick={(e)=>{
                 e.stopPropagation()
                 setisOpen(!isOpen)
                 setcurrent(1)
-              }} className="py-3 px-4 relative">
+              }} className="py-2 px-4 relative">
                   {!field.value ? <span className="text-gray-500">Choose Gender</span> : field.value}
-                   <ChevronDownIcon  className="h-5 w-5 text-gray-400 absolute right-3 top-4 pointer-events-none" />
+                   <ChevronDownIcon  className="h-5 w-5 text-gray-400 absolute right-3 -translate-y-1/2 top-1/2 pointer-events-none" />
               </div>
              {
               (isOpen && current==1) &&  <ul className="absolute right-0 top-full bg-amber-50 shadow-sm w-1/2 z-20 rounded-xl overflow-hidden">
@@ -186,7 +213,7 @@ window.addEventListener('click',()=>{
             </div>
 
             {/* Email */}
-            <div className="space-y-2">
+            <div className="">
               <label className="block text-sm font-medium">Email ID</label>
               <input
                 type="email"
@@ -198,7 +225,7 @@ window.addEventListener('click',()=>{
                   },
                 })}
                 placeholder="Enter your email"
-                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-5 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-5 py-2  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
                 
               />
               {errors.email && (
@@ -207,7 +234,7 @@ window.addEventListener('click',()=>{
             </div>
 
             {/* Password */}
-            <div className="space-y-2">
+            <div className="">
               <label className="block text-sm font-medium">Password</label>
               <input
                 type="password"
@@ -216,7 +243,7 @@ window.addEventListener('click',()=>{
                   minLength: { value: 6, message: "At least 6 characters" },
                 })}
                 placeholder="Enter your password"
-                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-5 py-3  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
+                className="w-full shadow-sm   shadow-gray-300 placeholder:text-gray-500 text-gray-700 rounded-xl pl-5 py-2  mt-2 focus:ring-1 focus:ring-amber-500 focus:outline-none transition bg-white/60 max-sm:text-sm"
                 
               />
               {errors.password && (
@@ -227,7 +254,7 @@ window.addEventListener('click',()=>{
             </div>
 
             {/* Caste */}
-            <div className="space-y-2">
+            <div className="">
               <label className="block text-sm font-medium">Caste</label>
              <Controller
                {...register('caste',{required:'This is field is required'})}
@@ -240,9 +267,9 @@ window.addEventListener('click',()=>{
                 e.stopPropagation()
                 setisOpen(!isOpen)
                 setcurrent(2)
-              }} className="py-3 px-4 relative">
+              }} className="py-2 px-4 relative mt-2">
                   {!field.value ? <span className="text-gray-500">Choose caste</span> : field.value}
-                   <ChevronDownIcon  className="h-5 w-5 text-gray-400 absolute right-3 top-4 pointer-events-none" />
+                   <ChevronDownIcon  className="h-5 w-5 text-gray-400 absolute right-3 -translate-y-1/2 top-1/2 pointer-events-none" />
               </div>
              {
               (isOpen && current==2) &&  <ul className="absolute right-0 bottom-full bg-amber-50 shadow-sm w-1/2 z-20 rounded-xl overflow-hidden">
@@ -279,7 +306,7 @@ window.addEventListener('click',()=>{
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-primary cursor-pointer flex items-center justify-center h-11  text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-300"
+                className="w-full bg-primary cursor-pointer flex items-center justify-center h-11  text-white font-semibold py-2 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-300"
               >
                 {loading ? <Loader /> : "Complete Registration 💌"}
               </button>

@@ -10,6 +10,10 @@ import { useAuth } from "../context/AuthContext";
 import { FiLogOut } from "react-icons/fi";
 import { BsChatSquareDots } from "react-icons/bs";
 import { MdOutlineWorkspacePremium } from "react-icons/md";
+import { CiCircleCheck } from "react-icons/ci";
+import { RiUserReceived2Line, RiUserReceivedLine } from "react-icons/ri";
+import { RxCrossCircled } from "react-icons/rx";
+import { TbUserShare } from "react-icons/tb";
 
 const SideNav = () => {
   const { clearAuthData } = useAuth();
@@ -21,7 +25,7 @@ const SideNav = () => {
   const links = [
     {
       icon: <LiaUserFriendsSolid />,
-      text: "matches",
+      text: "matches",  
       path: "/profile",
     },
     {
@@ -34,6 +38,11 @@ const SideNav = () => {
       text: "search",
       path: "/profile/search",
     },
+       {
+      icon: <CgProfile /> ,
+      text: "My Profile",
+      path: "/profile/myProfile",
+    },
 
     {
       icon: <MdOutlineModeEdit />,
@@ -45,11 +54,33 @@ const SideNav = () => {
       text: "Messenger",
       path: "/profile/chats",
     },
+  
     {
+      icon: <CiCircleCheck />,
+      text: "Accepted Profiles",
+      path: "/packages",
+    },
+    {
+      icon: <RxCrossCircled /> ,
+      text: "Rejected Profiles",
+      path: "/packages",
+    },
+    {
+      icon: <RiUserReceivedLine />,
+      text: "Interests Recieved",
+      path: "/packages",
+    },
+    {
+      icon:<TbUserShare /> ,
+      text: "Interests Sent",
+      path: "/packages",
+    },
+      {
       icon: <MdOutlineWorkspacePremium />,
       text: "Packages",
       path: "/packages",
     },
+   
   ];
 
   const handleLogout = () => {
@@ -61,12 +92,11 @@ const SideNav = () => {
     return `py-2.5       rounded-md transition duration-75  px-4 flex items-center justify-start gap-4    ${
       isActive ? "bg-primary text-white" : "hover:bg-amber-100"
     }
-
-               `;
+              `;
   };
 
   return (
-    <div className="  py-6 px-2   ">
+    <div className="  py-10 pb-20 px-2  overflow-y-scroll h-full  hide-scrollbar">
       <div className=" gap-4 px-4 flex items-center justify-center max-xl:px-0">
         <div className="rounded-full w-16 h-16 border border-gray-100 text-4xl text-gray-400 flex items-center justify-center bg-gray-100">
           <CgProfile />

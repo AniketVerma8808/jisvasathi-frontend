@@ -20,6 +20,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import MessengerContent from "./components/MessengerContent";
 import { useAuth } from "./context/AuthContext";
 import Packages from "./pages/Packages";
+import MyProfile from "./components/MyProfile";
+import ProfileDetails from "./components/ViewProfile";
 
 
 const ScrollToTop = () => {
@@ -53,6 +55,7 @@ const App = () => {
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/blog/:id" element={<BlogDetails />} />
           <Route path="/packages" element={<Packages/>}/>
+          <Route path="/profileDetails" element={<ProfileDetails/>}/>
           <Route
             path="/profile"
             element={
@@ -66,6 +69,7 @@ const App = () => {
             <Route path="search" element={<SearchContent />} />
             <Route path="editProfile" element={<EditProfile />} />
             <Route path="chats" element={<MessengerContent/>}/>
+            <Route path="myProfile" element={<MyProfile/>}/>
           </Route>
 
           <Route path="/*" element={<NotFound />} />
