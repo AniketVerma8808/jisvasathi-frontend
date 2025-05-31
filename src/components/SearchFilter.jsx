@@ -9,10 +9,10 @@ const SearchFilters = () => {
 
   const Dropdown = ({ field, label, options,universalOpen,setuniversalOpen }) => {
 
-    const [isOpen, setIsOpen] = useState(false);
+const isOpen= universalOpen === label
   useEffect(()=>{
     window.addEventListener('click',()=>{
-        setIsOpen(false)
+        setuniversalOpen(null)
     },[])
   })
     return (
@@ -20,11 +20,8 @@ const SearchFilters = () => {
         <div
           onClick={(e) => {
             e.stopPropagation();
-          
-         if(!universalOpen){
-        setIsOpen(true)
-            
-           }
+        setuniversalOpen(label)
+           
           }}
           className="py-3 px-4  relative"
         >
@@ -36,13 +33,12 @@ const SearchFilters = () => {
           <ChevronDownIcon className="h-5 w-5 text-gray-400 absolute right-3 top-4 pointer-events-none" />
         </div>
         {isOpen && (
-          <ul className="absolute right-0 top-full bg-amber-50 shadow-sm w-1/2 z-20 rounded-xl overflow-hidden">
+          <ul className="absolute right-0 top-full max-h-40 overflow-y-scroll custom-scrollbar bg-amber-50 shadow-sm w-1/2 z-20 rounded-sm overflow-hidden">
             {options.map((option, index) => (
               <li
                 key={index}
                 className="px-4 py-1 hover:bg-amber-100 cursor-pointer border-gray-200"
                 onClick={(e) => {
-                  setIsOpen(false);
                   field.onChange(option);
                 }}
               >
@@ -83,22 +79,141 @@ const SearchFilters = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 h-screen overflow-y-scroll">
-      <Controller name="ageFrom" control={control} defaultValue="" render={({ field }) => (<Dropdown field={field} label="Age From" options={ageOptions} universalOpen={universalOpen} setuniversalOpen={setuniversalOpen}/>)}  />
-      <Controller name="ageTo" control={control} defaultValue="" render={({ field }) => (<Dropdown field={field} label="Age To" options={ageOptions} universalOpen={universalOpen} setuniversalOpen={setuniversalOpen}/>)}  />
-      <Controller name="maritalStatus" control={control} defaultValue="" render={({ field }) => (<Dropdown field={field} label="Marriage Status" options={maritalStatusOptions} />)}  universalOpen={universalOpen} setuniversalOpen={setuniversalOpen}/>
-      <Controller name="kids" control={control} defaultValue="" render={({ field }) => (<Dropdown field={field} label="Kids" options={kidsOptions} universalOpen={universalOpen} setuniversalOpen={setuniversalOpen}/>)}  />
-      <Controller name="height" control={control} defaultValue="" render={({ field }) => (<Dropdown field={field} label="Height" options={heightOptions} universalOpen={universalOpen} setuniversalOpen={setuniversalOpen}/>)}  />
-      <Controller name="religion" control={control} defaultValue="" render={({ field }) => (<Dropdown field={field} label="Religion" options={religionOptions} universalOpen={universalOpen} setuniversalOpen={setuniversalOpen}/>)}  />
-      <Controller name="motherTongue" control={control} defaultValue="" render={({ field }) => (<Dropdown field={field} label="Mother Tongue" options={motherTongueOptions} universalOpen={universalOpen} setuniversalOpen={setuniversalOpen}/>)}  />
-      <Controller name="community" control={control} defaultValue="" render={({ field }) => (<Dropdown field={field} label="Community" options={communityOptions} universalOpen={universalOpen} setuniversalOpen={setuniversalOpen}/>)}  />
-      <Controller name="disability" control={control} defaultValue="" render={({ field }) => (<Dropdown field={field} label="Physical Disability" options={disabilityOptions}  universalOpen={universalOpen} setuniversalOpen={setuniversalOpen} />)} />
-      <Controller name="state" control={control} defaultValue="" render={({ field }) => (<Dropdown field={field} label="State" options={stateOptions} universalOpen={universalOpen} setuniversalOpen={setuniversalOpen} />)}  />
-      <Controller name="metroCity" control={control} defaultValue="" render={({ field }) => (<Dropdown field={field} label="Metro City" options={metroCitiesOptions}  universalOpen={universalOpen} setuniversalOpen={setuniversalOpen}/>)}  />
-      <Controller name="country" control={control} defaultValue="" render={({ field }) => (<Dropdown field={field} label="Country (Current Residence)" options={countryOptions} universalOpen={universalOpen} setuniversalOpen={setuniversalOpen}/>)} />
-      <Controller name="income" control={control} defaultValue="" render={({ field }) => (<Dropdown field={field} label="Annual Income" options={incomeOptions} universalOpen={universalOpen} setuniversalOpen={setuniversalOpen}/>)}  />
-      <Controller name="education" control={control} defaultValue="" render={({ field }) => (<Dropdown field={field} label="Educational Qualification" options={educationOptions} universalOpen={universalOpen} setuniversalOpen={setuniversalOpen}/>)} />
-      <Controller name="occupation" control={control} defaultValue="" render={({ field }) => (<Dropdown field={field} label="Occupation" options={occupationOptions}  universalOpen={universalOpen} setuniversalOpen={setuniversalOpen}/>)} />
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-2 grid h-screen hide-scrollbar overflow-y-scroll">
+      <Controller name="ageFrom" control={control} defaultValue="" render={({ field }) => 
+      (<Dropdown
+      field={field}
+       label="Age From"
+        options={ageOptions}
+         universalOpen={universalOpen} 
+         setuniversalOpen={setuniversalOpen}
+         />
+         )}  />
+      <Controller name="ageTo" control={control} defaultValue="" render={({ field }) => 
+      (<Dropdown
+      field={field}
+       label="Age To"
+        options={ageOptions}
+         universalOpen={universalOpen}
+          setuniversalOpen={setuniversalOpen}
+          />
+          )}  />
+      <Controller name="maritalStatus" control={control} defaultValue="" render={({ field }) => 
+      (<Dropdown
+      field={field}
+       label="Marriage Status"
+        options={maritalStatusOptions}
+         universalOpen={universalOpen}
+         setuniversalOpen={setuniversalOpen}
+         />
+         )}  />
+      <Controller name="kids" control={control} defaultValue="" render={({ field }) => 
+      (<Dropdown
+      field={field}
+       label="Kids"
+       options={kidsOptions}
+        universalOpen={universalOpen}
+         setuniversalOpen={setuniversalOpen}
+         />
+         )}  />
+      <Controller name="height" control={control} defaultValue="" render={({ field }) => 
+      (<Dropdown 
+      field={field}
+       label="Height"
+       options={heightOptions}
+        universalOpen={universalOpen}
+         setuniversalOpen={setuniversalOpen}
+         />
+         )}  />
+      <Controller name="religion" control={control} defaultValue="" render={({ field }) => 
+      (<Dropdown
+      field={field}
+       label="Religion"
+       options={religionOptions}
+        universalOpen={universalOpen}
+        setuniversalOpen={setuniversalOpen}
+       />
+       )}  />
+      <Controller name="motherTongue" control={control} defaultValue="" render={({ field }) => 
+      (<Dropdown 
+      field={field}
+       label="Mother 
+       Tongue" options={motherTongueOptions}
+        universalOpen={universalOpen}
+        setuniversalOpen={setuniversalOpen}
+       />
+       )}  />
+      <Controller name="community" control={control} defaultValue="" render={({ field }) => 
+      (<Dropdown 
+      field={field}
+       label="Community"
+       options={communityOptions} 
+       universalOpen={universalOpen}
+        setuniversalOpen={setuniversalOpen}
+       />
+       )}  />
+      <Controller name="disability" control={control} defaultValue="" render={({ field }) => 
+      (<Dropdown 
+      field={field}
+       label="Physical 
+      Disability" options={disabilityOptions}
+        universalOpen={universalOpen}
+       setuniversalOpen={setuniversalOpen}
+       />
+      )} />
+      <Controller name="state" control={control} defaultValue="" render={({ field }) => 
+      (<Dropdown 
+      field={field}
+       label="State"
+       options={stateOptions}
+        universalOpen={universalOpen}
+        setuniversalOpen={setuniversalOpen}
+        />
+       )}  />
+      <Controller name="metroCity" control={control} defaultValue="" render={({ field }) => 
+      (<Dropdown 
+      field={field}
+       label="Metro City" options={metroCitiesOptions}
+         universalOpen={universalOpen}
+        setuniversalOpen={setuniversalOpen}
+       />
+       )}  />
+      <Controller name="country" control={control} defaultValue="" render={({ field }) => 
+      (<Dropdown
+      field={field}
+       label="Country (Current Residence)" 
+       options={countryOptions}
+        universalOpen={universalOpen}
+        setuniversalOpen={setuniversalOpen}
+       />
+       )} />
+      <Controller name="income" control={control} defaultValue="" render={({ field }) => 
+      (<Dropdown
+      field={field}
+       label="Annual Income"
+        options={incomeOptions}
+        universalOpen={universalOpen}
+        setuniversalOpen={setuniversalOpen}
+       />
+       )}  />
+      <Controller name="education" control={control} defaultValue="" render={({ field }) => 
+      (<Dropdown 
+      field={field}
+       label="Educational Qualifications"
+        options={educationOptions}
+        universalOpen={universalOpen}
+        setuniversalOpen={setuniversalOpen}
+       />
+       )} />
+      <Controller name="occupation" control={control} defaultValue="" render={({ field }) => 
+      (<Dropdown 
+      field={field}
+       label="Occupation"
+       options={occupationOptions}
+         universalOpen={universalOpen} 
+         setuniversalOpen={setuniversalOpen}
+         />
+         )} />
     </form>
   );
 };

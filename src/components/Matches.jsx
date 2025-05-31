@@ -355,13 +355,13 @@ export default function Matches() {
 ];
 
   return (
-    <div className="space-y-6  bg-white ml-auto  py-4 px-5  shadow-sm  max-lg:w-full ">
+    <div className="space-y-6  bg-white ml-auto  py-4 px-5  shadow-sm max-sm:px-3  max-lg:w-full ">
       <h1 className="text-2xl font-bold text-gray-900">Your Matches</h1>
 
-      <div className="grid grid-cols-5 gap-2 max-md:grid-cols-2 max-sm:grid-cols-1">
+      <div className="grid grid-cols-5 gap-2 max-sm:gap-6 max-md:grid-cols-2 max-sm:grid-cols-1">
         {matches.map((match) => (
           <div
-            key={match.id}
+            key={match._id}
             className="bg-white rounded-lg  overflow-hidden border border-gray-200"
           >
             <Link to={'/profileDetails'} state={match} className="relative">
@@ -389,26 +389,24 @@ export default function Matches() {
               <p className="w-full text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">working status-</span><span className="text-black">{match.workingStatus}</span></p>
               <p className="w-full text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">education-</span><span className="text-black">{match.educationQualifications}</span></p></div>
              
-          
-
-              <div className="flex flex-col space-y-2">
+          <div className="flex flex-col max-sm:grid max-sm:grid-cols-2 sm:space-y-2 max-sm:gap-1">
               <button className="p-2 rounded-lg bg-rose-100 px-4 max-xl:px-2 max-xl:py-1.5 flex-grow cursor-pointer hover:bg-rose-200 flex items-center justify-center gap-2 transition-colors">
-  <h2 className="text-xs font-medium capitalize "> Send Your Interest</h2>
+  <h2 className="text-xs font-medium capitalize  "> Send Your Interest</h2>
   <Heart size={20} className="text-rose-600" />
 </button>
 
 <button className="p-2 rounded-lg bg-gray-100 px-4 flex-grow  max-xl:px-2 max-xl:py-1.5 cursor-pointer hover:bg-gray-200 flex items-center justify-center gap-2 transition-colors">
-  <h2 className="text-xs font-medium capitalize ">Send Message</h2>
+  <h2 className="text-xs font-medium capitalize  ">Send Message</h2>
   <MessageSquare size={20} className="text-blue-500" />
 </button>
 
 <button className="p-2 rounded-lg bg-gray-100 px-4 flex-grow max-xl:px-2 max-xl:py-1.5 cursor-pointer hover:bg-gray-200 flex items-center justify-center gap-2 transition-colors">
-  <h2 className="text-xs font-medium capitalize ">Shortlist Profile</h2>
+  <h2 className="text-xs font-medium capitalize  ">Shortlist Profile</h2>
   <Star size={20} className="text-amber-500" />
 </button>
 
 <button className="p-2 rounded-lg bg-green-100 px-4 flex-grow max-xl:px-2 max-xl:py-1.5 cursor-pointer hover:bg-green-200 flex items-center justify-center gap-2 transition-colors">
-  <h2 className="text-xs font-medium capitalize "> See Phone Number</h2>
+  <h2 className="text-xs font-medium capitalize  "> See Phone Number</h2>
   <PhoneCall size={20} className="text-green-600" />
 </button>
 

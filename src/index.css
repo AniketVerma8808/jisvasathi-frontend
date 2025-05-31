@@ -12,14 +12,22 @@
   font-family: 'Style Script';
 }
 
-.hide-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+.hide-scrollbar::-webkit-scrollbar{
+  display: none;
 }
-.hide-scrollbar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+/*  */
+.custom-scrollbar::-webkit-scrollbar {
+  /* display: none; Chrome, Safari, Opera */
+  background: #f5f5f5;
+  border-radius: 20px;
+  width: 4px;
 }
-
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #ffc800;
+  border-radius: 20px;
+  width: 2px;
+ 
+}
 .slider::after {
   content: "";
   position: absolute;

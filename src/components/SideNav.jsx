@@ -111,7 +111,7 @@ const SideNav = () => {
           return (
             <NavLink
               to={link.path}
-              key={link.path}
+              key={link.text}
               end={link.path === "/profile"}
               className={linkClasses}
             >
