@@ -24,7 +24,6 @@ const [current, setcurrent] = useState(0);
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data)
     const userData= JSON.parse(localStorage.getItem('user'))
     try {
       setLoading(true);
@@ -33,7 +32,6 @@ const [current, setcurrent] = useState(0);
         ...data,
       };
       const response = await UserRegisterService(finalData);
-      updateAuthData(finalData);
       toast.success(response.data.message);
       navigate("/verifyemail");
     } catch (error) {

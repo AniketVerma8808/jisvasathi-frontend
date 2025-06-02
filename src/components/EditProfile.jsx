@@ -4,62 +4,65 @@ import { useState, useRef, useEffect } from "react"
 import { Camera, X, Save, ArrowLeft, ChevronDownIcon } from "lucide-react"
 import { Link } from "react-router-dom"
 import { Controller } from "react-hook-form"
+import { useAuth } from "../context/AuthContext"
+import { editProfile } from "../services/api.service"
 
 export default function EditProfile() {
+  const {authData}=useAuth()
 
-  
+  const [formData, setFormData] = useState(authData.user);
   // State for form data
-  const [formData, setFormData] = useState({
-    // Personal Information
-    firstName: "Sarah",
-    lastName: "Johnson",
-    gender: "female",
-    dateOfBirth: "1992-05-15",
-    height: "5'6",
-    religion: "Christian",
-    motherTongue: "English",
-    maritalStatus: "Never Married",
+//   const [formData, setFormData] = useState({
+//     // Personal Information
+//     firstName: "Sarah",
+//     lastName: "Johnson",
+//     gender: "female",
+//     dateOfBirth: "1992-05-15",
+//     height: "5'6",
+//     religion: "Christian",
+//     motherTongue: "English",
+//     maritalStatus: "Never Married",
 
-    // Contact Information
-    email: "sarah.johnson@example.com",
-    phone: "+1 (555) 123-4567",
-    location: "New York, NY",
+//     // Contact Information
+//     email: "sarah.johnson@example.com",
+//     phone: "+1 (555) 123-4567",
+//     location: "New York, NY",
 
-    // Career & Education
-    education: "Master's Degree",
-    educationDetails: "MBA from Columbia University",
-    occupation: "Marketing Manager",
-    company: "Tech Innovations Inc.",
-    income: "$80,000 - $100,000",
+//     // Career & Education
+//     education: "Master's Degree",
+//     educationDetails: "MBA from Columbia University",
+//     occupation: "Marketing Manager",
+//     company: "Tech Innovations Inc.",
+//     income: "$80,000 - $100,000",
 
-    // About Me
-    aboutMe:
-      "I'm an outgoing person who loves hiking, reading, and trying new restaurants. I value honesty, communication, and having a good sense of humor in a relationship.",
+//     // About Me
+//     aboutMe:
+//       "I'm an outgoing person who loves hiking, reading, and trying new restaurants. I value honesty, communication, and having a good sense of humor in a relationship.",
 
-    // Partner Preferences
-partnerPreferences: {
-  ageFrom: 25,
-  ageTo: 30,
-  marriageStatus: "Never Married",
-  kids: "No",
-  height: "5'6\"",
-  workingStatus: "working",
-  manglik: "yes",
-  occupation: "Software Engineer",
-  educationQualifications: "Bachelor's Degree",
-  annualIncome: 1000000,
-  country: "India",
-  metroCities: "Mumbai",
-  state: "Maharashtra",
-  physicalDisability: "None",
-  community: "Brahmin"
-},
-    // Lifestyle
-    diet: "Non-vegetarian",
-    smoking: "Never",
-    drinking: "Occasionally",
-    interests: "Hiking, Reading, Cooking, Travel, Photography",
-  })
+//     // Partner Preferences
+// partnerPreferences: {
+//   ageFrom: 25,
+//   ageTo: 30,
+//   marriageStatus: "Never Married",
+//   kids: "No",
+//   height: "5'6\"",
+//   workingStatus: "working",
+//   manglik: "yes",
+//   occupation: "Software Engineer",
+//   educationQualifications: "Bachelor's Degree",
+//   annualIncome: 1000000,
+//   country: "India",
+//   metroCities: "Mumbai",
+//   state: "Maharashtra",
+//   physicalDisability: "None",
+//   community: "Brahmin"
+// },
+//     // Lifestyle
+//     diet: "Non-vegetarian",
+//     smoking: "Never",
+//     drinking: "Occasionally",
+//     interests: "Hiking, Reading, Cooking, Travel, Photography",
+//   })
 
 
   // State for profile photos
@@ -148,12 +151,12 @@ console.log(formData)
   const educationOptions = ['School Passout', 'College Passout', 'Professional Degree', 'Bachelors Degree', 'Masters Degree', 'Certification', 'Diploma', 'PHD'];
   const occupationOptions = ['Private Service', 'Govt Service', 'Public Sector / PSU', 'Military/ Defence', 'Self Employed', 'Own Business', 'Doctor', 'Engineer', 'CA', 'Advocate', 'Consultant', 'Contractor'];
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault()
+    const res= await editProfile(formData)
+    console.log(res)
     // Here you would typically send the data to your backend
-    console.log("Form submitted:", formData)
-    console.log("Photos:", photos)
-    alert("Profile updated successfully!")
+
   }
 const Dropdown = ({ field, label,name, options,universalOpen,setuniversalOpen }) => {
 
@@ -250,32 +253,20 @@ const isOpen= universalOpen === label
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
                   First Name
                 </label>
                 <input
                   type="text"
-                  id="firstName"
-                  name="firstName"
-                  value={formData.firstName}
+                  id="fullName"
+                  name="fullName"
+                  value={formData?.fullName}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 />
               </div>
               
-              <div>
-                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
-                />
-              </div>
+             
               
               <div>
                 <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-1">
@@ -284,7 +275,7 @@ const isOpen= universalOpen === label
                 <select
                   id="gender"
                   name="gender"
-                  value={formData.gender}
+                  value={formData?.gender}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 >
@@ -301,8 +292,8 @@ const isOpen= universalOpen === label
                 <input
                   type="date"
                   id="dateOfBirth"
-                  name="dateOfBirth"
-                  value={formData.dateOfBirth}
+                  name="dob"
+                  value={formData?.dob}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 />
@@ -315,7 +306,7 @@ const isOpen= universalOpen === label
                 <select
                   id="height"
                   name="height"
-                  value={formData.height}
+                  value={formData?.height}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 >
@@ -349,7 +340,7 @@ const isOpen= universalOpen === label
                 <select
                   id="religion"
                   name="religion"
-                  value={formData.religion}
+                  value={formData?.religion}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 >
@@ -374,7 +365,7 @@ const isOpen= universalOpen === label
                   type="text"
                   id="motherTongue"
                   name="motherTongue"
-                  value={formData.motherTongue}
+                  value={formData?.motherTongue}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 />
@@ -387,7 +378,7 @@ const isOpen= universalOpen === label
                 <select
                   id="maritalStatus"
                   name="maritalStatus"
-                  value={formData.maritalStatus}
+                  value={formData?.maritalStatus}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 >
@@ -410,7 +401,7 @@ const isOpen= universalOpen === label
                   type="email"
                   id="email"
                   name="email"
-                  value={formData.email}
+                  value={formData?.email}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 />
@@ -424,7 +415,7 @@ const isOpen= universalOpen === label
                   type="tel"
                   id="phone"
                   name="phone"
-                  value={formData.phone}
+                  value={formData?.phone}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 />
@@ -438,7 +429,7 @@ const isOpen= universalOpen === label
                   type="text"
                   id="location"
                   name="location"
-                  value={formData.location}
+                  value={formData?.location}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 />
@@ -521,7 +512,7 @@ const isOpen= universalOpen === label
                 <select
                   id="education"
                   name="education"
-                  value={formData.education}
+                  value={formData?.education}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 >
@@ -542,7 +533,7 @@ const isOpen= universalOpen === label
                   type="text"
                   id="educationDetails"
                   name="educationDetails"
-                  value={formData.educationDetails}
+                  value={formData?.educationDetails}
                   onChange={handleChange}
                   placeholder="University name, field of study, etc."
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
@@ -561,7 +552,7 @@ const isOpen= universalOpen === label
                   type="text"
                   id="occupation"
                   name="occupation"
-                  value={formData.occupation}
+                  value={formData?.occupation}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 />
@@ -575,7 +566,7 @@ const isOpen= universalOpen === label
                   type="text"
                   id="company"
                   name="company"
-                  value={formData.company}
+                  value={formData?.company}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 />
@@ -588,7 +579,7 @@ const isOpen= universalOpen === label
                 <select
                   id="income"
                   name="income"
-                  value={formData.income}
+                  value={formData?.income}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 >
@@ -615,13 +606,13 @@ const isOpen= universalOpen === label
             </p>
 
             <div>
-              <label className=" block "htmlFor="aboutMe" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="aboutMe" className="block text-sm font-medium text-gray-700 mb-1">
                 About Me
               </label>
               <textarea
                 id="aboutMe"
                 name="aboutMe"
-                value={formData.aboutMe}
+                value={formData?.aboutMe}
                 onChange={handleChange}
                 rows={8}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
@@ -631,14 +622,14 @@ const isOpen= universalOpen === label
             </div>
 
             <div>
-              <label className=" block "htmlFor="interests" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="interests" className="block text-sm font-medium text-gray-700 mb-1">
                 Interests & Hobbies
               </label>
               <input
                 type="text"
                 id="interests"
                 name="interests"
-                value={formData.interests}
+                value={formData?.interests}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 placeholder="Separate interests with commas (e.g., Hiking, Reading, Cooking)"
@@ -653,7 +644,7 @@ const isOpen= universalOpen === label
              <div className=" grid p-1 grid-cols-2 gap-4 h-screen custom-scrollbar overflow-y-scroll">
              <div className="w-full">
   <label className=" block "htmlFor="ageFrom" >Age From</label>
-  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="ageFrom" id="ageFrom" onChange={handlePartnerPreferences}  value={formData.partnerPreferences.ageFrom || 'Any'}>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="ageFrom" id="ageFrom" onChange={handlePartnerPreferences}  value={formData?.partnerPreferences?.ageFrom || 'Any'}>
     <option value="Any">Any</option>
     {ageOptions.map(option => <option key={option} value={option}>{option}</option>)}
   </select>
@@ -661,7 +652,7 @@ const isOpen= universalOpen === label
 
 <div>
   <label className=" block "htmlFor="ageTo">Age To</label>
-  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="ageTo" id="ageTo" onChange={handlePartnerPreferences} value={formData.partnerPreferences.ageTo || 'Any'}>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="ageTo" id="ageTo" onChange={handlePartnerPreferences} value={formData?.partnerPreferences?.ageTo || 'Any'}>
     <option value="Any">Any</option>
     {ageOptions.map(option => <option key={option} value={option}>{option}</option>)}
   </select>
@@ -669,14 +660,14 @@ const isOpen= universalOpen === label
 
 <div>
   <label className=" block "htmlFor="marriageStatus">Marriage Status</label>
-  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="marriageStatus" id="marriageStatus" onChange={handlePartnerPreferences} value={formData.partnerPreferences.marriageStatus || 'Any'}>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="marriageStatus" id="marriageStatus" onChange={handlePartnerPreferences} value={formData?.partnerPreferences?.marriageStatus || 'Any'}>
     <option value="Any">Any</option>
     {maritalStatusOptions.map(option => <option key={option} value={option}>{option}</option>)}
   </select>
 </div>
 <div>
   <label className=" block "htmlFor="workingStatus">Working Status</label>
-  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="marriageStatus" id="marriageStatus" onChange={handlePartnerPreferences} value={formData.partnerPreferences.workingStatus || 'Any'}>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="workingStatus" id="workingStatus" onChange={handlePartnerPreferences} value={formData?.partnerPreferences?.workingStatus || 'Any'}>
     <option value="Any">Any</option>
     {maritalStatusOptions.map(option => <option key={option} value={option}>{option}</option>)}
   </select>
@@ -684,7 +675,7 @@ const isOpen= universalOpen === label
 
 <div>
   <label className=" block "htmlFor="kids">Kids</label>
-  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="kids" id="kids" onChange={handlePartnerPreferences} value={formData.partnerPreferences.kids || 'Any'}>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="kids" id="kids" onChange={handlePartnerPreferences} value={formData?.partnerPreferences?.kids || 'Any'}>
     <option value="Any">Any</option>
     {kidsOptions.map(option => <option key={option} value={option}>{option}</option>)}
   </select>
@@ -692,7 +683,7 @@ const isOpen= universalOpen === label
 
 <div>
   <label className=" block "htmlFor="height">Height</label>
-  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="height" id="height" onChange={handlePartnerPreferences} value={formData.partnerPreferences.height || 'Any'}>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="height" id="height" onChange={handlePartnerPreferences} value={formData?.partnerPreferences?.height || 'Any'}>
     <option value="Any">Any</option>
     {heightOptions.map(option => <option key={option} value={option}>{option}</option>)}
   </select>
@@ -700,7 +691,7 @@ const isOpen= universalOpen === label
 
 <div>
   <label className=" block "htmlFor="religion">Religion</label>
-  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="religion" id="religion" onChange={handlePartnerPreferences} value={formData.partnerPreferences.religion || 'Any'}>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="religion" id="religion" onChange={handlePartnerPreferences} value={formData?.partnerPreferences?.religion || 'Any'}>
     <option value="Any">Any</option>
     {religionOptions.map(option => <option key={option} value={option}>{option}</option>)}
   </select>
@@ -708,7 +699,7 @@ const isOpen= universalOpen === label
 
 <div>
   <label className=" block "htmlFor="motherTongue">Mother Tongue</label>
-  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="motherTongue" id="motherTongue" onChange={handlePartnerPreferences} value={formData.partnerPreferences.motherTongue || 'Any'}>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="motherTongue" id="motherTongue" onChange={handlePartnerPreferences} value={formData?.partnerPreferences?.motherTongue || 'Any'}>
     <option value="Any">Any</option>
     {motherTongueOptions.map(option => <option key={option} value={option}>{option}</option>)}
   </select>
@@ -716,7 +707,7 @@ const isOpen= universalOpen === label
 
 <div>
   <label className=" block "htmlFor="community">Community</label>
-  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="community" id="community" onChange={handlePartnerPreferences} value={formData.partnerPreferences.community || 'Any'}>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="community" id="community" onChange={handlePartnerPreferences} value={formData?.partnerPreferences?.community || 'Any'}>
     <option value="Any">Any</option>
     {communityOptions.map(option => <option key={option} value={option}>{option}</option>)}
   </select>
@@ -724,7 +715,7 @@ const isOpen= universalOpen === label
 
 <div>
   <label className=" block "htmlFor="physicalDisability">Physical Disability</label>
-  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="physicalDisability" id="physicalDisability" onChange={handlePartnerPreferences} value={formData.partnerPreferences.physicalDisability || 'Any'}>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="physicalDisability" id="physicalDisability" onChange={handlePartnerPreferences} value={formData?.partnerPreferences?.physicalDisability || 'Any'}>
     <option value="Any">Any</option>
     {disabilityOptions.map(option => <option key={option} value={option}>{option}</option>)}
   </select>
@@ -732,7 +723,7 @@ const isOpen= universalOpen === label
 
 <div>
   <label className=" block "htmlFor="state">State</label>
-  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="state" id="state" onChange={handlePartnerPreferences} value={formData.partnerPreferences.state || 'Any'}>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="state" id="state" onChange={handlePartnerPreferences} value={formData?.partnerPreferences?.state || 'Any'}>
     <option value="Any">Any</option>
     {stateOptions.map(option => <option key={option} value={option}>{option}</option>)}
   </select>
@@ -740,7 +731,7 @@ const isOpen= universalOpen === label
 
 <div>
   <label className=" block "htmlFor="metroCities">Metro City</label>
-  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="metroCities" id="metroCities" onChange={handlePartnerPreferences} value={formData.partnerPreferences.metroCities || 'Any'}>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="metroCities" id="metroCities" onChange={handlePartnerPreferences} value={formData?.partnerPreferences?.metroCities || 'Any'}>
     <option value="Any">Any</option>
     {metroCitiesOptions.map(option => <option key={option} value={option}>{option}</option>)}
   </select>
@@ -748,7 +739,7 @@ const isOpen= universalOpen === label
 
 <div>
   <label className=" block "htmlFor="country">Country (Current Residence)</label>
-  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="country" id="country" onChange={handlePartnerPreferences} value={formData.partnerPreferences.country || 'Any'}>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="country" id="country" onChange={handlePartnerPreferences} value={formData?.partnerPreferences?.country || 'Any'}>
     <option value="Any">Any</option>
     {countryOptions.map(option => <option key={option} value={option}>{option}</option>)}
   </select>
@@ -756,7 +747,7 @@ const isOpen= universalOpen === label
 
 <div>
   <label className=" block "htmlFor="annualIncome">Annual Income</label>
-  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="annualIncome" id="annualIncome" onChange={handlePartnerPreferences} value={formData.partnerPreferences.annualIncome || 'Any'}>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="annualIncome" id="annualIncome" onChange={handlePartnerPreferences} value={formData?.partnerPreferences?.annualIncome || 'Any'}>
     <option value="Any">Any</option>
     {incomeOptions.map(option => <option key={option} value={option}>{option}</option>)}
   </select>
@@ -764,7 +755,7 @@ const isOpen= universalOpen === label
 
 <div>
   <label className=" block "htmlFor="educationQualifications">Educational Qualifications</label>
-  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="educationQualifications" id="educationQualifications" onChange={handlePartnerPreferences} value={formData.partnerPreferences.educationQualifications || 'Any'}>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="educationQualifications" id="educationQualifications" onChange={handlePartnerPreferences} value={formData?.partnerPreferences?.educationQualifications || 'Any'}>
     <option value="Any">Any</option>
     {educationOptions.map(option => <option key={option} value={option}>{option}</option>)}
   </select>
@@ -772,7 +763,7 @@ const isOpen= universalOpen === label
 
 <div>
   <label className=" block "htmlFor="occupation">Occupation</label>
-  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="occupation" id="occupation" onChange={handlePartnerPreferences} value={formData.partnerPreferences.occupation || 'Any'}>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="occupation" id="occupation" onChange={handlePartnerPreferences} value={formData?.partnerPreferences?.occupation || 'Any'}>
     <option value="Any">Any</option>
     {occupationOptions.map(option => <option key={option} value={option}>{option}</option>)}
   </select>
@@ -794,7 +785,7 @@ const isOpen= universalOpen === label
                 <select
                   id="diet"
                   name="diet"
-                  value={formData.diet}
+                  value={formData?.diet}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 >
@@ -813,7 +804,7 @@ const isOpen= universalOpen === label
                 <select
                   id="smoking"
                   name="smoking"
-                  value={formData.smoking}
+                  value={formData?.smoking}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 >
@@ -831,7 +822,7 @@ const isOpen= universalOpen === label
                 <select
                   id="drinking"
                   name="drinking"
-                  value={formData.drinking}
+                  value={formData?.drinking}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 >

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { getUser } from "../services/api.service";
 
 const AuthContext = createContext();
 
@@ -13,21 +14,8 @@ const defaultAuthState = {
 export const AuthProvider = ({ children }) => {
   const [authData, setAuthData] = useState(defaultAuthState);
 
-  // 🔄 Sync with localStorage on initial load
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const user = localStorage.getItem("user");
-    if (token  && user) {
-     
-      setAuthData({
-        isAuthenticated: true,
-        token,
-        user: JSON.parse(user),
-      });
-    }
-  }, []);
 
-  // ✅ Login/Update method
+ 
   const updateAuthData = ( user ) => {
 localStorage.setItem("user", JSON.stringify(user));
     setAuthData({
@@ -35,14 +23,13 @@ localStorage.setItem("user", JSON.stringify(user));
     });
   };
 
-  const login= (token,user)=>{
-      if(user&&token){
-        localStorage.setItem('user',JSON.stringify(user))
+  const login= (token)=>{
+      if(token){
         localStorage.setItem('token',token)
         setAuthData({
+          ...authData,
         isAuthenticated:true,
         token,
-        user
         })
       }
   }
@@ -50,18 +37,21 @@ localStorage.setItem("user", JSON.stringify(user));
   // ❌ Logout/Clear method
   const clearAuthData = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("user");
     setAuthData(defaultAuthState);
   };
 
-  const getLoggedInUser=()=>{
-     if(authData.user){
-       
-     }
+  const getLoggedInUser=async()=>{
+    const res= await getUser()
+    console.log(res)
+    setAuthData({
+      ...authData,
+      isAuthenticated:true,
+      user:res.data.user
+    })
   }
 
   return (
-    <AuthContext.Provider value={{ authData, updateAuthData,login, clearAuthData }}>
+    <AuthContext.Provider value={{ authData, updateAuthData,login, clearAuthData,getLoggedInUser }}>
       {children}
     </AuthContext.Provider>
   );

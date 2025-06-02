@@ -81,11 +81,14 @@ const location= useLocation()
 
   // Helper function to calculate age from date of birth
   const calculateAge = (dateOfBirth) => {   
+
     if(dateOfBirth){
     const today = new Date()
     const birthDate = new Date(dateOfBirth)
     let age = today.getFullYear() - birthDate.getFullYear()
+    console.log(age)
     const monthDiff = today.getMonth() - birthDate.getMonth()
+    console.log(monthDiff)
     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
       age--
     }
@@ -133,7 +136,7 @@ const location= useLocation()
     console.log("Report profile")
   }
 
-  const age = calculateAge(profileData?.dateOfBirth)
+  const age = calculateAge(profileData?.dob)
 
   return (
     <div className="max-w-7xl mx-auto bg-white rounded-lg shadow-sm border border-gray-200">
@@ -230,12 +233,22 @@ const location= useLocation()
               <div className="flex items-center gap-2">
                 <MapPin size={16} className="text-blue-500" />
                 <span>
-                  {profileData?.metroCities}, {profileData?.state}
+                  {
+                    profileData?.metroCities ? profileData.metroCities : "--"
+                  },
+                  {
+                    profileData?.state ? profileData.state : "--"
+                  }
+                
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <Briefcase size={16} className="text-blue-500" />
-                <span>{profileData?.occupation}</span>
+                <span>
+                  {
+                    profileData?.occupation ? profileData?.occupation : '--'
+                  }
+                  </span>
               </div>
             </div>
           </div>
@@ -245,7 +258,8 @@ const location= useLocation()
         <div className="mb-8">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Photos</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {profileData?.photos?.map((photo, index) => (
+            {
+              profileData?.photos?.length > 0 ? profileData?.photos?.map((photo, index) => (
               <div key={index} className="aspect-square rounded-lg overflow-hidden">
                 <img
                   src={ "/placeholder.svg"}
@@ -253,225 +267,244 @@ const location= useLocation()
                   className="w-full h-full object-cover hover:scale-105 transition-transform cursor-pointer"
                 />
               </div>
-            ))}
+            
+            ))
+          :'No photos added yet'
+          }
+            
+          
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Personal Information */}
           <div className="space-y-6">
-            <div className="bg-white border border-gray-200 rounded-lg p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <User className="text-blue-600" size={20} />
-                <h3 className="text-lg font-semibold text-gray-900">Personal Information</h3>
-              </div>
+  <div className="bg-white border border-gray-200 rounded-lg p-6">
+    <div className="flex items-center gap-2 mb-4">
+      <User className="text-blue-600" size={20} />
+      <h3 className="text-lg font-semibold text-gray-900">Personal Information</h3>
+    </div>
 
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Full Name:</span>
-                  <span className="font-medium">{profileData?.fullName}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Date of Birth:</span>
-                  <span className="font-medium">{new Date(profileData?.dateOfBirth).toLocaleDateString()}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Age:</span>
-                  <span className="font-medium">{age} years</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Gender:</span>
-                  <span className="font-medium">{profileData?.gender}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Height:</span>
-                  <span className="font-medium">{profileData?.height}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Marriage Status:</span>
-                  <span className="font-medium">{profileData?.marriageStatus}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Mobile:</span>
-                  <span className="font-medium">{profileData?.mobile}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Email:</span>
-                  <span className="font-medium">{profileData?.email}</span>
-                </div>
-              </div>
-            </div>
+    <div className="space-y-3">
+      <div className="flex justify-between">
+        <span className="text-gray-600">Full Name:</span>
+        <span className="font-medium">{profileData?.fullName ?? '--'}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-gray-600">Date of Birth:</span>
+        <span className="font-medium">
+          {profileData?.dateOfBirth ? new Date(profileData.dateOfBirth).toLocaleDateString() : '--'}
+        </span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-gray-600">Age:</span>
+        <span className="font-medium">{age ? `${age} years` : '--'}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-gray-600">Gender:</span>
+        <span className="font-medium">{profileData?.gender ?? '--'}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-gray-600">Height:</span>
+        <span className="font-medium">{profileData?.height ?? '--'}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-gray-600">Marriage Status:</span>
+        <span className="font-medium">{profileData?.marriageStatus ?? '--'}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-gray-600">Mobile:</span>
+        <span className="font-medium">{profileData?.mobile ?? '--'}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-gray-600">Email:</span>
+        <span className="font-medium">{profileData?.email ?? '--'}</span>
+      </div>
+    </div>
+  </div>
 
-            {/* Location Information */}
-            <div className="bg-white border border-gray-200 rounded-lg p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <MapPin className="text-blue-600" size={20} />
-                <h3 className="text-lg font-semibold text-gray-900">Location</h3>
-              </div>
+  {/* Location Information */}
+  <div className="bg-white border border-gray-200 rounded-lg p-6">
+    <div className="flex items-center gap-2 mb-4">
+      <MapPin className="text-blue-600" size={20} />
+      <h3 className="text-lg font-semibold text-gray-900">Location</h3>
+    </div>
 
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Country:</span>
-                  <span className="font-medium">{profileData?.country}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">State:</span>
-                  <span className="font-medium">{profileData?.state}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Metro Cities:</span>
-                  <span className="font-medium">{profileData?.metroCities}</span>
-                </div>
-              </div>
-            </div>
+    <div className="space-y-3">
+      <div className="flex justify-between">
+        <span className="text-gray-600">Country:</span>
+        <span className="font-medium">{profileData?.country ?? '--'}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-gray-600">State:</span>
+        <span className="font-medium">{profileData?.state ?? '--'}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-gray-600">Metro Cities:</span>
+        <span className="font-medium">{profileData?.metroCities ?? '--'}</span>
+      </div>
+    </div>
+  </div>
 
-            {/* Physical & Health */}
-            <div className="bg-white border border-gray-200 rounded-lg p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <Activity className="text-blue-600" size={20} />
-                <h3 className="text-lg font-semibold text-gray-900">Physical & Health</h3>
-              </div>
+  {/* Physical & Health */}
+  <div className="bg-white border border-gray-200 rounded-lg p-6">
+    <div className="flex items-center gap-2 mb-4">
+      <Activity className="text-blue-600" size={20} />
+      <h3 className="text-lg font-semibold text-gray-900">Physical & Health</h3>
+    </div>
 
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Height:</span>
-                  <span className="font-medium">{profileData?.height}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Physical Disability:</span>
-                  <span className="font-medium">{profileData?.physicalDisability}</span>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div className="space-y-3">
+      <div className="flex justify-between">
+        <span className="text-gray-600">Height:</span>
+        <span className="font-medium">{profileData?.height ?? '--'}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-gray-600">Physical Disability:</span>
+        <span className="font-medium">{profileData?.physicalDisability ?? '--'}</span>
+      </div>
+    </div>
+  </div>
+</div>
 
           {/* Religious & Cultural Information */}
           <div className="space-y-6">
-            <div className="bg-white border border-gray-200 rounded-lg p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <Heart className="text-blue-600" size={20} />
-                <h3 className="text-lg font-semibold text-gray-900">Religious & Cultural</h3>
-              </div>
+  <div className="bg-white border border-gray-200 rounded-lg p-6">
+    <div className="flex items-center gap-2 mb-4">
+      <Heart className="text-blue-600" size={20} />
+      <h3 className="text-lg font-semibold text-gray-900">Religious & Cultural</h3>
+    </div>
 
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Religion:</span>
-                  <span className="font-medium">{profileData?.religion}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Mother Tongue:</span>
-                  <span className="font-medium">{profileData?.motherTongue}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Caste:</span>
-                  <span className="font-medium">{profileData?.caste}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Subcaste:</span>
-                  <span className="font-medium">{profileData?.subcaste}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Gothram:</span>
-                  <span className="font-medium">{profileData?.gothram}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Manglik:</span>
-                  <span className="font-medium">{profileData?.manglik}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Dosh:</span>
-                  <span className="font-medium">{profileData?.dosh}</span>
-                </div>
-              </div>
-            </div>
+    <div className="space-y-3">
+      <div className="flex justify-between">
+        <span className="text-gray-600">Religion:</span>
+        <span className="font-medium">{profileData?.religion ?? '--'}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-gray-600">Mother Tongue:</span>
+        <span className="font-medium">{profileData?.motherTongue ?? '--'}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-gray-600">Caste:</span>
+        <span className="font-medium">{profileData?.caste ?? '--'}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-gray-600">Subcaste:</span>
+        <span className="font-medium">{profileData?.subcaste ?? '--'}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-gray-600">Gothram:</span>
+        <span className="font-medium">{profileData?.gothram ?? '--'}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-gray-600">Manglik:</span>
+        <span className="font-medium">{profileData?.manglik ?? '--'}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-gray-600">Dosh:</span>
+        <span className="font-medium">{profileData?.dosh ?? '--'}</span>
+      </div>
+    </div>
+  </div>
 
-            {/* Professional Information */}
-            <div className="bg-white border border-gray-200 rounded-lg p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <Briefcase className="text-blue-600" size={20} />
-                <h3 className="text-lg font-semibold text-gray-900">Professional Information</h3>
-              </div>
+  {/* Professional Information */}
+  <div className="bg-white border border-gray-200 rounded-lg p-6">
+    <div className="flex items-center gap-2 mb-4">
+      <Briefcase className="text-blue-600" size={20} />
+      <h3 className="text-lg font-semibold text-gray-900">Professional Information</h3>
+    </div>
 
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Occupation:</span>
-                  <span className="font-medium">{profileData?.occupation}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Working Status:</span>
-                  <span className="font-medium">{profileData?.workingStatus}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Annual Income:</span>
-                  <span className="font-medium">{formatIncome(profileData?.annualIncome)}</span>
-                </div>
-                <div className="flex flex-col gap-1">
-                  <span className="text-gray-600">Education Qualifications:</span>
-                  <span className="font-medium text-sm">{profileData?.educationQualifications}</span>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div className="space-y-3">
+      <div className="flex justify-between">
+        <span className="text-gray-600">Occupation:</span>
+        <span className="font-medium">{profileData?.occupation ?? '--'}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-gray-600">Working Status:</span>
+        <span className="font-medium">{profileData?.workingStatus ?? '--'}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-gray-600">Annual Income:</span>
+        <span className="font-medium">{profileData?.annualIncome ? formatIncome(profileData.annualIncome) : '--'}</span>
+      </div>
+      <div className="flex flex-col gap-1">
+        <span className="text-gray-600">Education Qualifications:</span>
+        <span className="font-medium text-sm">{profileData?.educationQualifications ?? '--'}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 
           {/* Family & Personal Information */}
           <div className="lg:col-span-2 space-y-6">
-            <div className="bg-white border border-gray-200 rounded-lg p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <Users className="text-blue-600" size={20} />
-                <h3 className="text-lg font-semibold text-gray-900">Family & Personal</h3>
-              </div>
+  <div className="bg-white border border-gray-200 rounded-lg p-6">
+    <div className="flex items-center gap-2 mb-4">
+      <Users className="text-blue-600" size={20} />
+      <h3 className="text-lg font-semibold text-gray-900">Family & Personal</h3>
+    </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Marriage Status:</span>
-                    <span className="font-medium">{profileData?.marriageStatus}</span>
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Kids:</span>
-                    <span className="font-medium">{profileData?.kids}</span>
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Siblings:</span>
-                    <span className="font-medium">{profileData?.siblings}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="space-y-3">
+        <div className="flex justify-between">
+          <span className="text-gray-600">Marriage Status:</span>
+          <span className="font-medium">{profileData?.marriageStatus ?? '--'}</span>
+        </div>
+      </div>
+      <div className="space-y-3">
+        <div className="flex justify-between">
+          <span className="text-gray-600">Kids:</span>
+          <span className="font-medium">{profileData?.kids ?? '--'}</span>
+        </div>
+      </div>
+      <div className="space-y-3">
+        <div className="flex justify-between">
+          <span className="text-gray-600">Siblings:</span>
+          <span className="font-medium">{profileData?.siblings ?? '--'}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            {/* About Me */}
-            <div className="bg-white border border-gray-200 rounded-lg p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <User className="text-blue-600" size={20} />
-                <h3 className="text-lg font-semibold text-gray-900">About {profileData?.fullName?.split(" ")[0]}</h3>
-              </div>
+  {/* About Me */}
+  <div className="bg-white border border-gray-200 rounded-lg p-6">
+    <div className="flex items-center gap-2 mb-4">
+      <User className="text-blue-600" size={20} />
+      <h3 className="text-lg font-semibold text-gray-900">
+        About {profileData?.fullName?.split(" ")[0] ?? '--'}
+      </h3>
+    </div>
 
-              <div className="space-y-4">
-                <div>
-                  <h4 className="text-sm font-medium text-gray-700 mb-2">About Me</h4>
-                  <p className="text-gray-600 leading-relaxed">{profileData?.aboutMe}</p>
-                </div>
+    <div className="space-y-4">
+      <div>
+        <h4 className="text-sm font-medium text-gray-700 mb-2">About Me</h4>
+        <p className="text-gray-600 leading-relaxed">
+          {profileData?.aboutMe ?? '--'}
+        </p>
+      </div>
 
-                <div>
-                  <h4 className="text-sm font-medium text-gray-700 mb-2">Interests & Hobbies</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {profileData?.interestsHobbies?.split(", ").map((interest, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"
-                      >
-                        {interest.trim()}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div>
+        <h4 className="text-sm font-medium text-gray-700 mb-2">Interests & Hobbies</h4>
+        <div className="flex flex-wrap gap-2">
+          {(profileData?.interestsHobbies ?? '')
+            .split(",")
+            .filter(Boolean)
+            .map((interest, index) => (
+              <span
+                key={index}
+                className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"
+              >
+                {interest.trim()}
+              </span>
+            ))}
+          {!profileData?.interestsHobbies && (
+            <span className="text-gray-600">--</span>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
         </div>
 
         {/* Compatibility Section */}

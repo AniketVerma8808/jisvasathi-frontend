@@ -16,7 +16,13 @@ export const getMatches=()=>{
 export const UserLoginService = (data) => {
   return apiClient.post("/users/login", data);
 };
+export const getUser =()=>{
+  return apiClient.get('/users/getUser')
+}
 
+export const editProfile =(editedData)=>{
+  return apiClient.patch('/users/editProfile',editedData)
+}
 // Forgot Password API
 export const ForgotPasswordService = (data) => {
   return apiClient.post("/users/forget-password", data);
