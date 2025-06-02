@@ -91,12 +91,11 @@ const SideNav = () => {
   const linkClasses = ({ isActive }) => {
     return `py-2.5       rounded-md transition duration-75  px-4 flex items-center justify-start gap-4    ${
       isActive ? "bg-primary text-white" : "hover:bg-amber-100"
-    }
-              `;
+    }`;
   };
 
   return (
-    <div className="  py-10 pb-20 px-2  overflow-y-scroll h-full  hide-scrollbar">
+    <div className="  py-10 pb-20 px-2  overflow-y-scroll h-full  custom-scrollbar">
       <div className=" gap-4 px-4 flex items-center justify-center max-xl:px-0">
         <div className="rounded-full w-16 h-16 border border-gray-100 text-4xl text-gray-400 flex items-center justify-center bg-gray-100">
           <CgProfile />

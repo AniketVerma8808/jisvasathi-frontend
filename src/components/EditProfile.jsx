@@ -1,10 +1,13 @@
 "use client"
 
-import { useState, useRef } from "react"
-import { Camera, X, Save, ArrowLeft } from "lucide-react"
+import { useState, useRef, useEffect } from "react"
+import { Camera, X, Save, ArrowLeft, ChevronDownIcon } from "lucide-react"
 import { Link } from "react-router-dom"
+import { Controller } from "react-hook-form"
 
 export default function EditProfile() {
+
+  
   // State for form data
   const [formData, setFormData] = useState({
     // Personal Information
@@ -34,20 +37,30 @@ export default function EditProfile() {
       "I'm an outgoing person who loves hiking, reading, and trying new restaurants. I value honesty, communication, and having a good sense of humor in a relationship.",
 
     // Partner Preferences
-    ageRangeMin: 28,
-    ageRangeMax: 38,
-    heightMin: "5'8",
-    heightMax: "6'4",
-    partnerReligion: "Any",
-    partnerEducation: "Bachelor's or higher",
-    partnerLocation: "United States",
-
+partnerPreferences: {
+  ageFrom: 25,
+  ageTo: 30,
+  marriageStatus: "Never Married",
+  kids: "No",
+  height: "5'6\"",
+  workingStatus: "working",
+  manglik: "yes",
+  occupation: "Software Engineer",
+  educationQualifications: "Bachelor's Degree",
+  annualIncome: 1000000,
+  country: "India",
+  metroCities: "Mumbai",
+  state: "Maharashtra",
+  physicalDisability: "None",
+  community: "Brahmin"
+},
     // Lifestyle
     diet: "Non-vegetarian",
     smoking: "Never",
     drinking: "Occasionally",
     interests: "Hiking, Reading, Cooking, Travel, Photography",
   })
+
 
   // State for profile photos
   const [photos, setPhotos] = useState([
@@ -67,13 +80,28 @@ export default function EditProfile() {
 
   // Handle input changes
   const handleChange = (e) => {
+
     const { name, value } = e.target
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }))
+    
   }
 
+  const handlePartnerPreferences=(e)=>{
+    const {name,value}=e.target
+     setFormData((prev) => ({
+      ...prev,
+       partnerPreferences:{
+         ...prev.partnerPreferences,
+      [name]: value,
+    },
+       
+    }))
+  }
+console.log(formData)
   // Handle photo upload
   const handlePhotoUpload = (index) => {
     fileInputRef.current.click()
@@ -97,6 +125,28 @@ export default function EditProfile() {
     setPhotos(newPhotos)
   }
 
+ const ageOptions = Array.from({ length: 46 }, (_, i) => (20 + i).toString());
+  const maritalStatusOptions = ['Married', 'Unmarried', 'Divorced', 'Awaiting Divorce', 'Nullified marriage', 'Widow'];
+  const kidsOptions = ['Yes', 'No', "Doesn't matter"];
+  const heightOptions = [
+    '4 feet', '4 feet - 1 inch', '4 feet - 2 inch', '4 feet - 3 inch', '4 feet - 4 inch',
+    '4 feet - 5 inch', '4 feet - 6 inch', '4 feet - 7 inch', '4 feet - 8 inch', '4 feet - 9 inch',
+    '4 feet - 10 inch', '4 feet - 11 inch', '5 feet', '5 feet - 1 inch', '5 feet - 2 inch',
+    '5 feet - 3 inch', '5 feet - 4 inch', '5 feet - 5 inch', '5 feet - 6 inch', '5 feet - 7 inch',
+    '5 feet - 8 inch', '5 feet - 9 inch', '5 feet - 10 inch', '5 feet - 11 inch', '6 feet',
+    '6 feet - 1 inch', '6 feet - 2 inch', '6 feet - 3 inch', '6 feet - 4 inch', '6 feet - 5 inch',
+    '6 feet - 6 inch', '6 feet - 7 inch', '6 feet - 8 inch', '6 feet - 9 inch', '6 feet - 10 inch', '6 feet - 11 inch'
+  ];
+  const religionOptions = ['Hindu', 'Muslim', 'Christian', 'Sikh', 'Jain', 'Parsi', 'Buddhist', 'Jewish', 'Other'];
+  const motherTongueOptions = ['Hindi', 'English', 'Bengali', 'Gujarati', 'Malyalam', 'Kannada', 'Telgu', 'Punjabi', 'Haryanvi', 'Marathi', 'Sindhi', 'Urdu', 'Tamil', 'Bhojpuri', 'Rajasthani', 'Nepali', 'Other'];
+  const communityOptions = ['Jat', 'Gurjar', 'Gujjar', 'Baniya', 'Pandit', 'Brahmin', 'Thakur', 'Rajput', 'Yadav', 'Kayastha', 'Chauhan', 'Choudhary', 'Jatav', 'Chhetri', 'Chaurasia', 'Kamboj', 'Kashyap', 'Himachali', 'Garwhali-Kumaon', 'Garwhali', 'Punjabi', 'Ahir', 'Tyagi', 'Chamar', 'Dhobi', 'Khatri', 'Kshatriya', 'Kushwaha', 'Lingayat', 'Kumhar', 'Vaishnav', 'Halwai', 'Varshney', 'Aryasamaj'];
+  const disabilityOptions = ['Yes', 'No', "Doesn't Matter", 'Other'];
+  const stateOptions = ['Delhi- NCR', 'Haryana', 'Uttar Pradesh', 'Uttarakhand', 'Himachal Pradesh', 'Punjab', 'Rajasthan', 'Madhya-Pradesh', 'Odisha', 'Tamil Nadu', 'Karnataka', 'Kerela', 'Andhra-Pradesh', 'Telangana', 'Jammu & Kashmir', 'Maharashtra', 'Lakshadweep', 'Jharkhand', 'Assam', 'Goa', 'Bihar', 'Arunachal Pradesh', 'Gujarat', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Sikkim', 'Tripura', 'West Bengal'];
+  const metroCitiesOptions = ['Noida', 'Gurgaon', 'Ghaiziabad', 'Faridabad', 'Greater Noida', 'Meerut', 'Ahmedabad', 'Hyderabad', 'Jaipur', 'Jodhpur', 'Mumbai', 'Pune', 'Nagpur', 'Aurangabad', 'Nasik', 'Goa', 'Bangalore', 'Chennai', 'Coimbatore', 'Chandigarh', 'Mohali', 'Panchkula', 'Shimla', 'Manali', 'Dehradun', 'Mussorie', 'Kolkata', 'Srinagar', 'Indore', 'Bhopal', 'Lucknow', 'Baroda', 'Vadodra', 'Surat', 'Jamnagar', 'Jammu', 'Udhampur', 'Kota', 'Udaipur', 'Neemrana', 'Bhiwadi', 'Alwar', 'Bikaner', 'Jalandhar', 'Ludhiana', 'Amritsar', 'Mysore', 'Bhuwaneshwar', 'Nainital', 'Hamirpur- HP', 'Mandi-HP', 'Bilaspur- HP', 'Dharamshala-HP', 'Bhuntar-HP', 'Kullu', 'Agra', 'Mathura', 'Aligarh', 'Palwal', 'Ayodhya', 'Bareily', 'Shamli', 'Saharanpur', 'Bijnor', 'Moradabad', 'Rohtak', 'Karnal', 'Hisar', 'Ambala', 'Panipat', 'Sonepat', 'Sirsa'];
+  const countryOptions = ['India', 'USA', 'UK', 'Canada', 'Dubai', 'New Zealand', 'Australia', 'Germany', 'France', 'Saudi Arabia', 'Qatar', 'Abu Dhabi', 'Ireland', 'Singapore', 'Mauritius', 'Sri Lanka', 'Bangladesh', 'Bhutan', 'Russia', 'China', 'Denmark', 'Poland', 'Latvia', 'Sweden', 'Italy', 'Spain', 'Norway', 'Belgium', 'Turkey', 'Ukraine', 'South Korea', 'UAE', 'Afghanistan', 'Finland', 'Greece', 'Iceland', 'Hongkong', 'Hungary', 'Iran', 'Indonesia', 'Israel', 'Japan', 'Jordan', 'Luxembourg', 'Maldives', 'Malaysia', 'Mexico', 'Monaco', 'Netherland', 'Nigeria', 'Nepal', 'Philippines', 'South Africa', 'Switzerland', 'Thailand', 'Other'];
+  const incomeOptions = ['Rs 1 Lacs to Rs 5 Lacs', 'Rs 5 Lacs to Rs 10 Lacs', 'Rs 10 Lacs to Rs 15 Lacs', 'Rs 15 Lacs to Rs 20 Lacs', 'Rs 20 Lacs to Rs 30 Lacs', 'Rs 30 Lacs to Rs 50 Lacs', 'Rs 50 Lacs to Rs 1 Crore', 'Rs 1 Crore to Rs 10 Crore', 'Rs 10 Crore + ( Own Business )'];
+  const educationOptions = ['School Passout', 'College Passout', 'Professional Degree', 'Bachelors Degree', 'Masters Degree', 'Certification', 'Diploma', 'PHD'];
+  const occupationOptions = ['Private Service', 'Govt Service', 'Public Sector / PSU', 'Military/ Defence', 'Self Employed', 'Own Business', 'Doctor', 'Engineer', 'CA', 'Advocate', 'Consultant', 'Contractor'];
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -105,6 +155,46 @@ export default function EditProfile() {
     console.log("Photos:", photos)
     alert("Profile updated successfully!")
   }
+const Dropdown = ({ field, label,name, options,universalOpen,setuniversalOpen }) => {
+
+const isOpen= universalOpen === label
+  useEffect(()=>{
+    window.addEventListener('click',()=>{
+        setuniversalOpen(null)
+    },[])
+  })
+    return (
+      <div className="shadow relative rounded-xl bg-gray-50 cursor-pointer font-['poppins']">
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+        setuniversalOpen(label)
+          }}
+          className="py-3 px-4  relative"
+        >
+          {!formData[name] ? (
+            <span className="text-gray-700">{label}</span>
+          ) : (
+            formData[name]
+          )}
+          <ChevronDownIcon className="h-5 w-5 text-gray-400 absolute right-3 top-4 pointer-events-none" />
+        </div>
+        {isOpen && (
+          <ul className="absolute right-0 top-full max-h-40 overflow-y-scroll custom-scrollbar bg-amber-50 shadow-sm w-1/2 z-20 rounded-sm overflow-hidden">
+            {options.map((option, index) => (
+              <li
+                key={index}
+                className="px-4 py-1 hover:bg-amber-100 cursor-pointer border-gray-200"
+              data-value={option}
+                name={name}>
+                {option}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    );
+  };
 
   return (
     <div className="mx-auto bg-white  shadow-sm border border-gray-200">
@@ -525,7 +615,7 @@ export default function EditProfile() {
             </p>
 
             <div>
-              <label htmlFor="aboutMe" className="block text-sm font-medium text-gray-700 mb-1">
+              <label className=" block "htmlFor="aboutMe" className="block text-sm font-medium text-gray-700 mb-1">
                 About Me
               </label>
               <textarea
@@ -541,7 +631,7 @@ export default function EditProfile() {
             </div>
 
             <div>
-              <label htmlFor="interests" className="block text-sm font-medium text-gray-700 mb-1">
+              <label className=" block "htmlFor="interests" className="block text-sm font-medium text-gray-700 mb-1">
                 Interests & Hobbies
               </label>
               <input
@@ -560,140 +650,135 @@ export default function EditProfile() {
         {/* Partner Preferences */}
         {activeTab === "preferences" &&
           (
-            <div className="space-y-6">
-            <h2 className="text-lg font-semibold text-gray-900">Partner Preferences</h2>
-            <p className="text-sm text-gray-600">
-              Specify what you're looking for in a potential partner. These preferences help us find better matches for you.
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Age Range
-                </label>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="number"
-                    name="ageRangeMin"
-                    value={formData.ageRangeMin}
-                    onChange={handleChange}
-                    min="18"
-                    max="80"
-                    className="w-20 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
-                  />
-                  <span>to</span>
-                  <input
-                    type="number"
-                    name="ageRangeMax"
-                    value={formData.ageRangeMax}
-                    onChange={handleChange}
-                    min="18"
-                    max="80"
-                    className="w-20 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
-                  />
-                </div>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Height Range
-                </label>
-                <div className="flex items-center gap-2">
-                  <select
-                    name="heightMin"
-                    value={formData.heightMin}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
-                  >
-                    <option value="Any">Any</option>
-                    <option value="5'0">5'0" (152 cm)</option>
-                    <option value="5'2">5'2" (157 cm)</option>
-                    <option value="5'4">5'4" (163 cm)</option>
-                    <option value="5'6">5'6" (168 cm)</option>
-                    <option value="5'8">5'8" (173 cm)</option>
-                    <option value="5'10">5'10" (178 cm)</option>
-                    <option value="6'0">6'0" (183 cm)</option>
-                    <option value="6'2">6'2" (188 cm)</option>
-                  </select>
-                  <span>to</span>
-                  <select
-                    name="heightMax"
-                    value={formData.heightMax}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
-                  >
-                    <option value="Any">Any</option>
-                    <option value="5'6">5'6" (168 cm)</option>
-                    <option value="5'8">5'8" (173 cm)</option>
-                    <option value="5'10">5'10" (178 cm)</option>
-                    <option value="6'0">6'0" (183 cm)</option>
-                    <option value="6'2">6'2" (188 cm)</option>
-                    <option value="6'4">6'4" (193 cm)</option>
-                    <option value="6'6">6'6" (198 cm)</option>
-                  </select>
-                </div>
-              </div>
-              
-              <div>
-                <label htmlFor="partnerReligion" className="block text-sm font-medium text-gray-700 mb-1">
-                  Religion
-                </label>
-                <select
-                  id="partnerReligion"
-                  name="partnerReligion"
-                  value={formData.partnerReligion}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
-                >
-                  <option value="Any">Any</option>
-                  <option value="Christian">Christian</option>
-                  <option value="Hindu">Hindu</option>
-                  <option value="Muslim">Muslim</option>
-                  <option value="Buddhist">Buddhist</option>
-                  <option value="Jewish">Jewish</option>
-                  <option value="Sikh">Sikh</option>
-                  <option value="Jain">Jain</option>
-                  <option value="Spiritual">Spiritual</option>
-                  <option value="No Religion">No Religion</option>
-                </select>
-              </div>
-              
-              <div>
-                <label htmlFor="partnerEducation" className="block text-sm font-medium text-gray-700 mb-1">
-                  Education Level
-                </label>
-                <select
-                  id="partnerEducation"
-                  name="partnerEducation"
-                  value={formData.partnerEducation}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
-                >
-                  <option value="Any">Any</option>
-                  <option value="High School">High School</option>
-                  <option value="Associate Degree">Associate Degree</option>
-                  <option value="Bachelor's or higher">Bachelor's or higher</option>
-                  <option value="Master's or higher">Master's or higher</option>
-                  <option value="Doctorate">Doctorate</option>
-                </select>
-              </div>
-              
-              <div className="md:col-span-2">
-                <label htmlFor="partnerLocation" className="block text-sm font-medium text-gray-700 mb-1">
-                  Preferred Location
-                </label>
-                <input
-                  type="text"
-                  id="partnerLocation"
-                  name="partnerLocation"
-                  value={formData.partnerLocation}
-                  onChange={handleChange}
-                  placeholder="Country, state, or city"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
-                />
-              </div>
-            </div>
-          </div>
+             <div className=" grid p-1 grid-cols-2 gap-4 h-screen custom-scrollbar overflow-y-scroll">
+             <div className="w-full">
+  <label className=" block "htmlFor="ageFrom" >Age From</label>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="ageFrom" id="ageFrom" onChange={handlePartnerPreferences}  value={formData.partnerPreferences.ageFrom || 'Any'}>
+    <option value="Any">Any</option>
+    {ageOptions.map(option => <option key={option} value={option}>{option}</option>)}
+  </select>
+</div>
+
+<div>
+  <label className=" block "htmlFor="ageTo">Age To</label>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="ageTo" id="ageTo" onChange={handlePartnerPreferences} value={formData.partnerPreferences.ageTo || 'Any'}>
+    <option value="Any">Any</option>
+    {ageOptions.map(option => <option key={option} value={option}>{option}</option>)}
+  </select>
+</div>
+
+<div>
+  <label className=" block "htmlFor="marriageStatus">Marriage Status</label>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="marriageStatus" id="marriageStatus" onChange={handlePartnerPreferences} value={formData.partnerPreferences.marriageStatus || 'Any'}>
+    <option value="Any">Any</option>
+    {maritalStatusOptions.map(option => <option key={option} value={option}>{option}</option>)}
+  </select>
+</div>
+<div>
+  <label className=" block "htmlFor="workingStatus">Working Status</label>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="marriageStatus" id="marriageStatus" onChange={handlePartnerPreferences} value={formData.partnerPreferences.workingStatus || 'Any'}>
+    <option value="Any">Any</option>
+    {maritalStatusOptions.map(option => <option key={option} value={option}>{option}</option>)}
+  </select>
+</div>
+
+<div>
+  <label className=" block "htmlFor="kids">Kids</label>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="kids" id="kids" onChange={handlePartnerPreferences} value={formData.partnerPreferences.kids || 'Any'}>
+    <option value="Any">Any</option>
+    {kidsOptions.map(option => <option key={option} value={option}>{option}</option>)}
+  </select>
+</div>
+
+<div>
+  <label className=" block "htmlFor="height">Height</label>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="height" id="height" onChange={handlePartnerPreferences} value={formData.partnerPreferences.height || 'Any'}>
+    <option value="Any">Any</option>
+    {heightOptions.map(option => <option key={option} value={option}>{option}</option>)}
+  </select>
+</div>
+
+<div>
+  <label className=" block "htmlFor="religion">Religion</label>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="religion" id="religion" onChange={handlePartnerPreferences} value={formData.partnerPreferences.religion || 'Any'}>
+    <option value="Any">Any</option>
+    {religionOptions.map(option => <option key={option} value={option}>{option}</option>)}
+  </select>
+</div>
+
+<div>
+  <label className=" block "htmlFor="motherTongue">Mother Tongue</label>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="motherTongue" id="motherTongue" onChange={handlePartnerPreferences} value={formData.partnerPreferences.motherTongue || 'Any'}>
+    <option value="Any">Any</option>
+    {motherTongueOptions.map(option => <option key={option} value={option}>{option}</option>)}
+  </select>
+</div>
+
+<div>
+  <label className=" block "htmlFor="community">Community</label>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="community" id="community" onChange={handlePartnerPreferences} value={formData.partnerPreferences.community || 'Any'}>
+    <option value="Any">Any</option>
+    {communityOptions.map(option => <option key={option} value={option}>{option}</option>)}
+  </select>
+</div>
+
+<div>
+  <label className=" block "htmlFor="physicalDisability">Physical Disability</label>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="physicalDisability" id="physicalDisability" onChange={handlePartnerPreferences} value={formData.partnerPreferences.physicalDisability || 'Any'}>
+    <option value="Any">Any</option>
+    {disabilityOptions.map(option => <option key={option} value={option}>{option}</option>)}
+  </select>
+</div>
+
+<div>
+  <label className=" block "htmlFor="state">State</label>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="state" id="state" onChange={handlePartnerPreferences} value={formData.partnerPreferences.state || 'Any'}>
+    <option value="Any">Any</option>
+    {stateOptions.map(option => <option key={option} value={option}>{option}</option>)}
+  </select>
+</div>
+
+<div>
+  <label className=" block "htmlFor="metroCities">Metro City</label>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="metroCities" id="metroCities" onChange={handlePartnerPreferences} value={formData.partnerPreferences.metroCities || 'Any'}>
+    <option value="Any">Any</option>
+    {metroCitiesOptions.map(option => <option key={option} value={option}>{option}</option>)}
+  </select>
+</div>
+
+<div>
+  <label className=" block "htmlFor="country">Country (Current Residence)</label>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="country" id="country" onChange={handlePartnerPreferences} value={formData.partnerPreferences.country || 'Any'}>
+    <option value="Any">Any</option>
+    {countryOptions.map(option => <option key={option} value={option}>{option}</option>)}
+  </select>
+</div>
+
+<div>
+  <label className=" block "htmlFor="annualIncome">Annual Income</label>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="annualIncome" id="annualIncome" onChange={handlePartnerPreferences} value={formData.partnerPreferences.annualIncome || 'Any'}>
+    <option value="Any">Any</option>
+    {incomeOptions.map(option => <option key={option} value={option}>{option}</option>)}
+  </select>
+</div>
+
+<div>
+  <label className=" block "htmlFor="educationQualifications">Educational Qualifications</label>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="educationQualifications" id="educationQualifications" onChange={handlePartnerPreferences} value={formData.partnerPreferences.educationQualifications || 'Any'}>
+    <option value="Any">Any</option>
+    {educationOptions.map(option => <option key={option} value={option}>{option}</option>)}
+  </select>
+</div>
+
+<div>
+  <label className=" block "htmlFor="occupation">Occupation</label>
+  <select className="w-full bg-gray-50  mt-2 border-gray-400 rounded-full py-2 px-4"name="occupation" id="occupation" onChange={handlePartnerPreferences} value={formData.partnerPreferences.occupation || 'Any'}>
+    <option value="Any">Any</option>
+    {occupationOptions.map(option => <option key={option} value={option}>{option}</option>)}
+  </select>
+</div>
+
+    </div>
           )}
 
         {/* Lifestyle */}

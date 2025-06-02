@@ -81,6 +81,7 @@ const location= useLocation()
 
   // Helper function to calculate age from date of birth
   const calculateAge = (dateOfBirth) => {   
+    if(dateOfBirth){
     const today = new Date()
     const birthDate = new Date(dateOfBirth)
     let age = today.getFullYear() - birthDate.getFullYear()
@@ -89,6 +90,7 @@ const location= useLocation()
       age--
     }
     return age
+  }
   }
 
   // Helper function to format income
@@ -246,7 +248,7 @@ const location= useLocation()
             {profileData?.photos?.map((photo, index) => (
               <div key={index} className="aspect-square rounded-lg overflow-hidden">
                 <img
-                  src={photo || "/placeholder.svg"}
+                  src={ "/placeholder.svg"}
                   alt={`Photo ${index + 1}`}
                   className="w-full h-full object-cover hover:scale-105 transition-transform cursor-pointer"
                 />
@@ -445,7 +447,7 @@ const location= useLocation()
             <div className="bg-white border border-gray-200 rounded-lg p-6">
               <div className="flex items-center gap-2 mb-4">
                 <User className="text-blue-600" size={20} />
-                <h3 className="text-lg font-semibold text-gray-900">About {profileData?.fullName.split(" ")[0]}</h3>
+                <h3 className="text-lg font-semibold text-gray-900">About {profileData?.fullName?.split(" ")[0]}</h3>
               </div>
 
               <div className="space-y-4">
@@ -457,7 +459,7 @@ const location= useLocation()
                 <div>
                   <h4 className="text-sm font-medium text-gray-700 mb-2">Interests & Hobbies</h4>
                   <div className="flex flex-wrap gap-2">
-                    {profileData?.interestsHobbies.split(", ").map((interest, index) => (
+                    {profileData?.interestsHobbies?.split(", ").map((interest, index) => (
                       <span
                         key={index}
                         className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"

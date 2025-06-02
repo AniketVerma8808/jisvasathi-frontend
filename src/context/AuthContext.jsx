@@ -12,7 +12,7 @@ const defaultAuthState = {
 
 export const AuthProvider = ({ children }) => {
   const [authData, setAuthData] = useState(defaultAuthState);
-console.log(authData)
+
   // 🔄 Sync with localStorage on initial load
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -53,6 +53,12 @@ localStorage.setItem("user", JSON.stringify(user));
     localStorage.removeItem("user");
     setAuthData(defaultAuthState);
   };
+
+  const getLoggedInUser=()=>{
+     if(authData.user){
+       
+     }
+  }
 
   return (
     <AuthContext.Provider value={{ authData, updateAuthData,login, clearAuthData }}>

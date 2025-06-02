@@ -16,17 +16,16 @@ const isOpen= universalOpen === label
     },[])
   })
     return (
-      <div className="shadow relative rounded-xl cursor-pointer font-['poppins']">
+      <div className="shadow relative rounded-xl bg-gray-50 cursor-pointer font-['poppins']">
         <div
           onClick={(e) => {
             e.stopPropagation();
         setuniversalOpen(label)
-           
           }}
           className="py-3 px-4  relative"
         >
           {!field.value ? (
-            <span className="text-gray-500">{label}</span>
+            <span className="text-gray-700">{label}</span>
           ) : (
             field.value
           )}
@@ -79,7 +78,7 @@ const isOpen= universalOpen === label
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-2 grid h-screen hide-scrollbar overflow-y-scroll">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-2 grid p-1 h-screen hide-scrollbar overflow-y-scroll">
       <Controller name="ageFrom" control={control} defaultValue="" render={({ field }) => 
       (<Dropdown
       field={field}
