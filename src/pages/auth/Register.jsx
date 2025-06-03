@@ -13,7 +13,6 @@ const Register = () => {
   console.log('hello')
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { authData, updateAuthData } = useAuth();
 const [isOpen, setisOpen] = useState(false);
 const [current, setcurrent] = useState(0);
   const {

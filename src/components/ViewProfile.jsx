@@ -18,80 +18,22 @@ import {
 import { Link, useLocation } from "react-router-dom"
 
 export default function ProfileDetails({ profileId = "1" }) {
-  // Sample matched profile data using the exact fields from edit profile
-//   const [profileData?] = useState({
-//     id: profileId,
 
-//     // Personal Information (from edit profile fields)
-//     fullName: "Jessica Parker",
-//     mobile: "+1 (555) 987-6543",
-//     dateOfBirth: "1994-08-22",
-//     religion: "Christian",
-//     motherTongue: "English",
-//     gender: "Female",
-//     email: "jessica.parker@example.com",
-//     password: "", // Not displayed for security
-
-//     // Religious & Cultural Information
-//     caste: "General",
-//     subcaste: "Protestant",
-//     gothram: "N/A",
-//     dosh: "None",
-//     manglik: "No",
-
-//     // Professional Information
-//     occupation: "Software Engineer",
-//     educationQualifications: "MS in Computer Science from Stanford University",
-//     annualIncome: "500000-1000000", // ₹5,00,000 - ₹10,00,000
-//     workingStatus: "Working",
-
-//     // Location Information
-//     country: "United States",
-//     metroCities: "San Francisco",
-//     state: "California",
-
-//     // Physical & Health
-//     height: "5'5\"",
-//     physicalDisability: "None",
-
-//     // Family & Personal
-//     marriageStatus: "Never Married",
-//     kids: "No",
-//     siblings: "2 sisters",
-//     aboutMe:
-//       "I'm a passionate software engineer who loves solving complex problems and building innovative solutions. In my free time, I enjoy hiking in the Bay Area, experimenting with new recipes, and reading science fiction novels. I'm looking for someone who shares my love for adventure and intellectual conversations.",
-//     interestsHobbies: "Coding, Hiking, Cooking, Reading, Rock Climbing, Photography, Board Games",
-
-//     // Additional display data
-//     profilePhoto: "/placeholder.svg?height=200&width=200",
-//     photos: [
-//       "/placeholder.svg?height=300&width=300",
-//       "/placeholder.svg?height=300&width=300",
-//       "/placeholder.svg?height=300&width=300",
-//       "/placeholder.svg?height=300&width=300",
-//     ],
-//     compatibilityScore: 92,
-//     lastActive: "2 hours ago",
-//     memberSince: "January 2024",
-//   })
 const location= useLocation()
   const profileData= location.state
   const [isLiked, setIsLiked] = useState(false)
   const [isStarred, setIsStarred] = useState(false)
-
-  // Helper function to calculate age from date of birth
+const time=new Date(profileData.dob)
   const calculateAge = (dateOfBirth) => {   
 
     if(dateOfBirth){
     const today = new Date()
     const birthDate = new Date(dateOfBirth)
-    let age = today.getFullYear() - birthDate.getFullYear()
-    console.log(age)
-    const monthDiff = today.getMonth() - birthDate.getMonth()
-    console.log(monthDiff)
+    let age = today.getFullYear() - birthDate.getFullYear() 
+    const monthDiff = (today.getMonth() + 1) - birthDate.getMonth()
     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
       age--
-    }
+    } 
     return age
   }
   }
@@ -210,7 +152,7 @@ const location= useLocation()
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                     {profileData?.lastActive}
                   </div>
-                  <span className="text-gray-500 text-sm">Member since {profileData?.memberSince}</span>
+                  <span className="text-gray-500 text-sm">Member Since {new Date(profileData?.createdAt).toLocaleDateString()}</span>
                 </div>
               </div>
 
@@ -293,7 +235,7 @@ const location= useLocation()
       <div className="flex justify-between">
         <span className="text-gray-600">Date of Birth:</span>
         <span className="font-medium">
-          {profileData?.dateOfBirth ? new Date(profileData.dateOfBirth).toLocaleDateString() : '--'}
+       {`${time.getFullYear()}/${time.getMonth()}/${time.getDate()}`}
         </span>
       </div>
       <div className="flex justify-between">

@@ -9,10 +9,19 @@ export default function MyProfile() {
   const {authData}=useAuth()
 const profileData=authData.user
 const time=new Date(profileData.dob)
+ const calculateAge = (dateOfBirth) => {   
 
-
-  
-
+    if(dateOfBirth){
+    const today = new Date()
+    const birthDate = new Date(dateOfBirth)
+    let age = today.getFullYear() - birthDate.getFullYear() 
+    const monthDiff = (today.getMonth() + 1) - birthDate.getMonth()
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--
+    } 
+    return age
+  }
+  }
   return (
     <div className="mx-auto bg-white  shadow-sm border border-gray-200">
       {/* Header */}
@@ -28,7 +37,7 @@ const time=new Date(profileData.dob)
 
       <div className="p-6">
         {/* Profile Header Section */}
-        <div className="flex flex-col md:flex-row gap-6 mb-8 p-6 bg-gradient-to-r from-rose-50 to-pink-50 rounded-lg">
+        <div className="flex flex-col md:flex-row gap-6  p-6 bg-gradient-to-r from-rose-50 to-pink-50 rounded-lg">
           <div className="flex-shrink-0">
             <img
               src={profileData?.profilePhoto || "/placeholder.svg"}
@@ -42,7 +51,7 @@ const time=new Date(profileData.dob)
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600">
               <div className="flex items-center gap-2">
                 <Calendar size={16} className="text-rose-500" />
-                <span>{profileData?.age} years old</span>
+                <span>{calculateAge(profileData?.dob)} years old</span>
               </div>
               <div className="flex items-center gap-2">
                 <User size={16} className="text-rose-500" />
@@ -51,17 +60,17 @@ const time=new Date(profileData.dob)
               <div className="flex items-center gap-2">
                 <MapPin size={16} className="text-rose-500" />
                 <span>
-                  {profileData?.metroCities}, {profileData?.state}
+                  {profileData?.metroCities ?? '--'}, {profileData?.state ?? '--'}
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <Briefcase size={16} className="text-rose-500" />
-                <span>{profileData?.occupation}</span>
+                <Briefcase size={16} className="text-rose-500"/>
+                <span>{profileData?.occupation ?? '--'}</span>
               </div>
             </div>
           </div>
         </div>
-
+             <h2 className="text-gray-500 text-sm text-end my-8"><span className="text-black font-semibold">Member Since:</span> {new Date(profileData?.createdAt).toLocaleDateString()}</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Personal Information */}
           <div className="space-y-6">
@@ -86,11 +95,11 @@ const time=new Date(profileData.dob)
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Height:</span>
-                  <span className="font-medium">{profileData?.height}</span>
+                  <span className="font-medium">{profileData?.height ?? '--'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Marriage Status:</span>
-                  <span className="font-medium">{profileData?.marriageStatus}</span>
+                  <span className="font-medium">{profileData?.marriageStatus ?? '--'}</span>
                 </div>
               </div>
             </div>
@@ -105,11 +114,11 @@ const time=new Date(profileData.dob)
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <Mail size={16} className="text-gray-400" />
-                  <span className="font-medium">{profileData?.email}</span>
+                  <span className="font-medium">{profileData?.email ?? '--'}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone size={16} className="text-gray-400" />
-                  <span className="font-medium">{profileData?.mobile}</span>
+                  <span className="font-medium">{profileData?.mobile ?? '--'}</span>
                 </div>
               </div>
             </div>
@@ -124,15 +133,15 @@ const time=new Date(profileData.dob)
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Country:</span>
-                  <span className="font-medium">{profileData?.country}</span>
+                  <span className="font-medium">{profileData?.country ?? '--'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">State:</span>
-                  <span className="font-medium">{profileData?.state}</span>
+                  <span className="font-medium">{profileData?.state ?? '--'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">City:</span>
-                  <span className="font-medium">{profileData?.metroCities}</span>
+                  <span className="font-medium">{profileData?.metroCities ?? '--'}</span>
                 </div>
               </div>
             </div>
@@ -149,31 +158,31 @@ const time=new Date(profileData.dob)
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Religion:</span>
-                  <span className="font-medium">{profileData?.religion}</span>
+                  <span className="font-medium">{profileData?.religion ?? '--'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Mother Tongue:</span>
-                  <span className="font-medium">{profileData?.motherTongue}</span>
+                  <span className="font-medium">{profileData?.motherTongue ?? '--'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Caste:</span>
-                  <span className="font-medium">{profileData?.caste}</span>
+                  <span className="font-medium">{profileData?.caste ?? '--'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Subcaste:</span>
-                  <span className="font-medium">{profileData?.subcaste}</span>
+                  <span className="font-medium">{profileData?.subcaste ?? '--'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Gothram:</span>
-                  <span className="font-medium">{profileData?.gothram}</span>
+                  <span className="font-medium">{profileData?.gothram ?? '--'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Manglik:</span>
-                  <span className="font-medium">{profileData?.manglik}</span>
+                  <span className="font-medium">{profileData?.manglik ?? '--'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Dosh:</span>
-                  <span className="font-medium">{profileData?.dosh}</span>
+                  <span className="font-medium">{profileData?.dosh ?? '--'}</span>
                 </div>
               </div>
             </div>
@@ -188,19 +197,19 @@ const time=new Date(profileData.dob)
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Occupation:</span>
-                  <span className="font-medium">{profileData?.occupation}</span>
+                  <span className="font-medium">{profileData?.occupation ?? '--'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Working Status:</span>
-                  <span className="font-medium">{profileData?.workingStatus}</span>
+                  <span className="font-medium">{profileData?.workingStatus ?? '--'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Annual Income:</span>
-                  <span className="font-medium">{profileData?.annualIncome}</span>
+                  <span className="font-medium">{profileData?.annualIncome ?? '--'}</span>
                 </div>
                 <div className="flex flex-col gap-1">
                   <span className="text-gray-600">Education:</span>
-                  <span className="font-medium text-sm">{profileData?.educationQualifications}</span>
+                  <span className="font-medium text-sm">{profileData?.educationQualifications ?? '--'}</span>
                 </div>
               </div>
             </div>
@@ -215,11 +224,11 @@ const time=new Date(profileData.dob)
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Height:</span>
-                  <span className="font-medium">{profileData?.height}</span>
+                  <span className="font-medium">{profileData?.height ?? '--'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Physical Disability:</span>
-                  <span className="font-medium">{profileData?.physicalDisability}</span>
+                  <span className="font-medium">{profileData?.physicalDisability ?? '--'}</span>
                 </div>
               </div>
             </div>
@@ -237,15 +246,15 @@ const time=new Date(profileData.dob)
                 <div className="space-y-3">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Marriage Status:</span>
-                    <span className="font-medium">{profileData?.marriageStatus}</span>
+                    <span className="font-medium">{profileData?.marriageStatus ?? '--'}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Kids:</span>
-                    <span className="font-medium">{profileData?.kids}</span>
+                    <span className="font-medium">{profileData?.kids ?? '--'}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Siblings:</span>
-                    <span className="font-medium">{profileData?.siblings}</span>
+                    <span className="font-medium">{profileData?.siblings ?? '--'}</span>
                   </div>
                 </div>
               </div>
@@ -261,7 +270,7 @@ const time=new Date(profileData.dob)
               <div className="space-y-4">
                 <div>
                   <h4 className="text-sm font-medium text-gray-700 mb-2">Description</h4>
-                  <p className="text-gray-600 leading-relaxed">{profileData?.aboutMe}</p>
+                  <p className="text-gray-600 leading-relaxed">{profileData?.aboutMe ?? '--'}</p>
                 </div>
 
                 <div>
@@ -274,7 +283,7 @@ const time=new Date(profileData.dob)
                       >
                         {interest.trim()}
                       </span>
-                    ))}
+                    )) ?? '--'}
                   </div>
                 </div>
               </div>
