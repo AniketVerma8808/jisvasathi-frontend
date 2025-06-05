@@ -39,15 +39,13 @@ const ScrollToTop = () => {
 const App = () => {
   const token=localStorage.getItem('token')
   const {authData,getLoggedInUser}=useAuth();
-
-
+console.log(token)
   useEffect(()=>{
    if(token){
   getLoggedInUser()
  
    }
 },[token])
-
   return (
     <>
       <ScrollToTop />

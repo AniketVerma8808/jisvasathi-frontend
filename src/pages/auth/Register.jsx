@@ -59,7 +59,7 @@ window.addEventListener('click',()=>{
           </h2>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className=" text-gray-800  grid grid-cols-2 gap-4"
+            className=" text-gray-800  space-y-2"
           >
             {/* DOB */}
             <div className="">

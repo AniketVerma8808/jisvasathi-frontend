@@ -41,13 +41,19 @@ localStorage.setItem("user", JSON.stringify(user));
   };
 
   const getLoggedInUser=async()=>{
-    const res= await getUser()
-    console.log(res)
+    try {
+      const res= await getUser()
     setAuthData({
       ...authData,
       isAuthenticated:true,
       user:res.data.user
     })
+    } catch (error) {
+      if(error.status=400){
+clearAuthData()
+      }
+    }
+    
   }
 
   return (

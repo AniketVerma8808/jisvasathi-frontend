@@ -51,7 +51,7 @@ const SideNav = () => {
     },
     {
       icon: <BsChatSquareDots />,
-      text: "Messenger",
+      text: "Chats/Message",
       path: "/profile/chats",
     },
   

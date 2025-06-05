@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
   ArrowLeft,
   Heart,
@@ -15,7 +15,8 @@ import {
   Activity,
   Users,
 } from "lucide-react"
-import { Link, useLocation } from "react-router-dom"
+import { Link, matchPath, useLocation } from "react-router-dom"
+import { getMatches } from "../services/api.service"
 
 export default function ProfileDetails({ profileId = "1" }) {
 
@@ -79,11 +80,20 @@ const time=new Date(profileData.dob)
   }
 
   const age = calculateAge(profileData?.dob)
-
+const [matches, setmatches] = useState();
+console.log(matches)
+useEffect(()=>{
+  const getMatchedUsers=async()=>{
+    const res= await getMatches()
+    setmatches(res.data.data)
+  }
+  getMatchedUsers()
+},[])
   return (
-    <div className="max-w-7xl mx-auto bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className="grid grid-cols-12  mx-auto bg-white rounded-lg shadow-sm border border-gray-200">
       {/* Header */}
-      <div className="p-6 border-b border-gray-200">
+     <div className="col-span-9">
+       <div className="p-6 border-b border-gray-200">
         <div className="flex items-center justify-between mb-4">
           <Link to={'/profile'}
             className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
@@ -516,6 +526,32 @@ const time=new Date(profileData.dob)
           </button>
         </div>
       </div>
+     </div>
+    <div className="col-span-3 p-2 bg-gray-50  left-0 ">
+      
+       <div className=" space-y-2 mt-4 sticky top-16  bg-gray-200 p-2  max-h-145 rounded-md shadow  overflow-y-scroll custom-scrollbar">
+        <h2 className="text-lg  font-semibold">Check Out More Profiles</h2>
+        {
+          matches?.map((match,i)=>{
+      
+ return i<=5 && <Link to={'/profileDetails'} state={match} className="flex cursor-pointer hover:bg-amber-50 items-center gap-4 p-3 bg-white shadow-sm rounded-lg border border-gray-200 max-w-sm">
+      <img
+           src={match.profilePhoto || "/placeholder.svg"}
+          alt={match.fullName}
+        className="w-12 h-12 rounded-full object-cover"
+      />
+      <div>
+            <h3 className="font-medium">{match.fullName}</h3>
+        <p className="text-sm text-gray-800">
+             {match.age}, {match.caste}, {match.subCaste}, {match.metroCities}
+        </p>
+      </div>
+    </Link>
+           
+          })
+        }
+     </div>
+    </div>
     </div>
   )
 }
