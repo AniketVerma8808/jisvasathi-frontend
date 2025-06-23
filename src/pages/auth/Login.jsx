@@ -11,7 +11,7 @@ import { TbLockPassword } from "react-icons/tb";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { updateAuthData ,login} = useAuth();
+  const { login} = useAuth();
   const [loading, setLoading] = useState(false);
   const {
     register,

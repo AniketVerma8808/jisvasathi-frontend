@@ -12,7 +12,6 @@ import { PersonStanding } from "lucide-react";
 const Navbar = () => {
   const { authData } = useAuth();
   const [showNav, setshowNav] = useState(false);
-
   return (
     <>
       <nav className="bg-white shadow-sm z-50 sticky top-0 left-0 w-full">
@@ -37,7 +36,6 @@ const Navbar = () => {
               <div className="hidden lg:flex items-center space-x-8 text-gray-700 text-sm  font-medium">
                 <Link to="/profile">Home</Link>
                 <Link to="/profile/search">Search Your Partner</Link>
-                <Link to="/preferences">Compatible Preference</Link>
                 <Link to="/matches">Perfect Matches</Link>
                 <Link to="/shortlisted">Shortlisted Profiles</Link>
                 <Link to="/profile/chats">Messages/Chats</Link>

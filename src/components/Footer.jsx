@@ -35,9 +35,7 @@ const Footer = () => {
             <li>
               <Link to="/support">Customer Support</Link>
             </li>
-            <li>
-              <Link to="/sitemap">Site Map</Link>
-            </li>
+            
           </ul>
         </div>
 
@@ -46,19 +44,26 @@ const Footer = () => {
           <h3 className="text-lg font-semibold mb-3">Company</h3>
           <ul className="space-y-2 text-gray-400 text-sm">
             <li>
+              <Link to="/about">Contact Us</Link>
+            </li>
+            
+            <li>
+              <Link to="/blog">Report Fraud or Fake Profile</Link>
+            </li>
+           
+            <li>
+              <Link to="/contact">Vivah – Sanyog Blogs</Link>
+            </li>
+            <li>
               <Link to="/about">About Us</Link>
             </li>
+            
             <li>
-              <Link to="/careers">Careers</Link>
+              <Link to="/blog">Create Your Profile</Link>
             </li>
+           
             <li>
-              <Link to="/blog">Shaadi Blog</Link>
-            </li>
-            <li>
-              <Link to="/awards">Awards & Recognition</Link>
-            </li>
-            <li>
-              <Link to="/contact">Contact Us</Link>
+              <Link to="/contact">Search your Life Partner</Link>
             </li>
           </ul>
         </div>
@@ -76,9 +81,7 @@ const Footer = () => {
             <li>
               <Link to="/report">Report Misuse</Link>
             </li>
-            <li>
-              <Link to="/safety">Be Safe Online</Link>
-            </li>
+          
           </ul>
         </div>
       </div>

@@ -23,6 +23,7 @@ import Packages from "./pages/Packages";
 import MyProfile from "./components/MyProfile";
 import ProfileDetails from "./components/ViewProfile";
 import BottomNav from "./components/BottomNav";
+import IntellectualMatch from "./components/IntellectualMatch";
 
 
 const ScrollToTop = () => {
@@ -32,13 +33,12 @@ const ScrollToTop = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [pathname]);
-
   return null;
 };
 
 const App = () => {
   const token=localStorage.getItem('token')
-  const {authData,getLoggedInUser}=useAuth();
+  const {getLoggedInUser}=useAuth();
 console.log(token)
   useEffect(()=>{
    if(token){
@@ -63,6 +63,7 @@ console.log(token)
           <Route path="/blog/:id" element={<BlogDetails />} />
           <Route path="/packages" element={<Packages/>}/>
           <Route path="/profileDetails" element={<ProfileDetails/>}/>
+          <Route path="/intellectualMatch" element={<IntellectualMatch/>}/>
           <Route
             path="/profile"
             element={

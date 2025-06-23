@@ -12,17 +12,8 @@ const defaultAuthState = {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [authData, setAuthData] = useState(defaultAuthState);
-
-
+  const [authData, setAuthData] = useState(defaultAuthState); 
  
-  const updateAuthData = ( user ) => {
-localStorage.setItem("user", JSON.stringify(user));
-    setAuthData({
-     ...authData,user
-    });
-  };
-
   const login= (token)=>{
       if(token){
         localStorage.setItem('token',token)
@@ -34,7 +25,6 @@ localStorage.setItem("user", JSON.stringify(user));
       }
   }
 
-  // ❌ Logout/Clear method
   const clearAuthData = () => {
     localStorage.removeItem("token");
     setAuthData(defaultAuthState);
@@ -55,9 +45,10 @@ clearAuthData()
     }
     
   }
+ 
 
   return (
-    <AuthContext.Provider value={{ authData, updateAuthData,login, clearAuthData,getLoggedInUser }}>
+    <AuthContext.Provider value={{ authData,login, clearAuthData,getLoggedInUser }}>
       {children}
     </AuthContext.Provider>
   );

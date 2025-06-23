@@ -14,7 +14,7 @@ import { CiCircleCheck } from "react-icons/ci";
 import { RiUserReceived2Line, RiUserReceivedLine } from "react-icons/ri";
 import { RxCrossCircled } from "react-icons/rx";
 import { TbUserShare } from "react-icons/tb";
-
+import { LuBrain } from "react-icons/lu";
 const SideNav = () => {
   const { clearAuthData } = useAuth();
   const navigate = useNavigate();
@@ -79,6 +79,11 @@ const SideNav = () => {
       icon: <MdOutlineWorkspacePremium />,
       text: "Packages",
       path: "/packages",
+    },
+      {
+      icon: <LuBrain />,
+      text: "Intellectual Match",
+      path: "/intellectualMatch",
     },
    
   ];

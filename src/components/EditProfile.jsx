@@ -158,46 +158,64 @@ console.log(formData)
     // Here you would typically send the data to your backend
 
   }
-const Dropdown = ({ field, label,name, options,universalOpen,setuniversalOpen }) => {
+const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name }) => {
+  const isOpen = universalOpen === label;
 
-const isOpen= universalOpen === label
-  useEffect(()=>{
-    window.addEventListener('click',()=>{
-        setuniversalOpen(null)
-    },[])
-  })
-    return (
-      <div className="shadow relative rounded-xl bg-gray-50 cursor-pointer font-['poppins']">
-        <div
-          onClick={(e) => {
-            e.stopPropagation();
-        setuniversalOpen(label)
-          }}
-          className="py-3 px-4  relative"
-        >
-          {!formData[name] ? (
-            <span className="text-gray-700">{label}</span>
-          ) : (
-            formData[name]
-          )}
-          <ChevronDownIcon className="h-5 w-5 text-gray-400 absolute right-3 top-4 pointer-events-none" />
-        </div>
-        {isOpen && (
-          <ul className="absolute right-0 top-full max-h-40 overflow-y-scroll custom-scrollbar bg-amber-50 shadow-sm w-1/2 z-20 rounded-sm overflow-hidden">
-            {options.map((option, index) => (
-              <li
-                key={index}
-                className="px-4 py-1 hover:bg-amber-100 cursor-pointer border-gray-200"
-              data-value={option}
-                name={name}>
-                {option}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    );
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('.dropdown-container')) {
+        setuniversalOpen(null);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [setuniversalOpen]);
+
+  const handleDropdownClick = (e) => {
+    e.stopPropagation();
+    setuniversalOpen(label);
   };
+
+  const handleOptionSelect = (option) => {
+    setuniversalOpen(null);
+    setFormData((prev) => ({
+      ...prev,
+      [name]: option,
+    }));
+  };
+
+  return (
+    <div className="dropdown-container shadow relative rounded-xl bg-gray-50 cursor-pointer font-['poppins']">
+      <div
+        onClick={handleDropdownClick}
+        className="py-3 px-4 relative"
+      >
+        {!formData[name] ? (
+          <span className="text-gray-700">{label}</span>
+        ) : (
+          formData[name]
+        )}
+        <ChevronDownIcon className="h-5 w-5 text-gray-400 absolute right-3 top-4 pointer-events-none" />
+      </div>
+      {isOpen && (
+        <ul className="absolute right-0 top-full max-h-40 overflow-y-scroll custom-scrollbar bg-amber-50 shadow-sm w-1/2 z-20 rounded-sm overflow-hidden">
+          {options.map((option, index) => (
+            <li
+              key={index}
+              className="px-4 py-1 hover:bg-amber-100 cursor-pointer border-gray-200"
+              onClick={() => handleOptionSelect(option)}
+            >
+              {option}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
 
   return (
     <div className="mx-auto bg-white  shadow-sm border border-gray-200">

@@ -20,7 +20,7 @@ const Form = () => {
     formState: { errors },
   } = useForm();
   const { updateAuthData } = useAuth();
-
+   
   const onForm1Submit = (data) => {
     updateAuthData(data);
     navigate("/register");
