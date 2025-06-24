@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-10 px-4 max-sm:hidden">
+    <footer className="bg-orange-600 text-white py-10 px-4 max-sm:hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
         {/* Logo & Tagline */}
         <div>
-          <h2 className="text-xl font-bold mb-2">MatchMate</h2>
-          <p className="text-sm text-gray-400">
+          <h2 className="text-xl font-bold mb-2">Vivah Sanyog</h2>
+          <p className="text-sm text-white">
             Helping millions find their perfect life partner worldwide.
           </p>
           <div className="flex space-x-4 mt-4">
@@ -22,18 +22,18 @@ const Footer = () => {
         {/* Need Help */}
         <div>
           <h3 className="text-lg font-semibold mb-3">Need Help?</h3>
-          <ul className="space-y-2 text-gray-400 text-sm">
+          <ul className="space-y-2 text-white text-sm">
             <li>
-              <Link to="/login">Member Login</Link>
+              <Link to="/login">User Login</Link>
             </li>
             <li>
-              <Link to="/signup">Sign Up</Link>
+              <Link to="/signup">Create Account</Link>
             </li>
             <li>
-              <Link to="/search">Partner Search</Link>
+              <Link to="/search">Find a Match</Link>
             </li>
             <li>
-              <Link to="/support">Customer Support</Link>
+              <Link to="/support">Need Help?</Link>
             </li>
             
           </ul>
@@ -42,7 +42,7 @@ const Footer = () => {
         {/* Company */}
         <div>
           <h3 className="text-lg font-semibold mb-3">Company</h3>
-          <ul className="space-y-2 text-gray-400 text-sm">
+          <ul className="space-y-2 text-white text-sm">
             <li>
               <Link to="/about">Contact Us</Link>
             </li>
@@ -71,7 +71,7 @@ const Footer = () => {
         {/* Privacy */}
         <div>
           <h3 className="text-lg font-semibold mb-3">Privacy & You</h3>
-          <ul className="space-y-2 text-gray-400 text-sm">
+          <ul className="space-y-2 text-white text-sm">
             <li>
               <Link to="/terms">Terms of Use</Link>
             </li>
@@ -87,16 +87,16 @@ const Footer = () => {
       </div>
 
       {/* Bottom Line */}
-      <div className="border-t border-gray-700 mt-10 pt-6 text-center text-sm text-gray-500">
-        &copy; {new Date().getFullYear()} MatchMate. All rights reserved. <br />
+      <div className="border-t border-white mt-10 pt-6 text-center text-sm text-white">
+        &copy; {new Date().getFullYear()} Vivah Sanyog. All rights reserved. <br />
         Designed by{" "}
         <a
-          href="https://techxpert.in"
+          href="https://softverge.onrender.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gradient hover:underline"
         >
-          techxpert.in
+         Softverge
         </a>
       </div>
     </footer>

@@ -1,0 +1,50 @@
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { getUser } from '../services/api.service'
+import { useDispatch } from 'react-redux'
+export const fetchUser= createAsyncThunk('fetchUserDetails',async()=>{
+    const res= await getUser()
+    return res.data.user
+})
+const initialState = {
+ isAuthenticated: localStorage.getItem('isAuthenticated') || false,
+ user:null,
+ token: localStorage.getItem('token') || null
+}
+
+export const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+     loggedInUser:(state,action)=>{
+            state.user=action.payload.user
+            state.token=action.payload.token
+            state.isAuthenticated=true
+     },
+     logOutUser:(state,action)=>{
+        state.user=null,
+        state.token=null,
+        state.isAuthenticated=false,
+        localStorage.removeItem('token')
+        localStorage.removeItem('isAuthenticated')
+     }
+  },
+
+  extraReducers:(bulider)=>{
+     bulider.addCase(fetchUser.pending,(state,action)=>{
+     
+    })
+    bulider.addCase(fetchUser.fulfilled,(state,action)=>{
+       state.user=action.payload
+       state.isAuthenticated=true
+    })
+   
+    bulider.addCase(fetchUser.rejected,(state,action)=>{
+
+    })
+  }
+})
+
+// Action creators are generated for each case reducer function
+export const { loggedInUser,logOutUser } = userSlice.actions
+
+export default userSlice.reducer

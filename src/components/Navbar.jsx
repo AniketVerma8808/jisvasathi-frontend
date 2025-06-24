@@ -8,9 +8,10 @@ import logo from "../assets/vivahLogo2.jpg";
 import HiddenSideNav from "./HiddenSideNav";
 import { AnimatePresence } from "framer-motion";
 import { PersonStanding } from "lucide-react";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const { authData } = useAuth();
+  const {isAuthenticated}=useSelector((state)=>state.user)
   const [showNav, setshowNav] = useState(false);
   return (
     <>
@@ -24,7 +25,7 @@ const Navbar = () => {
                 Vivah Sanyog
               </h3>
               <p className="text-xs text-amber-600 ml-1 capitalize max-sm:text-[11px]">
-                Helping to love
+             When Hearts Align, Sanyog Happens
               </p>
             </div>
           </Link>
@@ -32,7 +33,7 @@ const Navbar = () => {
           {/* Right Nav Items */}
           <div className="flex gap-4 items-center">
             {/* Static links (authenticated only) */}
-            {authData?.isAuthenticated && (
+            {isAuthenticated && (
               <div className="hidden lg:flex items-center space-x-8 text-gray-700 text-sm  font-medium">
                 <Link to="/profile">Home</Link>
                 <Link to="/profile/search">Search Your Partner</Link>
@@ -44,7 +45,7 @@ const Navbar = () => {
             )}
 
             {/* Conditional Login/Profile Icon */}
-            {authData?.isAuthenticated ? (
+            {isAuthenticated ? (
               <Link
                 to="/profile"
                 className="relative flex items-center gap-2 text-gray-700 transition"

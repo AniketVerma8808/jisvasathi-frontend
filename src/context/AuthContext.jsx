@@ -8,7 +8,7 @@ export const useAuth = () => useContext(AuthContext);
 const defaultAuthState = {
   isAuthenticated: false,
   token: null,
-  user: null,
+  user: null, 
 };
 
 export const AuthProvider = ({ children }) => {

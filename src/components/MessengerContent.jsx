@@ -178,17 +178,6 @@ export default function MessengerContent() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <button className="p-2 rounded-full hover:bg-gray-100">
-                    <Phone size={18} className="text-gray-600" />
-                  </button>
-                  <button className="p-2 rounded-full hover:bg-gray-100">
-                    <Video size={18} className="text-gray-600" />
-                  </button>
-                  <button className="p-2 rounded-full hover:bg-gray-100">
-                    <MoreHorizontal size={18} className="text-gray-600" />
-                  </button>
-                </div>
               </div>
 
               {/* Messages */}

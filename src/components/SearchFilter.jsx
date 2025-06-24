@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
+import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 const SearchFilters = () => {
   const { control, handleSubmit } = useForm();
@@ -32,7 +34,7 @@ const isOpen= universalOpen === label
           <ChevronDownIcon className="h-5 w-5 text-gray-400 absolute right-3 top-4 pointer-events-none" />
         </div>
         {isOpen && (
-          <ul className="absolute right-0 top-full max-h-40 overflow-y-scroll custom-scrollbar bg-amber-50 shadow-sm w-1/2 z-20 rounded-sm overflow-hidden">
+          <ul className={twMerge( clsx( 'absolute right-0 top-full max-h-40 overflow-y-scroll custom-scrollbar bg-amber-50 shadow-sm w-1/2 z-20 rounded-sm overflow-hidden', (label==='Occupation'|| label==='Educational Qualifications') && '-top-[270%]'))}>
             {options.map((option, index) => (
               <li
                 key={index}
@@ -51,7 +53,7 @@ const isOpen= universalOpen === label
   };
 
   const ageOptions = Array.from({ length: 46 }, (_, i) => (20 + i).toString());
-  const maritalStatusOptions = ['Married', 'Unmarried', 'Divorced', 'Awaiting Divorce', 'Nullified marriage', 'Widow'];
+  const maritalStatusOptions = ['Single','Married', 'Unmarried', 'Divorced', 'Awaiting Divorce', 'Nullified marriage', 'Widow'];
   const kidsOptions = ['Yes', 'No', "Doesn't matter"];
   const heightOptions = [
     '4 feet', '4 feet - 1 inch', '4 feet - 2 inch', '4 feet - 3 inch', '4 feet - 4 inch',

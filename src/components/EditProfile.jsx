@@ -6,64 +6,48 @@ import { Link } from "react-router-dom"
 import { Controller } from "react-hook-form"
 import { useAuth } from "../context/AuthContext"
 import { editProfile } from "../services/api.service"
+import { useSelector } from "react-redux"
 
 export default function EditProfile() {
-  const {authData}=useAuth()
+const defaultFormData = {
+  fullName: "",
+  email: "",
+  mobile: "",
+  gender: "",
+  profileFor: "",
+  religion: "",
+  caste: "",  
+  subcaste: "",
+  gothram: "",
+  dob: "",
+  dosh: "",
+  motherTongue: "",
+  age: "",
+  partnerPreferences: {
+    motherTongue: "",
+    workingStatus: "",
+    occupation: "",
+    educationQualifications: "",
+    country: "",
+  },
+  // Add other fields as needed
+};
 
-  const [formData, setFormData] = useState(authData.user);
-  // State for form data
-//   const [formData, setFormData] = useState({
-//     // Personal Information
-//     firstName: "Sarah",
-//     lastName: "Johnson",
-//     gender: "female",
-//     dateOfBirth: "1992-05-15",
-//     height: "5'6",
-//     religion: "Christian",
-//     motherTongue: "English",
-//     maritalStatus: "Never Married",
+const { user } = useSelector((state) => state.user);
+const [formData, setFormData] = useState(defaultFormData);
 
-//     // Contact Information
-//     email: "sarah.johnson@example.com",
-//     phone: "+1 (555) 123-4567",
-//     location: "New York, NY",
-
-//     // Career & Education
-//     education: "Master's Degree",
-//     educationDetails: "MBA from Columbia University",
-//     occupation: "Marketing Manager",
-//     company: "Tech Innovations Inc.",
-//     income: "$80,000 - $100,000",
-
-//     // About Me
-//     aboutMe:
-//       "I'm an outgoing person who loves hiking, reading, and trying new restaurants. I value honesty, communication, and having a good sense of humor in a relationship.",
-
-//     // Partner Preferences
-// partnerPreferences: {
-//   ageFrom: 25,
-//   ageTo: 30,
-//   marriageStatus: "Never Married",
-//   kids: "No",
-//   height: "5'6\"",
-//   workingStatus: "working",
-//   manglik: "yes",
-//   occupation: "Software Engineer",
-//   educationQualifications: "Bachelor's Degree",
-//   annualIncome: 1000000,
-//   country: "India",
-//   metroCities: "Mumbai",
-//   state: "Maharashtra",
-//   physicalDisability: "None",
-//   community: "Brahmin"
-// },
-//     // Lifestyle
-//     diet: "Non-vegetarian",
-//     smoking: "Never",
-//     drinking: "Occasionally",
-//     interests: "Hiking, Reading, Cooking, Travel, Photography",
-//   })
-
+useEffect(() => {
+  if (user) {
+    setFormData({
+      ...defaultFormData,
+      ...user,
+      partnerPreferences: {
+        ...defaultFormData.partnerPreferences,
+        ...user.partnerPreferences,
+      },
+    });
+  }
+}, [user]);
 
   // State for profile photos
   const [photos, setPhotos] = useState([
@@ -104,7 +88,6 @@ export default function EditProfile() {
        
     }))
   }
-console.log(formData)
   // Handle photo upload
   const handlePhotoUpload = (index) => {
     fileInputRef.current.click()
@@ -129,7 +112,7 @@ console.log(formData)
   }
 
  const ageOptions = Array.from({ length: 46 }, (_, i) => (20 + i).toString());
-  const maritalStatusOptions = ['Married', 'Unmarried', 'Divorced', 'Awaiting Divorce', 'Nullified marriage', 'Widow'];
+  const maritalStatusOptions = ['single','Married', 'Unmarried', 'Divorced', 'Awaiting Divorce', 'Nullified marriage', 'Widow'];
   const kidsOptions = ['Yes', 'No', "Doesn't matter"];
   const heightOptions = [
     '4 feet', '4 feet - 1 inch', '4 feet - 2 inch', '4 feet - 3 inch', '4 feet - 4 inch',
@@ -187,6 +170,14 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
     }));
   };
 
+  const formatDateToMMDDYYYY = (dateStr) => {
+  if (!dateStr) return "";
+  const date = new Date(dateStr);
+  const mm = String(date.getMonth() + 1).padStart(2, "0");
+  const dd = String(date.getDate()).padStart(2, "0");
+  const yyyy = date.getFullYear();
+  return `${mm}/${dd}/${yyyy}`;
+};
   return (
     <div className="dropdown-container shadow relative rounded-xl bg-gray-50 cursor-pointer font-['poppins']">
       <div
@@ -311,7 +302,13 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
                   type="date"
                   id="dateOfBirth"
                   name="dob"
-                  value={formData?.dob}
+                  value={formData?.dob ? 
+                   new Date(formData.dob).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      }) : ''
+                  }
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 />

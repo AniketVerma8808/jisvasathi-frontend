@@ -3,6 +3,17 @@ import React from "react";
 
 const packages = [
   {
+    title: "Mini Package",
+    price: "Rs 95 for 2 days",
+    features: [
+  " 3 Contact Views",
+" Send unlimited Interest",
+" Duration – 2 Days",
+" Send Unlimited Interests",
+" Send Unlimited Messages",
+    ],
+  },
+  {
     title: "Basic Package",
     price: "Rs 150 Per Month",
     features: [

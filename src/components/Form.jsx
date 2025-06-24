@@ -19,10 +19,10 @@ const Form = () => {
     control,
     formState: { errors },
   } = useForm();
-  const { updateAuthData } = useAuth();
+
    
-  const onForm1Submit = (data) => {
-    updateAuthData(data);
+  const onFormSubmit = (data) => {
+    
     navigate("/register");
   };
 
@@ -31,6 +31,7 @@ window.addEventListener('click',()=>{
   setisOpen(false)
 })
 },[])
+
 
   const [isOpen, setisOpen] = useState(false);
 
@@ -47,7 +48,7 @@ window.addEventListener('click',()=>{
       </div>
       {/* main form */}
       <div className="rounded-b-3xl px-6  animate-fade-in mt-8 font-['poppins']">
-        <form onSubmit={handleSubmit(onForm1Submit)} className="">
+        <form onSubmit={handleSubmit(onFormSubmit)} className="">
           {/* Profile For */}
           <div>
             <Controller

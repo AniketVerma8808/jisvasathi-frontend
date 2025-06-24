@@ -8,11 +8,13 @@ import { useAuth } from "../../context/AuthContext";
 import { UserLoginService } from "../../services/api.service";
 import { MdOutlineEmail } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
+import { loggedInUser } from "../../Features/Userslice";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login} = useAuth();
   const [loading, setLoading] = useState(false);
+  const dispatch=useDispatch()
   const {
     register,
     handleSubmit,
@@ -23,10 +25,11 @@ const Login = () => {
     try {
       setLoading(true);
       const response = await UserLoginService(data);
-        console.log(response)
+        console.log(response) 
       if (response?.data?.token) {
-        const user = response.data.user;
-          login(response.data.token,user)
+        localStorage.setItem('token',response.data.token)
+        localStorage.setItem('isAuthenticated',true)
+         dispatch(loggedInUser({token:response.data.token,user:response.data.user}))
         toast.success("Login Successful!");
         navigate("/profile");
       } else {

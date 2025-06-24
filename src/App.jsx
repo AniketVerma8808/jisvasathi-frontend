@@ -24,6 +24,8 @@ import MyProfile from "./components/MyProfile";
 import ProfileDetails from "./components/ViewProfile";
 import BottomNav from "./components/BottomNav";
 import IntellectualMatch from "./components/IntellectualMatch";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "./Features/Userslice";
 
 
 const ScrollToTop = () => {
@@ -37,15 +39,13 @@ const ScrollToTop = () => {
 };
 
 const App = () => {
-  const token=localStorage.getItem('token')
-  const {getLoggedInUser}=useAuth();
-console.log(token)
-  useEffect(()=>{
-   if(token){
-  getLoggedInUser()
- 
-   }
-},[token])
+  const {user,isAuthenticated,token}= useSelector((state)=>state.user)
+  const dispatch=useDispatch()
+ useEffect(()=>{
+  if(token){
+ dispatch(fetchUser())
+  }
+ },[token])
   return (
     <>
       <ScrollToTop />
@@ -57,7 +57,7 @@ console.log(token)
           <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verifyemail" element={<VerifyEmail />} />
-          <Route path="/login" element={ token ? <Navigate to={'/profile'}/> : <Login />} />
+          <Route path="/login" element={ !isAuthenticated ? <Login /> : <Navigate to={'/profile'}/>} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/blog/:id" element={<BlogDetails />} />

@@ -15,9 +15,12 @@ import { RiUserReceived2Line, RiUserReceivedLine } from "react-icons/ri";
 import { RxCrossCircled } from "react-icons/rx";
 import { TbUserShare } from "react-icons/tb";
 import { LuBrain } from "react-icons/lu";
+import { useDispatch } from "react-redux";
+import { logOutUser } from "../Features/Userslice";
 const SideNav = () => {
-  const { clearAuthData } = useAuth();
+
   const navigate = useNavigate();
+ const dispatch=useDispatch()
 
   const [current, setcurrent] = useState(
     JSON.parse(sessionStorage.getItem("current") || 0)
@@ -89,18 +92,18 @@ const SideNav = () => {
   ];
 
   const handleLogout = () => {
-    clearAuthData();
+   dispatch(logOutUser())
     navigate("/");
   };
 
   const linkClasses = ({ isActive }) => {
     return `py-2.5       rounded-md transition duration-75  px-4 flex items-center justify-start gap-4    ${
-      isActive ? "bg-primary text-white" : "hover:bg-amber-100"
+      isActive ? "bg-primary text-white" : "hover:bg-amber-200"
     }`;
   };
 
   return (
-    <div className="  py-10 pb-20 px-2  overflow-y-scroll h-full  custom-scrollbar">
+    <div className="  py-10 pb-20 px-2  overflow-y-scroll h-full  custom-scrollbar bg-amber-100">
       <div className=" gap-4 px-4 flex items-center justify-center max-xl:px-0">
         <div className="rounded-full w-16 h-16 border border-gray-100 text-4xl text-gray-400 flex items-center justify-center bg-gray-100">
           <CgProfile />
@@ -119,7 +122,7 @@ const SideNav = () => {
               end={link.path === "/profile"}
               className={linkClasses}
             >
-              <span className="text-2xl">{link.icon}</span>
+              <span className="text-xl">{link.icon}</span>
               <span className="capitalize">{link.text}</span>
             </NavLink>
           );
