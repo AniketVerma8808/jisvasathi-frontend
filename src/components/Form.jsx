@@ -153,19 +153,7 @@ window.addEventListener('click',()=>{
               )}
             </div>
           </div>
-          {/* T&C */}
-          <p className="text-xs text-center mt-4">
-            By clicking <strong className="text-primary">Register Free</strong>,
-            I agree to the{" "}
-            <span className="underline hover:text-green-300 cursor-pointer">
-              T&C
-            </span>{" "}
-            and{" "}
-            <span className="underline hover:text-green-300 cursor-pointer">
-              Privacy Policy
-            </span>
-            .
-          </p>
+         
           {/* Submit Button */}
           <button
             type="submit"

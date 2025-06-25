@@ -26,6 +26,8 @@ import BottomNav from "./components/BottomNav";
 import IntellectualMatch from "./components/IntellectualMatch";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "./Features/Userslice";
+import AcceptedProfiles from "./pages/AcceptedProfiles";
+import RejectedProfiles from "./pages/RejectedProfile";
 
 
 const ScrollToTop = () => {
@@ -77,6 +79,8 @@ const App = () => {
             <Route path="editProfile" element={<EditProfile />} />
             <Route path="chats" element={<MessengerContent/>}/>
             <Route path="myProfile" element={<MyProfile/>}/>
+            <Route path="acceptProfile" element={<AcceptedProfiles/>}/>
+            <Route path="rejectProfile" element={<RejectedProfiles/>}/>
           </Route>
 
           <Route path="/*" element={<NotFound />} />

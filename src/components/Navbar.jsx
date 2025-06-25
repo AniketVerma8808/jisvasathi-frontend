@@ -24,7 +24,7 @@ const Navbar = () => {
               <h3 className="font-bold logo text-2xl tracking-wider text-amber-500 leading-5 max-sm:text-xl">
                 Vivah Sanyog
               </h3>
-              <p className="text-xs text-amber-600 ml-1 capitalize max-sm:text-[11px]">
+              <p className="text-xs text-amber-600 ml-1 mt-1 capitalize max-sm:text-[11px]">
              When Hearts Align, Sanyog Happens
               </p>
             </div>

@@ -359,7 +359,6 @@ export default function Matches() {
 //   }
 // ];
 const [matches, setmatches] = useState();
-console.log(matches)
 useEffect(()=>{
   const getMatchedUsers=async()=>{
     const res= await getMatches()
@@ -398,12 +397,12 @@ useEffect(()=>{
              
             <div className="flex items-center justify-start flex-wrap gap-1 py-4 max-lg:pb-2"> 
             
-              <p className="text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">height-</span><span className="text-black">{match.height}&quot;</span></p>
-              <p className="text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">marriage status-</span><span className="text-black">{match.marriageStatus}</span></p>
-              <p className="text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">religion-</span><span className="text-black">{match.religion}</span></p>
-              <p className="text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">region-</span><span className="text-black">{match.metroCities}</span></p>
-              <p className="text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">working status-</span><span className="text-black">{match.workingStatus}</span></p>
-              <p className="text-sm capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">education-</span><span className="text-black">{match.educationQualifications}</span></p></div>
+              <p className="text-sm w-full capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">height-</span><span className="text-black">{match.height}&quot;</span></p>
+              <p className="text-sm w-full capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">marriage status-</span><span className="text-black">{match.marriageStatus}</span></p>
+              <p className="text-sm w-full capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">religion-</span><span className="text-black">{match.religion}</span></p>
+              <p className="text-sm w-full capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">region-</span><span className="text-black">{match.metroCities}</span></p>
+              <p className="text-sm w-full capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">working status-</span><span className="text-black">{match.workingStatus}</span></p>
+              <p className="text-sm w-full capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">education-</span><span className="text-black">{match.educationQualifications}</span></p></div>
              
           <div className="flex flex-col max-sm:grid max-sm:grid-cols-2 sm:space-y-2 max-sm:gap-1">
               <button className="p-2 rounded-lg bg-rose-100 px-4 max-xl:px-2 max-xl:py-1.5 flex-grow cursor-pointer hover:bg-rose-200 flex items-center justify-center gap-2 transition-colors">

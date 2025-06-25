@@ -21,7 +21,7 @@ const Footer = () => {
 
         {/* Need Help */}
         <div>
-          <h3 className="text-lg font-semibold mb-3">Need Help?</h3>
+          <h3 className="text-lg font-semibold mb-3">Support Links</h3>
           <ul className="space-y-2 text-white text-sm">
             <li>
               <Link to="/login">User Login</Link>
@@ -41,7 +41,7 @@ const Footer = () => {
 
         {/* Company */}
         <div>
-          <h3 className="text-lg font-semibold mb-3">Company</h3>
+          <h3 className="text-lg font-semibold mb-3">Corporate</h3>
           <ul className="space-y-2 text-white text-sm">
             <li>
               <Link to="/about">Contact Us</Link>
@@ -70,16 +70,16 @@ const Footer = () => {
 
         {/* Privacy */}
         <div>
-          <h3 className="text-lg font-semibold mb-3">Privacy & You</h3>
+          <h3 className="text-lg font-semibold mb-3">Your Privacy</h3>
           <ul className="space-y-2 text-white text-sm">
             <li>
-              <Link to="/terms">Terms of Use</Link>
+              <Link to="/terms"> User Terms</Link>
             </li>
             <li>
-              <Link to="/privacy">Privacy Policy</Link>
+              <Link to="/privacy">User Privacy </Link>
             </li>
             <li>
-              <Link to="/report">Report Misuse</Link>
+              <Link to="/report">Report Profile</Link>
             </li>
           
           </ul>

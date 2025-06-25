@@ -39,7 +39,7 @@ const packages = [
     title: "Regular Package",
     price: "Rs 350 Per Month",
     features: [
-      "35 Contact Views",
+      "45 Contact Views",
       "Send unlimited Interest",
       "Duration – 1 Month",
       "Send Unlimited Interests",
@@ -50,7 +50,7 @@ const packages = [
     title: "Premium Package",
     price: "Rs 450 Per Month",
     features: [
-      "35 Contact Views",
+      "55 Contact Views",
       "Send unlimited Interest",
       "Duration – 1 Month",
       "Send Unlimited Interests",

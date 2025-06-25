@@ -34,7 +34,7 @@ const isOpen= universalOpen === label
           <ChevronDownIcon className="h-5 w-5 text-gray-400 absolute right-3 top-4 pointer-events-none" />
         </div>
         {isOpen && (
-          <ul className={twMerge( clsx( 'absolute right-0 top-full max-h-40 overflow-y-scroll custom-scrollbar bg-amber-50 shadow-sm w-1/2 z-20 rounded-sm overflow-hidden', (label==='Occupation'|| label==='Educational Qualifications') && '-top-[270%]'))}>
+          <ul className={twMerge( clsx( 'absolute right-0 top-full max-h-40 custom-scrollbar overflow-y-scroll  bg-amber-50 shadow-sm w-1/2 z-20 rounded-sm ', (label==='Occupation'|| label==='Educational Qualifications') && '-top-[270%]'))}>
             {options.map((option, index) => (
               <li
                 key={index}
