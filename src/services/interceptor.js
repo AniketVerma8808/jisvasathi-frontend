@@ -1,9 +1,11 @@
 import axios from "axios";
+import { store } from "../Redux/Store";
+import { logOutUser } from "../Features/Userslice";
 
 // Base URL
-// const API_URL = "http://localhost:3040/api";
+const API_URL = "http://localhost:3040/api";
 
-const API_URL = "https://vivah-sanyog-backend.onrender.com/api";
+// const API_URL = "https://vivah-sanyog-backend.onrender.com/api";
 
 // Create Axios instance
 const apiClient = axios.create({
@@ -40,8 +42,8 @@ apiClient.interceptors.response.use(
     const status = error.response?.status;
 
     if (status === 401) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
+      store.dispatch(logOutUser())
+     
       // Optionally show toast or redirect
       // toast.error("Session expired. Please login again.");
       window.location.href = "/login";

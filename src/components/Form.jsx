@@ -22,7 +22,7 @@ const Form = () => {
 
    
   const onFormSubmit = (data) => {
-    
+    localStorage.setItem('firstForm',JSON.stringify(data))
     navigate("/register");
   };
 

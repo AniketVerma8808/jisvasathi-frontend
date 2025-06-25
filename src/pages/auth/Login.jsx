@@ -40,9 +40,8 @@ const Login = () => {
         error?.response?.data?.message || "Login failed. Please try again."
       );
       console.error("Login error:", error);
-    } finally {
-      setLoading(false);
-    }
+      setLoading(false)
+    } 
   };
 
   return (

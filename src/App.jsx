@@ -56,7 +56,6 @@ const App = () => {
           <Route path="/"   element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/verifyemail" element={<VerifyEmail />} />
           <Route path="/login" element={ !isAuthenticated ? <Login /> : <Navigate to={'/profile'}/>} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />

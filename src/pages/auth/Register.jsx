@@ -23,16 +23,19 @@ const [current, setcurrent] = useState(0);
   } = useForm();
 
   const onSubmit = async (data) => {
-    const userData= JSON.parse(localStorage.getItem('user'))
+    const userData= JSON.parse(localStorage.getItem('firstForm'))
+    console.log(userData)
     try {
       setLoading(true);
       const finalData = {
         ...userData,
         ...data,
       };
+      console.log(finalData)
       const response = await UserRegisterService(finalData);
       toast.success(response.data.message);
-      navigate("/verifyemail");
+      localStorage.removeItem('firstForm')
+      navigate('/login')
     } catch (error) {
       console.error("Error:", error);
     } finally {

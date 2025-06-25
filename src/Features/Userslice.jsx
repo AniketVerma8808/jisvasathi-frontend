@@ -3,6 +3,7 @@ import { getUser } from '../services/api.service'
 import { useDispatch } from 'react-redux'
 export const fetchUser= createAsyncThunk('fetchUserDetails',async()=>{
     const res= await getUser()
+    console.log(res)
     return res.data.user
 })
 const initialState = {
@@ -31,7 +32,7 @@ export const userSlice = createSlice({
 
   extraReducers:(bulider)=>{
      bulider.addCase(fetchUser.pending,(state,action)=>{
-     
+       console.log('loading')
     })
     bulider.addCase(fetchUser.fulfilled,(state,action)=>{
        state.user=action.payload
@@ -39,7 +40,7 @@ export const userSlice = createSlice({
     })
    
     bulider.addCase(fetchUser.rejected,(state,action)=>{
-
+     console.log('failed to fetch')
     })
   }
 })
