@@ -1,8 +1,9 @@
 "use client";
 
-import { Search, Filter, MapPin, Briefcase, GraduationCap } from "lucide-react";
+import { Search, Filter, MapPin, Briefcase, GraduationCap, ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import SearchFilters from "./SearchFilter";
+import { Link } from "react-router-dom";
 
 export default function SearchContent() {
   const [searchParams, setSearchParams] = useState({
@@ -26,9 +27,12 @@ export default function SearchContent() {
 
   return (
     <div className="space-y-6 bg-white  px-8 py-4  shadow-sm max-lg:w-full max-lg:mt-18 max-lg:pb-22">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Find Your Match</h1>
-      </div>
+       <div className="flex items-center gap-2">
+          <Link to={'/profile'} className="p-2 rounded-full hover:bg-gray-100">
+            <ArrowLeft size={20} />
+          </Link>
+          <h1 className="text-2xl font-bold text-gray-900">Find Your Match</h1>
+        </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Search Filters */}

@@ -15,7 +15,7 @@ const Navbar = () => {
   const [showNav, setshowNav] = useState(false);
   return (
     <>
-      <nav className="bg-white shadow-sm z-50 sticky top-0 left-0 w-full">
+      <nav className="bg-white shadow-sm z-100 sticky top-0 left-0 w-full">
         <div className=" mx-auto px-4 py-4 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-4">
@@ -38,7 +38,7 @@ const Navbar = () => {
                 <Link to="/profile">Home</Link>
                 <Link to="/profile/search">Search Your Partner</Link>
                 <Link to="/matches">Perfect Matches</Link>
-                <Link to="/shortlisted">Shortlisted Profiles</Link>
+                <Link to="/profile/shortListProfile">Shortlisted Profiles</Link>
                 <Link to="/profile/chats">Messages/Chats</Link>
                 <Link to="/packages">Packages</Link>
               </div>

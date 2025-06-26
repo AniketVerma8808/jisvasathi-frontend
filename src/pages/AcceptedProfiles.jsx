@@ -1,4 +1,4 @@
-import { Heart, MessageSquare, PhoneCall, Star } from 'lucide-react'
+import { ArrowLeft, Heart, MessageSquare, PhoneCall, Star } from 'lucide-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -155,7 +155,12 @@ const AcceptedProfiles = () => {
 ]
   return (
     <div className='min-h-screen bg-white p-4'>
-          <h1 className="text-2xl font-bold text-gray-900 capitalize">Profiles that you have accepted</h1>
+           <div className="flex items-center gap-2">
+          <Link to={'/profile'} className="p-2 rounded-full hover:bg-gray-100">
+            <ArrowLeft size={20} />
+          </Link>
+          <h1 className="text-2xl font-bold text-gray-900">Accepted Profiles</h1>
+        </div>
        <div className=" mt-4  grid grid-cols-2 gap-4">
         {
          profiles.map((match,i)=>{

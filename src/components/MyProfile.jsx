@@ -1,7 +1,7 @@
 "use client"
 
 import { useContext, useState } from "react"
-import { Edit, User, Heart, Briefcase, MapPin, Activity, Users, Phone, Mail, Calendar } from "lucide-react"
+import { Edit, User, Heart, Briefcase, MapPin, Activity, Users, Phone, Mail, Calendar, Camera, ArrowLeft } from "lucide-react"
 import { Link } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 import { useSelector } from "react-redux"
@@ -27,7 +27,12 @@ const time=new Date(user?.dob)
     <div className="mx-auto bg-white  shadow-sm border border-gray-200">
       {/* Header */}
       <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">My Profile</h1>
+        <div className="flex items-center gap-2">
+          <Link to={'/profile'} className="p-2 rounded-full hover:bg-gray-100">
+            <ArrowLeft size={20} />
+          </Link>
+          <h1 className="text-2xl font-bold text-gray-900">Edit Profile</h1>
+        </div>
         <Link to={'/profile/editProfile'}
           className="flex items-center gap-2 px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-medium rounded-lg transition-colors"
         >
@@ -39,7 +44,11 @@ const time=new Date(user?.dob)
       <div className="p-6">
         {/* Profile Header Section */}
         <div className="flex flex-col md:flex-row gap-6  p-6 bg-gradient-to-r from-rose-50 to-pink-50 rounded-lg">
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 relative">
+            {/* <input type="file" className="hidden" id='profilePic' />
+            <label for='profilePic' className="absolute bg-white w-10 h-10 flex items-center justify-center rounded-full cursor-pointer left-3/4 top-3/4">
+              <Camera color="gray"/>
+            </label> */}
             <img
               src={user?.profilePhoto || "/placeholder.svg"}
               alt="Profile"

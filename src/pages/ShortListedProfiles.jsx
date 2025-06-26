@@ -2,7 +2,7 @@ import { ArrowLeft, Heart, MessageSquare, PhoneCall, Star } from 'lucide-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const RejectedProfiles = () => {
+const ShortListedProfiles = () => {
     const profiles=[
         {
   "age": 28,
@@ -37,7 +37,7 @@ const RejectedProfiles = () => {
     "caste": "OBC"
   },
   "profileFor": "self",
-  "rejectedProfiles": [],
+  "shortListedProfiles": [],
   "religion": "Muslim",
   "role": "user",
   "subcaste": "",
@@ -73,7 +73,7 @@ const RejectedProfiles = () => {
     "caste": "Brahmin"
   },
   "profileFor": "self",
-  "rejectedProfiles": [],
+  "shortListedProfiles": [],
   "religion": "Hindu",
   "role": "user",
   "subcaste": "Sanadhya",
@@ -109,7 +109,7 @@ const RejectedProfiles = () => {
     "caste": "any"
   },
   "profileFor": "self",
-  "rejectedProfiles": [],
+  "shortListedProfiles": [],
   "religion": "Christian",
   "role": "user",
   "subcaste": "",
@@ -145,7 +145,7 @@ const RejectedProfiles = () => {
     "caste": "Jain"
   },
   "profileFor": "self",
-  "rejectedProfiles": [],
+  "shortListedProfiles": [],
   "religion": "Jain",
   "role": "user",
   "subcaste": "Shwetambar",
@@ -155,11 +155,11 @@ const RejectedProfiles = () => {
 ]
   return (
     <div className='min-h-screen bg-white p-4'>
-           <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
           <Link to={'/profile'} className="p-2 rounded-full hover:bg-gray-100">
             <ArrowLeft size={20} />
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900">Rejected Profiles</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Shortlisted Profiles</h1>
         </div>
        <div className=" mt-4  grid grid-cols-2 gap-4">
         {
@@ -193,12 +193,12 @@ const RejectedProfiles = () => {
               <p className="text-sm  capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">working status-</span><span className="text-black">{match.workingStatus}</span></p>
               <p className="text-sm  capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50"><span className="font-medium mr-1 ">education-</span><span className="text-black">{match.educationQualifications}</span></p></div>
              
-          <div className="flex flex-col max-sm:grid max-sm:grid-cols-2 sm:space-y-2 max-sm:gap-1">
-              {/* <button className="p-2 rounded-lg bg-rose-100 px-4 max-xl:px-2 max-xl:py-1.5 flex-grow cursor-pointer hover:bg-rose-200 flex items-center justify-center gap-2 transition-colors">
+          <div className=" grid grid-cols-2 gap-1">
+              <button className="p-2 rounded-lg bg-rose-100 px-4 max-xl:px-2 max-xl:py-1.5 flex-grow cursor-pointer hover:bg-rose-200 flex items-center justify-center gap-2 transition-colors">
   <h2 className="text-xs font-medium capitalize  "> Send Your Interest</h2>
   <Heart size={20} className="text-rose-600" />
-</button> */}
-{/* 
+</button>
+
 <button className="p-2 rounded-lg bg-gray-100 px-4 flex-grow  max-xl:px-2 max-xl:py-1.5 cursor-pointer hover:bg-gray-200 flex items-center justify-center gap-2 transition-colors">
   <h2 className="text-xs font-medium capitalize  ">Send Message</h2>
   <MessageSquare size={20} className="text-blue-500" />
@@ -212,7 +212,7 @@ const RejectedProfiles = () => {
 <button className="p-2 rounded-lg bg-green-100 px-4 flex-grow max-xl:px-2 max-xl:py-1.5 cursor-pointer hover:bg-green-200 flex items-center justify-center gap-2 transition-colors">
   <h2 className="text-xs font-medium capitalize  "> See Phone Number</h2>
   <PhoneCall size={20} className="text-green-600" />
-</button> */}
+</button>
 
 
               </div>
@@ -225,4 +225,4 @@ const RejectedProfiles = () => {
   )
 }
 
-export default RejectedProfiles
+export default ShortListedProfiles

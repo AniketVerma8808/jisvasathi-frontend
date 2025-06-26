@@ -9,7 +9,8 @@ export const fetchUser= createAsyncThunk('fetchUserDetails',async()=>{
 const initialState = {
  isAuthenticated: localStorage.getItem('isAuthenticated') || false,
  user:null,
- token: localStorage.getItem('token') || null
+ token: localStorage.getItem('token') || null,
+ loading:false
 }
 
 export const userSlice = createSlice({
@@ -27,7 +28,10 @@ export const userSlice = createSlice({
         state.isAuthenticated=false,
         localStorage.removeItem('token')
         localStorage.removeItem('isAuthenticated')
-     }
+     },
+     updateLoader:(state,action)=>{
+         state.loading=!state.loading
+       }
   },
 
   extraReducers:(bulider)=>{
@@ -46,6 +50,6 @@ export const userSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { loggedInUser,logOutUser } = userSlice.actions
+export const { loggedInUser,logOutUser,updateLoader } = userSlice.actions
 
 export default userSlice.reducer

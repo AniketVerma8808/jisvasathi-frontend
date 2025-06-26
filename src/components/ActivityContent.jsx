@@ -1,4 +1,5 @@
-import { Calendar, Heart, MessageSquare, Eye, User } from "lucide-react";
+import { Calendar, Heart, MessageSquare, Eye, User, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const ActivityContent = () => {
   const activities = [
@@ -48,12 +49,12 @@ const ActivityContent = () => {
 
   return (
     <div className="space-y-6 bg-white  px-6 max-sm:px-3 py-4  shadow-sm max-lg:w-full ">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Recent Activity</h1>
-        {/* <button className="text-sm text-rose-600 font-medium hover:text-rose-700">
-          Mark all as read
-        </button> */}
-      </div>
+       <div className="flex items-center gap-2">
+          <Link to={'/profile'} className="p-2 rounded-full hover:bg-gray-100">
+            <ArrowLeft size={20} />
+          </Link>
+          <h1 className="text-2xl font-bold text-gray-900">Recent Activity</h1>
+        </div>
 
       <div className="bg-white rounded-lg  border border-gray-200">
         <div className="divide-y divide-gray-200">

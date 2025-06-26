@@ -28,6 +28,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "./Features/Userslice";
 import AcceptedProfiles from "./pages/AcceptedProfiles";
 import RejectedProfiles from "./pages/RejectedProfile";
+import ShortListedProfiles from "./pages/ShortListedProfiles";
 
 
 const ScrollToTop = () => {
@@ -81,6 +82,7 @@ const App = () => {
             <Route path="myProfile" element={<MyProfile/>}/>
             <Route path="acceptProfile" element={<AcceptedProfiles/>}/>
             <Route path="rejectProfile" element={<RejectedProfiles/>}/>
+            <Route path="shortListProfile" element={<ShortListedProfiles/>}/>
           </Route>
 
           <Route path="/*" element={<NotFound />} />

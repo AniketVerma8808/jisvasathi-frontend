@@ -1,6 +1,6 @@
 import axios from "axios";
 import { store } from "../Redux/Store";
-import { logOutUser } from "../Features/Userslice";
+import { logOutUser, updateLoader } from "../Features/Userslice";
 
 // Base URL
 // const API_URL = "http://localhost:3040/api";
@@ -15,6 +15,7 @@ const apiClient = axios.create({
 // 🔐 Request Interceptor – Attach token
 apiClient.interceptors.request.use(
   (config) => {
+      store.dispatch(updateLoader())
     const token = localStorage.getItem("token");
 
     if (token) {
@@ -27,7 +28,6 @@ apiClient.interceptors.request.use(
     } else {
       config.headers["Content-Type"] = "application/json";
     }
-
     return config;
   },
   (error) => {
@@ -37,16 +37,15 @@ apiClient.interceptors.request.use(
 
 // ❌ Response Interceptor – Handle unauthorized (401)
 apiClient.interceptors.response.use(
-  (response) => response,
+  (response) =>{
+      store.dispatch(updateLoader())
+    return response
+  } ,
   (error) => {
     const status = error.response?.status;
 
     if (status === 401) {
       store.dispatch(logOutUser())
-     
-      // Optionally show toast or redirect
-      // toast.error("Session expired. Please login again.");
-      window.location.href = "/login";
     }
 
     return Promise.reject(error);
