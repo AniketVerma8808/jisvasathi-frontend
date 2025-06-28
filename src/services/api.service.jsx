@@ -9,9 +9,14 @@ export const UserVerifyEmailService = (data) => {
   return apiClient.post("/users/verify-email", data);
 };
 
-export const getMatches=()=>{
-  return apiClient.get('/users/getMatchedUsers')
-}
+export const getMatches = (uid) => {
+  return apiClient.get(`/matchprofile/matchuser/${uid}`);
+};
+
+
+// export const getMatches=()=>{
+//   return apiClient.get('/users/getMatchedUsers')
+// }
 // Login User API
 export const UserLoginService = (data) => {
   return apiClient.post("/users/login", data);
