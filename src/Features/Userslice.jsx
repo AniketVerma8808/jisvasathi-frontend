@@ -44,6 +44,7 @@ export const userSlice = createSlice({
     })
    
     bulider.addCase(fetchUser.rejected,(state,action)=>{
+      state.loading=false
      console.log('failed to fetch')
     })
   }
