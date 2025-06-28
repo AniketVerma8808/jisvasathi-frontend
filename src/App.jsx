@@ -29,6 +29,7 @@ import { fetchUser } from "./Features/Userslice";
 import AcceptedProfiles from "./pages/AcceptedProfiles";
 import RejectedProfiles from "./pages/RejectedProfile";
 import ShortListedProfiles from "./pages/ShortListedProfiles";
+import ReportProfileForm from "./pages/ReportProfileForm";
 
 
 const ScrollToTop = () => {
@@ -66,6 +67,7 @@ const App = () => {
           <Route path="/packages" element={<Packages/>}/>
           <Route path="/profileDetails" element={<ProfileDetails/>}/>
           <Route path="/intellectualMatch" element={<IntellectualMatch/>}/>
+          <Route path="/reportProfile" element={<ReportProfileForm/>}/>
           <Route
             path="/profile"
             element={

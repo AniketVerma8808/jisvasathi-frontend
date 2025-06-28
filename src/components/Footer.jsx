@@ -27,10 +27,10 @@ const Footer = () => {
               <Link to="/login">User Login</Link>
             </li>
             <li>
-              <Link to="/signup">Create Account</Link>
+              <Link to="/register">Create Account</Link>
             </li>
             <li>
-              <Link to="/search">Find a Match</Link>
+              <Link to="/profile/search">Find a Match</Link>
             </li>
             <li>
               <Link to="/support">Need Help?</Link>
@@ -59,11 +59,11 @@ const Footer = () => {
             </li>
             
             <li>
-              <Link to="/blog">Create Your Profile</Link>
+              <Link to="/register">Create Your Profile</Link>
             </li>
            
             <li>
-              <Link to="/contact">Search your Life Partner</Link>
+              <Link to="/profile/search">Search your Life Partner</Link>
             </li>
           </ul>
         </div>
@@ -79,7 +79,7 @@ const Footer = () => {
               <Link to="/privacy">User Privacy </Link>
             </li>
             <li>
-              <Link to="/report">Report Profile</Link>
+              <Link to="/reportProfile">Report Profile</Link>
             </li>
           
           </ul>

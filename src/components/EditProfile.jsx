@@ -9,45 +9,69 @@ import { editProfile } from "../services/api.service"
 import { useSelector } from "react-redux"
 
 export default function EditProfile() {
-const defaultFormData = {
-  fullName: "",
-  email: "",
-  mobile: "",
-  gender: "",
-  profileFor: "",
-  religion: "",
-  caste: "",  
-  subcaste: "",
-  gothram: "",
-  dob: "",
-  dosh: "",
-  motherTongue: "",
-  age: "",
-  partnerPreferences: {
-    motherTongue: "",
-    workingStatus: "",
-    occupation: "",
-    educationQualifications: "",
-    country: "",
+const defaultFormState={
+  personalInfo:{
+
   },
-  // Add other fields as needed
-};
+   education: {
+   
+  },
+  about: {
+    
+  },
+  family: {
+   
+  },
+  lifeType: {
+   
+  },
+  partnerPreferences: {
+    ageRange: {
+      min: '',
+      max: '',
+    },
+    heightRange: {
+      min: '',
+      max: '',
+    },
+    maritalStatus: '',
+    religionCaste: {
+      religion: '',
+      caste: '',
+    },
+    education: '',
+    profession: '',
+    location: {
+      country: '',
+      state: '',
+      city: '',
+    },
+    manglikPreference: '',
+    lifestyle: {
+      diet: '',
+      smoking: '',
+      drinking: '',
+    },
+  },
+  profilePic: {
+    fileName: '',
+    path: '',
+    mimeType: '',
+    size: '',
+  },
+}
 
 const { user } = useSelector((state) => state.user);
-const [formData, setFormData] = useState(defaultFormData);
 
-useEffect(() => {
-  if (user) {
-    setFormData({
-      ...defaultFormData,
-      ...user,
-      partnerPreferences: {
-        ...defaultFormData.partnerPreferences,
-        ...user.partnerPreferences,
-      },
-    });
+
+const [formData, setFormData] = useState(defaultFormState);
+useState(()=>{
+  if(user){
+    setFormData({defaultFormState,...user?.profile})
   }
-}, [user]);
+},[user])
+console.log(user?.profile)
+console.log(formData)
 
   // State for profile photos
   const [photos, setPhotos] = useState([
@@ -66,28 +90,29 @@ useEffect(() => {
   const fileInputRef = useRef(null)
 
   // Handle input changes
-  const handleChange = (e) => {
-
+  const handleChange = (e,section) => {
     const { name, value } = e.target
-
     setFormData((prev) => ({
-      ...prev,
-      [name]: value,
+      [section]: {
+        ...defaultFormState[section],
+        [name]:value
+      },
     }))
     
   }
 
-  const handlePartnerPreferences=(e)=>{
-    const {name,value}=e.target
-     setFormData((prev) => ({
-      ...prev,
-       partnerPreferences:{
-         ...prev.partnerPreferences,
-      [name]: value,
-    },
+
+  // const handlePartnerPreferences=(e,section,field)=>{
+  //   const {name,value}=e.target
+  //    setFormData((prev) => ({
+  //     ...prev,
+  //      partnerPreferences:{
+  //        ...prev.partnerPreferences,
+  //     [name]: value,
+  //   },
        
-    }))
-  }
+  //   }))
+  // }
   // Handle photo upload
   const handlePhotoUpload = (index) => {
     fileInputRef.current.click()
@@ -270,7 +295,7 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
                   id="fullName"
                   name="fullName"
                   value={formData?.fullName}
-                  onChange={handleChange}
+                  onChange={(e)=>handleChange(e,'personalInfo')}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 />
               </div>
@@ -285,7 +310,7 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
                   id="gender"
                   name="gender"
                   value={formData?.gender}
-                  onChange={handleChange}
+                  onChange={(e)=>handleChange(e,'personalInfo')}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 >
                   <option value="male">Male</option>
@@ -309,7 +334,7 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
         day: "2-digit",
       }) : ''
                   }
-                  onChange={handleChange}
+                  onChange={(e)=>handleChange(e,'personalInfo')}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 />
               </div>
@@ -322,7 +347,7 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
                   id="height"
                   name="height"
                   value={formData?.height}
-                  onChange={handleChange}
+                  onChange={(e)=>handleChange(e,'personalInfo')}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 >
                   <option value="4&apos;10&quot;">4'10" (147 cm)</option>
@@ -356,7 +381,7 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
                   id="religion"
                   name="religion"
                   value={formData?.religion}
-                  onChange={handleChange}
+                  onChange={(e)=>handleChange(e,'personalInfo')}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 >
                   <option value="Christian">Christian</option>
@@ -381,7 +406,7 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
                   id="motherTongue"
                   name="motherTongue"
                   value={formData?.motherTongue}
-                  onChange={handleChange}
+                  onChange={(e)=>handleChange(e,'personalInfo')}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 />
               </div>
@@ -394,7 +419,7 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
                   id="maritalStatus"
                   name="maritalStatus"
                   value={formData?.maritalStatus}
-                  onChange={handleChange}
+                  onChange={(e)=>handleChange(e,'personalInfo')}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 >
                   <option value="Never Married">Never Married</option>
@@ -417,7 +442,7 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
                   id="email"
                   name="email"
                   value={formData?.email}
-                  onChange={handleChange}
+                  onChange={(e)=>handleChange(e,'personalInfo')}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 />
               </div>
@@ -431,7 +456,7 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
                   id="phone"
                   name="phone"
                   value={formData?.phone}
-                  onChange={handleChange}
+                  onChange={(e)=>handleChange(e,'personalInfo')}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 />
               </div>
@@ -445,7 +470,7 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
                   id="location"
                   name="location"
                   value={formData?.location}
-                  onChange={handleChange}
+                  onChange={(e)=>handleChange(e,'personalInfo')}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 />
               </div>
@@ -528,7 +553,7 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
                   id="education"
                   name="education"
                   value={formData?.education}
-                  onChange={handleChange}
+                  onChange={(e)=>handleChange(e,'education')}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 >
                   <option value="High School">High School</option>
@@ -549,7 +574,7 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
                   id="educationDetails"
                   name="educationDetails"
                   value={formData?.educationDetails}
-                  onChange={handleChange}
+                  onChange={(e)=>handleChange(e,'education')}
                   placeholder="University name, field of study, etc."
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 />
@@ -568,7 +593,7 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
                   id="occupation"
                   name="occupation"
                   value={formData?.occupation}
-                  onChange={handleChange}
+                  onChange={(e)=>handleChange(e,'career')}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 />
               </div>
@@ -582,7 +607,7 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
                   id="company"
                   name="company"
                   value={formData?.company}
-                  onChange={handleChange}
+                  onChange={(e)=>handleChange(e,'career')}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 />
               </div>
@@ -595,7 +620,7 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
                   id="income"
                   name="income"
                   value={formData?.income}
-                  onChange={handleChange}
+                  onChange={(e)=>handleChange(e,'career')}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 >
                   <option value="Prefer not to say">Prefer not to say</option>
@@ -627,8 +652,8 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
               <textarea
                 id="aboutMe"
                 name="aboutMe"
-                value={formData?.aboutMe}
-                onChange={handleChange}
+                value={formData?.about}
+                onChange={(e)=>handleChange(e,'about')}
                 rows={8}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 placeholder="Share details about your personality, hobbies, values, and what you're looking for in a partner..."
@@ -645,7 +670,7 @@ const Dropdown = ({ field, label, options, universalOpen, setuniversalOpen, name
                 id="interests"
                 name="interests"
                 value={formData?.interests}
-                onChange={handleChange}
+                onChange={(e)=>handleChange(e,'about')}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                 placeholder="Separate interests with commas (e.g., Hiking, Reading, Cooking)"
               />
