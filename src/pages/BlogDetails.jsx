@@ -1,30 +1,36 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const BlogDetails = () => {
+const BlogDetail = () => {
   const { state } = useLocation();
-  const blog = state?.blog;
-
+const blog=state.blog
+  const navigate = useNavigate();
+console.log(blog?.content)
   if (!blog) {
-    return <p>Blog not found.</p>;
+    return (
+      <div className="text-center mt-10">
+        <p>No blog data found.</p>
+        <button onClick={() => navigate(-1)} className="text-pink-600 mt-2 underline">
+          Go back
+        </button>
+      </div>
+    );
   }
 
   return (
-    <div className="py-12 md:px-20 pt-[100px] pb-[170px] md:pt-[100px] md:pb-[200px]">
-      <div className="max-w-7xl mx-auto px-4 text-white">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">{blog.title}</h1>
-        <p className="text-gray-600 mb-4">{blog.date}</p>
-        <div className="overflow-hidden rounded-2xl">
-          <img
-            src={blog.image}
-            alt={blog.title}
-            className="w-full md:h-[500px] object-cover"
-          />
-        </div>
-        <p className="text-gray-800">{blog.content}</p>
+    <div className="max-w-3xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-4">{blog?.title}</h1>
+      <p className="mb-4">{blog?.content.intro}</p>
+      <div className="space-y-4">
+        {blog?.content.body.map((section, index) => (
+          <div key={index}>
+            <h3 className="text-lg font-semibold text-pink-600">{section.heading}</h3>
+            <p>{section.para}</p>
+          </div>
+        ))}
       </div>
+      <p className="mt-6 font-medium">{blog?.content.conclusion}</p>
     </div>
   );
 };
 
-export default BlogDetails;
+export default BlogDetail;

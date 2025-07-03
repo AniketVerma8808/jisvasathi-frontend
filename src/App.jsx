@@ -63,7 +63,7 @@ const App = () => {
           <Route path="/login" element={ !isAuthenticated ? <Login /> : <Navigate to={'/profile'}/>} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route path="/blog/:id" element={<BlogDetails />} />
+          <Route path="/blog" element={<BlogDetails />} />
           <Route path="/packages" element={<Packages/>}/>
           <Route path="/profileDetails" element={<ProfileDetails/>}/>
           <Route path="/intellectualMatch" element={<IntellectualMatch/>}/>
