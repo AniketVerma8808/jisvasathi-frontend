@@ -11,12 +11,12 @@ const Faqs = () => {
 
   const faqs = [
     {
-      question: "Who can create a profile on Vivah-sanyog?",
+      question: "Who can create a profile on Milan Sangam?",
       answer:
         "Anyone above the legal age of marriage can create a profile for themselves. Parents or guardians can also create profiles on behalf of their children.",
     },
     {
-      question: "Is there a fee to use Vivah-sanyog?",
+      question: "Is there a fee to use Milan Sangam?",
       answer:
         "We offer both free and premium features. Basic registration and browsing are free. For enhanced visibility and more matches, you can explore our premium plans.",
     },

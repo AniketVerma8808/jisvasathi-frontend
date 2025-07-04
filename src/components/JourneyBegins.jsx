@@ -5,7 +5,7 @@ const JourneyBegins = () => {
   return (
    <section className="px-5 py-15 bg-gray-50">
     <div className=" max-w-7xl mx-auto ">
-    <h2 className="text-5xl text-amber-500 text-center  font-bold max-md:text-4xl max-sm:text-3xl font-['inter']">Why Choose Vivah-Sanyog?</h2>
+    <h2 className="text-5xl text-amber-500 text-center  font-bold max-md:text-4xl max-sm:text-3xl font-['inter']">Why Choose Milan Sangam?</h2>
     
    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 max-md:gap-4">
   {[
