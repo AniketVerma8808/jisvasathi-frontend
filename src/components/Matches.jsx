@@ -3,23 +3,24 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getMatches } from "../services/api.service";
 import { useSelector } from "react-redux";
+import MatchesSkeleton from "./skeletons/MatchesSkeleton";
 
 export default function Matches() {
-  const user = useSelector((state) => state.user.user); 
-  console.log("user",user)
-
+  const user = useSelector((state) => state.user.user);
   const [matches, setmatches] = useState();
+
   useEffect(() => {
     const getMatchedUsers = async () => {
-   if (!user?._id) return;
-
-     
-     const res = await getMatches(user._id);
-      console.log("Matches:", res);
+      if (!user?._id) return;
+      const res = await getMatches(user._id);
       setmatches(res.data.data);
     };
     getMatchedUsers();
   }, [user]);
+
+  if (!matches) {
+    return <MatchesSkeleton />;
+  }
 
   return (
     <div className="space-y-6  bg-white ml-auto  py-4 px-5 pb-10 shadow-sm max-sm:px-3  max-lg:w-full ">
