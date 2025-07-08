@@ -15,7 +15,7 @@ const CareerEducationForm = ({ formData, handleChange }) => {
           </label>
           <select
             id="education"
-            name="highestQualification "
+            name="highestQualification"
             value={formData?.education?.highestQualification || ""}
             onChange={(e) => handleChange(e, "education")}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
