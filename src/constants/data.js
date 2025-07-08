@@ -1,5 +1,5 @@
 
-export const ageOptions = Array.from({ length: 46 }, (_, i) => (20 + i).toString());
+export const ageOptions = Array.from({ length: 46 }, (_, i) => (20 + i));
 
 export const maritalStatusOptions = [
   "single", "Married", "Unmarried", "Divorced", "Awaiting Divorce",
@@ -9,19 +9,23 @@ export const maritalStatusOptions = [
 export const kidsOptions = ["Yes", "No", "Doesn't matter"];
 
 export const heightOptions = [
-  "4 feet", "4 feet - 1 inch", "4 feet - 2 inch", "4 feet - 3 inch", "4 feet - 4 inch",
-  "4 feet - 5 inch", "4 feet - 6 inch", "4 feet - 7 inch", "4 feet - 8 inch", "4 feet - 9 inch",
-  "4 feet - 10 inch", "4 feet - 11 inch", "5 feet", "5 feet - 1 inch", "5 feet - 2 inch",
-  "5 feet - 3 inch", "5 feet - 4 inch", "5 feet - 5 inch", "5 feet - 6 inch", "5 feet - 7 inch",
-  "5 feet - 8 inch", "5 feet - 9 inch", "5 feet - 10 inch", "5 feet - 11 inch", "6 feet",
-  "6 feet - 1 inch", "6 feet - 2 inch", "6 feet - 3 inch", "6 feet - 4 inch", "6 feet - 5 inch",
-  "6 feet - 6 inch", "6 feet - 7 inch", "6 feet - 8 inch", "6 feet - 9 inch", "6 feet - 10 inch",
-  "6 feet - 11 inch",
-];
+              `4'10" (147 cm)`, `4'11" (150 cm)`, `5'0" (152 cm)`, `5'1" (155 cm)`, `5'2" (157 cm)`,
+              `5'3" (160 cm)`, `5'4" (163 cm)`, `5'5" (165 cm)`, `5'6" (168 cm)`, `5'7" (170 cm)`,
+              `5'8" (173 cm)`, `5'9" (175 cm)`, `5'10" (178 cm)`, `5'11" (180 cm)`, `6'0" (183 cm)`,
+              `6'1" (185 cm)`, `6'2" (188 cm)`, `6'3" (191 cm)`, `6'4" (193 cm)`, `6'5" (196 cm)`
+            ];
 
 export const religionOptions = [
   "Hindu", "Muslim", "Christian", "Sikh", "Jain", "Parsi", "Buddhist", "Jewish", "Other",
 ];
+
+export const casteOptions= [
+                'General',
+'OBC',
+'SC',
+'ST',
+'Others',
+              ]
 
 export const motherTongueOptions = [
   "Hindi", "English", "Bengali", "Gujarati", "Malyalam", "Kannada", "Telgu", "Punjabi",

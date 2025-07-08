@@ -28,31 +28,13 @@ import LifestyleForm from "./editProfile/LifestyleForm";
 import PartnerPreferencesForm from "./editProfile/PartnerPreferencesForm";
 
 export default function EditProfile() {
-  const defaultFormState = {
-    personalInfo: {},
-    education: {},
-    career: {},
-    about: {},
-    family: {},
-    lifeType: {},
-    partnerPreferences: {
-      ageRange: { min: "", max: "" },
-      heightRange: { min: "", max: "" },
-      maritalStatus: "",
-      religionCaste: { religion: "", caste: "" },
-      education: "",
-      profession: "",
-      location: { country: "", state: "", city: "" },
-      manglikPreference: "",
-      lifestyle: { diet: "", smoking: "", drinking: "" },
-    },
-    profilePic: { fileName: "", path: "", mimeType: "", size: "" },
-  };
+
 
   const profileData = useSelector((state) => state.user.profileData);
 
+
   // console.log("profileData",profileData);
-  const [formData, setFormData] = useState(defaultFormState);
+  const [formData, setFormData] = useState({});
   const [photos, setPhotos] = useState([
     "/placeholder.svg?height=300&width=300",
     "/placeholder.svg?height=300&width=300",
@@ -64,15 +46,11 @@ export default function EditProfile() {
   const [activeTab, setActiveTab] = useState("personal");
   const fileInputRef = useRef(null);
 
-  // useEffect(() => {
-  //   if (user?.profile) {
-  //     setFormData({ ...defaultFormState, ...user.profile });
-  //   }
-  // }, [user]);
+
 
   useEffect(() => {
     if (profileData) {
-      console.log("🟢 Loaded profileData from store:", profileData);
+      // console.log("🟢 Loaded profileData from store:", profileData);
       setFormData((prev) => ({
         ...prev,
         personalInfo: profileData.personalInfo || {},
@@ -86,7 +64,6 @@ export default function EditProfile() {
           heightRange: { min: "", max: "" },
           religionCaste: { religion: "", caste: "" },
           location: { country: "", state: "", city: "" },
-          lifestyle: { diet: "", smoking: "", drinking: "" },
         },
         profilePic: profileData.profilePic || {
           fileName: "",
@@ -98,6 +75,7 @@ export default function EditProfile() {
     }
   }, [profileData]);
 
+  console.log(formData)
   const handleChange = (e, section) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -121,18 +99,30 @@ export default function EditProfile() {
     setPhotos(newPhotos);
   };
 
-  const handlePartnerPreferences = (e, section, field) => {
+  const handlePartnerPreferences = (e, field) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    if(field){
+setFormData((prev) => ({
       ...prev,
       partnerPreferences: {
         ...prev.partnerPreferences,
-        [section]: {
-          ...prev.partnerPreferences[section],
+        [field]: {
+          ...prev.partnerPreferences[field],
           [name]: value,
         },
       },
     }));
+    }
+    else{
+      setFormData((prev)=>({
+        ...prev,
+        partnerPreferences:{
+          ...prev.partnerPreferences,
+          [name]:value
+        }
+      }))
+    }
+    
   };
 
   const handleSubmit = async (e) => {
