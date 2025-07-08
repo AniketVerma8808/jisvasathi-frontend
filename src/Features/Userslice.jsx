@@ -48,7 +48,7 @@ export const userSlice = createSlice({
       localStorage.removeItem('isAuthenticated');
     },
     updateLoader: (state, action) => {
-      state.loading = action.payload;
+      state.loading = !state.loading;
     },
   },
   extraReducers: (builder) => {
