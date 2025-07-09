@@ -4,6 +4,7 @@ import { Camera, X } from "lucide-react";
 const PhotosUploadForm = ({
   photos,
   fileInputRef,
+  setPhotos,
   handlePhotoUpload,
   handleRemovePhoto,
 }) => {
@@ -13,13 +14,16 @@ const PhotosUploadForm = ({
         <h2 className="text-lg font-semibold text-gray-900">Profile Photos</h2>
         <p className="text-sm text-gray-500">Upload up to 6 photos</p>
       </div>
-
-      <input
+ <input
         type="file"
         ref={fileInputRef}
+        multiple
         className="hidden"
         accept="image/*"
+        id="photo"
+        onChange={() => handlePhotoUpload()}
       />
+     
 
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {photos.map((photo, index) => (
@@ -27,10 +31,11 @@ const PhotosUploadForm = ({
             key={index}
             className="aspect-square border border-gray-200 rounded-lg overflow-hidden relative"
           >
+            
             {photo ? (
               <>
                 <img
-                  src={photo || "/placeholder.svg"}
+                  src={URL.createObjectURL(photo) || "/placeholder.svg"}
                   alt={`Profile photo ${index + 1}`}
                   className="w-full h-full object-cover"
                 />
@@ -43,14 +48,13 @@ const PhotosUploadForm = ({
                 </button>
               </>
             ) : (
-              <button
-                type="button"
-                onClick={() => handlePhotoUpload(index)}
-                className="w-full h-full flex flex-col items-center justify-center bg-gray-50 hover:bg-gray-100"
+              <label
+                htmlFor="photo"
+                className="w-full h-full flex flex-col cursor-pointer items-center justify-center bg-amber-50 hover:bg-gray-100"
               >
                 <Camera size={32} className="text-gray-400 mb-2" />
                 <span className="text-sm text-gray-500">Add Photo</span>
-              </button>
+              </label>
             )}
 
             {index === 0 && photo && (

@@ -30,14 +30,15 @@ import PartnerPreferencesForm from "./editProfile/PartnerPreferencesForm";
 export default function EditProfile() {
 
 
-  const profileData = useSelector((state) => state.user.profileData);
+  const user = useSelector((state) => state.user);
+  const profileData=user.profileData
+  console.log(user,profileData)
 
 
   // console.log("profileData",profileData);
   const [formData, setFormData] = useState({});
-  const [photos, setPhotos] = useState([
-    "/placeholder.svg?height=300&width=300",
-    "/placeholder.svg?height=300&width=300",
+  const [photos, setPhotos] = useState(profileData?.profilePhotos || [
+  null,null,
     null,
     null,
     null,
@@ -45,8 +46,8 @@ export default function EditProfile() {
   ]);
   const [activeTab, setActiveTab] = useState("personal");
   const fileInputRef = useRef(null);
-
-
+console.log(profileData)
+console.log(photos)
 
   useEffect(() => {
     if (profileData) {
@@ -65,17 +66,16 @@ export default function EditProfile() {
           religionCaste: { religion: "", caste: "" },
           location: { country: "", state: "", city: "" },
         },
-        profilePic: profileData.profilePic || {
-          fileName: "",
-          path: "",
-          mimeType: "",
-          size: "",
-        },
+        // profilePhotos: profileData.profilePhotos || [{
+        //   fileName: "",
+        //   path: "",
+        //   mimeType: "",
+        //   size: "",
+        // }],
       }));
     }
   }, [profileData]);
 
-  console.log(formData)
   const handleChange = (e, section) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -87,11 +87,24 @@ export default function EditProfile() {
     }));
   };
 
-  const handlePhotoUpload = (index, base64) => {
-    const updatedPhotos = [...photos];
-    updatedPhotos[index] = base64;
-    setPhotos(updatedPhotos);
+  const handlePhotoUpload = () => {
+      const photo=[...fileInputRef.current.files]
+      console.log(photo)
+      const fileArr= [...photos]
+      let flag=false
+      fileArr.map((file,i)=>{
+          if(!file && !flag){
+            fileArr[i]=photo[0]
+            flag=true
+            return
+          }
+      })
+      
+      setPhotos(fileArr)
+    
+    
   };
+ 
 
   const handleRemovePhoto = (index) => {
     const newPhotos = [...photos];
@@ -127,7 +140,17 @@ setFormData((prev) => ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await editProfile(formData);
+    const formDataFinal= new FormData()
+    formDataFinal.append('formData',JSON.stringify(formData))
+    photos.forEach((photo)=>{
+       formDataFinal.append('profilePhotos',photo)
+    })
+    // formDataFinal.append('profilePhotos',photos)
+    for (const [key,value] of formDataFinal.entries()) {
+      console.log(key,value)
+    }
+
+    const res = await editProfile(formDataFinal);
     toast.success("Profile updated successfully!");
   };
 
@@ -194,6 +217,7 @@ setFormData((prev) => ({
         {activeTab === "photos" && (
           <PhotosUploadForm
             photos={photos}
+            setPhotos={setPhotos}
             fileInputRef={fileInputRef}
             handlePhotoUpload={handlePhotoUpload}
             handleRemovePhoto={handleRemovePhoto}

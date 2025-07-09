@@ -124,13 +124,13 @@ const PersonalInfoForm = ({ personalInfo, handleChange }) => {
 
         {/* Marital Status */}
         <div>
-          <label htmlFor="maritalStatus" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="marriageStatus" className="block text-sm font-medium text-gray-700 mb-1">
             Marital Status
           </label>
           <select
-            id="maritalStatus"
-            name="maritalStatus"
-            value={personalInfo?.maritalStatus || ""}
+            id="marriageStatus"
+            name="marriageStatus"
+            value={personalInfo?.marriageStatus || ""}
             onChange={(e) => handleChange(e, "personalInfo")}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
           >
