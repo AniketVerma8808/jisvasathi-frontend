@@ -37,7 +37,7 @@ export default function EditProfile() {
 
   // console.log("profileData",profileData);
   const [formData, setFormData] = useState({});
-  const [photos, setPhotos] = useState([null,null,null,null,null,null])
+  const [photos, setPhotos] = useState([])
  
   const [activeTab, setActiveTab] = useState("personal");
   const fileInputRef = useRef(null);
@@ -63,7 +63,7 @@ console.log(photos)
         },
    
       }));
-      setPhotos( profileData?.profilePic || [null, null, null, null, null, null]);
+      setPhotos( profileData?.profilePic);
 
     }
   }, [profileData]);
