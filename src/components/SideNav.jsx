@@ -15,12 +15,13 @@ import { RiUserReceived2Line, RiUserReceivedLine } from "react-icons/ri";
 import { RxCrossCircled } from "react-icons/rx";
 import { TbUserShare } from "react-icons/tb";
 import { LuBrain } from "react-icons/lu";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logOutUser } from "../Features/Userslice";
 const SideNav = () => {
-
+  const { profileData } = useSelector((state) => state.user);
+  console.log(profileData);
   const navigate = useNavigate();
- const dispatch=useDispatch()
+  const dispatch = useDispatch();
 
   const [current, setcurrent] = useState(
     JSON.parse(sessionStorage.getItem("current") || 0)
@@ -28,7 +29,7 @@ const SideNav = () => {
   const links = [
     {
       icon: <LiaUserFriendsSolid />,
-      text: "matches",  
+      text: "matches",
       path: "/profile",
     },
     {
@@ -41,8 +42,8 @@ const SideNav = () => {
       text: "search",
       path: "/profile/search",
     },
-       {
-      icon: <CgProfile /> ,
+    {
+      icon: <CgProfile />,
       text: "My Profile",
       path: "/profile/myProfile",
     },
@@ -57,14 +58,14 @@ const SideNav = () => {
       text: "Chats/Message",
       path: "/profile/chats",
     },
-  
+
     {
       icon: <CiCircleCheck />,
       text: "Accepted Profiles",
       path: "/profile/acceptProfile",
     },
     {
-      icon: <RxCrossCircled /> ,
+      icon: <RxCrossCircled />,
       text: "Rejected Profiles",
       path: "/profile/rejectProfile",
     },
@@ -74,25 +75,24 @@ const SideNav = () => {
       path: "/packages",
     },
     {
-      icon:<TbUserShare /> ,
+      icon: <TbUserShare />,
       text: "Interests Sent",
       path: "/packages",
     },
-      {
+    {
       icon: <MdOutlineWorkspacePremium />,
       text: "Packages",
       path: "/packages",
     },
-      {
+    {
       icon: <LuBrain />,
       text: "Intellectual Match",
       path: "/intellectualMatch",
     },
-   
   ];
 
   const handleLogout = () => {
-   dispatch(logOutUser())
+    dispatch(logOutUser());
     navigate("/");
   };
 
@@ -104,13 +104,24 @@ const SideNav = () => {
 
   return (
     <div className="  py-10 pb-20 px-2  overflow-y-scroll h-full  custom-scrollbar bg-amber-100">
-      <div className=" gap-4 px-4 flex items-center justify-center max-xl:px-0">
-        <Link to={'/profile/myProfile'} className="rounded-full w-16 h-16 border border-gray-100 text-4xl text-gray-400 flex items-center justify-center bg-gray-100">
-          <CgProfile />
+      <div className="gap-4 px-4 flex items-center justify-center max-xl:px-0">
+        <Link
+          to={"/profile/myProfile"}
+          className="rounded-full w-16 h-16 border border-gray-100 flex items-center justify-center bg-gray-100"
+        >
+          {profileData?.profilePic?.[0] ? (
+            <img
+              src={profileData.profilePic[0]}
+              alt="Profile"
+              className="rounded-full w-16 h-16 object-cover"
+            />
+          ) : (
+            <CgProfile className="text-4xl text-gray-400" />
+          )}
         </Link>
       </div>
       <h1 className="text-2xl text-center leading-5 font-semibold mt-4">
-        Hi Tony!
+        {profileData?.personalInfo?.fullName}
       </h1>
       <hr className="text-gray-300 mt-5 w-[90%] m-auto" />
       <div className="mt-4 font-secondaryHead space-y-1">

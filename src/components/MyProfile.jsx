@@ -73,7 +73,7 @@ export default function MyProfile() {
               <Camera color="gray"/>
             </label> */}
             <img
-              src={user?.profilePhoto || "/placeholder.svg"}
+              src={profilePic?.[0] || "/placeholder.svg"}
               alt="Profile"
               className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-white shadow-lg"
             />
