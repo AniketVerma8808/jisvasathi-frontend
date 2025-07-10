@@ -37,16 +37,11 @@ export default function EditProfile() {
 
   // console.log("profileData",profileData);
   const [formData, setFormData] = useState({});
-  const [photos, setPhotos] = useState(profileData?.profilePhotos || [
-  null,null,
-    null,
-    null,
-    null,
-    null,
-  ]);
+  const [photos, setPhotos] = useState([null,null,null,null,null,null])
+ 
   const [activeTab, setActiveTab] = useState("personal");
   const fileInputRef = useRef(null);
-console.log(profileData)
+
 console.log(photos)
 
   useEffect(() => {
@@ -68,7 +63,7 @@ console.log(photos)
         },
    
       }));
-      setPhotos(profileData?.profilePhotos || profileData?.profilePic || [null, null, null, null, null, null]);
+      setPhotos( profileData?.profilePic || [null, null, null, null, null, null]);
 
     }
   }, [profileData]);
@@ -85,15 +80,19 @@ console.log(photos)
   };
 
   const handlePhotoUpload = () => {
+    console.log('hello')
       const photo=[...fileInputRef.current.files]
       console.log(photo)
       const fileArr= [...photos]
       let flag=false
       fileArr.map((file,i)=>{
-          if(!file && !flag){
+          if(file=='null' && !flag){
             fileArr[i]=photo[0]
             flag=true
-            return
+           
+          }
+          else{
+            fileArr[i]==null
           }
       })
       
@@ -105,7 +104,7 @@ console.log(photos)
 
   const handleRemovePhoto = (index) => {
     const newPhotos = [...photos];
-    newPhotos[index] = null;
+    newPhotos[index] = 'null';
     setPhotos(newPhotos);
   };
 
