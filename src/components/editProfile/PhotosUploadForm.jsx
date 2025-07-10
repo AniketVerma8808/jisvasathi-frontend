@@ -25,43 +25,50 @@ const PhotosUploadForm = ({
       />
 
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {photos.map((photo, index) => (
-          <div
-            key={index}
-            className="aspect-square border border-gray-200 rounded-lg overflow-hidden relative"
-          >
-            {photo ? (
-              <>
-                <img
-                  src={URL.createObjectURL(photo) || "/placeholder.svg"}
-                  alt={`Profile photo ${index + 1}`}
-                  className="w-full h-full object-cover"
-                />
-                <button
-                  type="button"
-                  onClick={() => handleRemovePhoto(index)}
-                  className="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md hover:bg-gray-100"
-                >
-                  <X size={16} className="text-gray-700" />
-                </button>
-              </>
-            ) : (
-              <label
-                htmlFor="photo"
-                className="w-full h-full flex flex-col cursor-pointer items-center justify-center bg-amber-50 hover:bg-gray-100"
-              >
-                <Camera size={32} className="text-gray-400 mb-2" />
-                <span className="text-sm text-gray-500">Add Photo</span>
-              </label>
-            )}
+        {[...photos, ...Array(6 - photos.length).fill(null)]
+          .slice(0, 6)
+          .map((photo, index) => (
+            <div
+              key={index}
+              className="aspect-square border border-gray-200 rounded-lg overflow-hidden relative"
+            >
+              {photo ? (
+                <>
+                  <img
+                    src={
+                      typeof photo === "string"
+                        ? photo
+                        : URL.createObjectURL(photo)
+                    }
+                    alt={`Profile photo ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
 
-            {index === 0 && photo && (
-              <div className="absolute bottom-0 left-0 right-0 bg-rose-600 text-white text-xs py-1 text-center">
-                Primary Photo
-              </div>
-            )}
-          </div>
-        ))}
+                  <button
+                    type="button"
+                    onClick={() => handleRemovePhoto(index)}
+                    className="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md hover:bg-gray-100"
+                  >
+                    <X size={16} className="text-gray-700" />
+                  </button>
+                </>
+              ) : (
+                <label
+                  htmlFor="photo"
+                  className="w-full h-full flex flex-col cursor-pointer items-center justify-center bg-amber-50 hover:bg-gray-100"
+                >
+                  <Camera size={32} className="text-gray-400 mb-2" />
+                  <span className="text-sm text-gray-500">Add Photo</span>
+                </label>
+              )}
+
+              {index === 0 && photo && (
+                <div className="absolute bottom-0 left-0 right-0 bg-rose-600 text-white text-xs py-1 text-center">
+                  Primary Photo
+                </div>
+              )}
+            </div>
+          ))}
       </div>
 
       <div className="bg-blue-50 p-4 rounded-lg">

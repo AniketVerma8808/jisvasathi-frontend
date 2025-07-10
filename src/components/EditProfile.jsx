@@ -66,13 +66,10 @@ console.log(photos)
           religionCaste: { religion: "", caste: "" },
           location: { country: "", state: "", city: "" },
         },
-        // profilePhotos: profileData.profilePhotos || [{
-        //   fileName: "",
-        //   path: "",
-        //   mimeType: "",
-        //   size: "",
-        // }],
+   
       }));
+      setPhotos(profileData?.profilePhotos || profileData?.profilePic || [null, null, null, null, null, null]);
+
     }
   }, [profileData]);
 
