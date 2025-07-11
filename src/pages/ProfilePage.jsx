@@ -15,7 +15,7 @@ const ProfilePage = () => {
         </div>
 
         {/* Main content: full width on mobile, 9 cols on lg+ */}
-        <div className="w-6/7 hide-scrollbar max-lg:w-full relative">
+        <div className="w-6/7  hide-scrollbar  max-lg:w-full relative">
        
         {
           loading &&  <ProfileLoader/>

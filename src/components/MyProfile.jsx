@@ -107,6 +107,29 @@ export default function MyProfile() {
           <span className="text-black font-semibold">Member Since:</span>{" "}
           {new Date(user?.createdAt).toLocaleDateString()}
         </h2>
+        <div className="grid grid-cols-3 gap-4">
+           {profilePic?.map((photo, index) => (
+               
+                (photo !="null" &&  <div
+              key={index}
+              className="aspect-square border border-gray-200 rounded-lg overflow-hidden relative"
+            >
+           
+           <img
+                    src={
+                     photo
+                    }
+                    alt={`Profile photo ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+
+                 
+            </div>)
+              
+           
+          ))}
+      </div>
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Personal Information */}
           <div className="space-y-6">
@@ -388,6 +411,6 @@ export default function MyProfile() {
           </div>
         </div>
       </div>
-    </div>
+ 
   );
 }
