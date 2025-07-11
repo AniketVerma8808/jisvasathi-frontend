@@ -42,14 +42,21 @@ const ScrollToTop = () => {
   return null;
 };
 
+
+
 const App = () => {
-  const {user,isAuthenticated,token}= useSelector((state)=>state.user)
+  const {user,isAuthenticated,token,loading}= useSelector((state)=>state.user)
   const dispatch=useDispatch()
  useEffect(()=>{
   if(token){
  dispatch(fetchUser())
   }
  },[token])
+ useEffect(() => {
+    if(loading){
+      document.body.style="overflow-hidden"
+    }
+}, [loading])
   return (
     <>
       <ScrollToTop />
