@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logOutUser } from "../Features/Userslice";
 const SideNav = () => {
   const { profileData } = useSelector((state) => state.user);
-  console.log(profileData);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

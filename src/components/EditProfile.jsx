@@ -32,7 +32,7 @@ export default function EditProfile() {
 
   const user = useSelector((state) => state.user);
   const profileData=user.profileData
-  console.log(user,profileData)
+
 
 
   // console.log("profileData",profileData);
@@ -42,7 +42,7 @@ export default function EditProfile() {
   const [activeTab, setActiveTab] = useState("personal");
   const fileInputRef = useRef(null);
 
-console.log(photos)
+
 
   useEffect(() => {
     if (profileData) {
