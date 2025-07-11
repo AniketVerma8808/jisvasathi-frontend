@@ -2,7 +2,7 @@ import React from "react";
 
 const PersonalInfoForm = ({ personalInfo, handleChange }) => {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 ">
       <h2 className="text-lg font-semibold text-gray-900">
         Personal Information
       </h2>
@@ -143,57 +143,7 @@ const PersonalInfoForm = ({ personalInfo, handleChange }) => {
         </div>
       </div>
 
-      {/* Contact Info Section */}
-      <h2 className="text-lg font-semibold text-gray-900 pt-4">
-        Contact Information
-      </h2>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Email */}
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-            Email Address
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={personalInfo?.email || ""}
-            onChange={(e) => handleChange(e, "personalInfo")}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
-          />
-        </div>
-
-        {/* Mobile */}
-        <div>
-          <label htmlFor="mobile" className="block text-sm font-medium text-gray-700 mb-1">
-            Phone Number
-          </label>
-          <input
-            type="tel"
-            id="mobile"
-            name="mobile"
-            value={personalInfo?.mobile || ""}
-            onChange={(e) => handleChange(e, "personalInfo")}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
-          />
-        </div>
-
-        {/* Location */}
-        <div className="md:col-span-2">
-          <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-1">
-            Location
-          </label>
-          <input
-            type="text"
-            id="location"
-            name="location"
-            value={personalInfo?.location || ""}
-            onChange={(e) => handleChange(e, "personalInfo")}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
-          />
-        </div>
-      </div>
+      
     </div>
   );
 };

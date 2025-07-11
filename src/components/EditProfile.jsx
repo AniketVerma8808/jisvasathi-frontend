@@ -151,7 +151,7 @@ setFormData((prev) => ({
   };
 
   return (
-    <div className="mx-auto bg-white shadow-sm border border-gray-200">
+    <div className="mx-auto bg-white min-h-screen shadow-sm border border-gray-200">
       <div className="p-6 border-b border-gray-200 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Link to="/profile" className="p-2 rounded-full hover:bg-gray-100">
