@@ -12,7 +12,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <>
     <BrowserRouter>
       <Provider store={store}>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </Provider>
     </BrowserRouter>
     <ToastContainer position="top-right" autoClose={3000} />
