@@ -1,4 +1,5 @@
 import React from "react";
+import { stateOptions } from "../../constants/data";
 
 const PersonalInfoForm = ({ personalInfo, handleChange }) => {
   return (
@@ -106,7 +107,40 @@ const PersonalInfoForm = ({ personalInfo, handleChange }) => {
             ))}
           </select>
         </div>
-
+     {/* state */}
+      <div>
+          <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">
+            State
+          </label>
+          <select
+            id="state"
+            name="state"
+            value={personalInfo?.state || ""}
+            onChange={(e) => handleChange(e, "personalInfo")}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
+          >
+            <option value="">Select State</option>
+            {stateOptions.map((religion) => (
+              <option key={religion} value={religion}>
+                {religion}
+              </option>
+            ))}
+          </select>
+        </div>
+     {/* City */}
+      <div>
+          <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
+            City
+          </label>
+          <input
+            type="text"
+            id="city"
+            name="city"
+            placeholder="Enter City"
+            value={personalInfo?.city || ""}
+            onChange={(e) => handleChange(e, "personalInfo")}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"/>
+        </div>
         {/* Mother Tongue */}
         <div>
           <label htmlFor="motherTongue" className="block text-sm font-medium text-gray-700 mb-1">

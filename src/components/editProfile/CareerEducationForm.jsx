@@ -1,4 +1,5 @@
 import React from "react";
+import { incomeOptions } from "../../constants/data";
 
 const CareerEducationForm = ({ formData, handleChange }) => {
   return (
@@ -127,15 +128,11 @@ const CareerEducationForm = ({ formData, handleChange }) => {
             onChange={(e) => handleChange(e, "career")}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
           >
-            <option value="">Select Annual Income</option>
-            <option value="Prefer not to say">Prefer not to say</option>
-            <option value="Under $30,000">Under $30,000</option>
-            <option value="$30,000 - $50,000">$30,000 - $50,000</option>
-            <option value="$50,000 - $80,000">$50,000 - $80,000</option>
-            <option value="$80,000 - $100,000">$80,000 - $100,000</option>
-            <option value="$100,000 - $150,000">$100,000 - $150,000</option>
-            <option value="$150,000 - $200,000">$150,000 - $200,000</option>
-            <option value="$200,000+">$200,000+</option>
+          {
+            incomeOptions?.map((option,i)=>{
+              return <option>{option}</option>
+            })
+          }
           </select>
         </div>
       </div>

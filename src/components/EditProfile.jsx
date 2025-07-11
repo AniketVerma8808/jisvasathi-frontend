@@ -67,7 +67,7 @@ export default function EditProfile() {
 
     }
   }, [profileData]);
-
+console.log(formData)
   const handleChange = (e, section) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
