@@ -7,7 +7,7 @@ import { motion, spring } from "motion/react";
 const HeroSection = () => {
   return (
     <div
-      className="relative h-[calc(100vh+68px)] w-full bg-no-repeat  bg-cover  flex items-center justify-end"
+      className="relative h-[calc(100vh+68px)] w-full  bg-no-repeat  bg-cover  flex items-center justify-end"
       style={{ backgroundImage: `url(${banner1})` }}
     >
       {/* Dark Overlay */}

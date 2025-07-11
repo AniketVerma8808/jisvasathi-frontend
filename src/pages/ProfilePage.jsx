@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SideNav from "../components/SideNav";
 import { Outlet, useLocation } from "react-router-dom";
 import ProfileLoader from "../components/ProfileLoader";
@@ -6,6 +6,9 @@ import { useSelector } from "react-redux";
 
 const ProfilePage = () => {
   const {loading}= useSelector((state)=>state.user)
+    useEffect(() => {
+    document.body.style.overflow = loading ? 'hidden' : 'scroll';
+  }, [loading]);
   return (
     <div className="bg-gray-100 ">
       <div className=" mx-auto flex items-start justify-center ">
