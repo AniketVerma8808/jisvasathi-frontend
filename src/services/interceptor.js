@@ -15,7 +15,7 @@ const apiClient = axios.create({
 // 🔐 Request Interceptor – Attach token
 apiClient.interceptors.request.use(
   (config) => {
-      store.dispatch(updateLoader())
+    store.dispatch(updateLoader());
     const token = localStorage.getItem("token");
 
     if (token) {
@@ -37,15 +37,15 @@ apiClient.interceptors.request.use(
 
 // ❌ Response Interceptor – Handle unauthorized (401)
 apiClient.interceptors.response.use(
-  (response) =>{
-      store.dispatch(updateLoader())
-    return response
-  } ,
+  (response) => {
+    store.dispatch(updateLoader());
+    return response;
+  },
   (error) => {
     const status = error.response?.status;
 
     if (status === 401) {
-      store.dispatch(logOutUser())
+      store.dispatch(logOutUser());
     }
 
     return Promise.reject(error);
