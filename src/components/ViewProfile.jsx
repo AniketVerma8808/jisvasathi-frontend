@@ -17,10 +17,12 @@ import {
 } from "lucide-react"
 import { Link, matchPath, useLocation } from "react-router-dom"
 import { getMatches } from "../services/api.service"
+import { useSelector } from "react-redux"
 
 export default function ProfileDetails({ profileId = "1" }) {
-
+const user= useSelector((state)=>state.user)
 const location= useLocation()
+console.log(location.state)
   const profileData= location.state
   const [isLiked, setIsLiked] = useState(false)
   const [isStarred, setIsStarred] = useState(false)
@@ -82,13 +84,14 @@ const time=new Date(profileData.dob)
   const age = calculateAge(profileData?.dob)
 const [matches, setmatches] = useState();
 console.log(matches)
-useEffect(()=>{
-  const getMatchedUsers=async()=>{
-    const res= await getMatches()
-    setmatches(res.data.data)
-  }
-  getMatchedUsers()
-},[])
+ useEffect(() => {
+    const getMatchedUsers = async () => {
+      if (!user?._id) return;
+      const res = await getMatches(user._id);
+      setmatches(res.data.matches);
+    };
+    getMatchedUsers();
+  }, [user]);
   return (
     <div className="grid grid-cols-12  mx-auto bg-white rounded-lg shadow-sm border border-gray-200">
       {/* Header */}

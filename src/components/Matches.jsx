@@ -13,7 +13,7 @@ export default function Matches() {
     const getMatchedUsers = async () => {
       if (!user?._id) return;
       const res = await getMatches(user._id);
-      setmatches(res.data.data);
+      setmatches(res.data.matches);
     };
     getMatchedUsers();
   }, [user]);
@@ -21,6 +21,7 @@ export default function Matches() {
   if (!matches) {
     return <MatchesSkeleton />;
   }
+  console.log(matches)
 
   return (
     <div className="space-y-6  bg-white ml-auto  py-4 px-5 pb-10 shadow-sm max-sm:px-3  max-lg:w-full ">
@@ -29,21 +30,21 @@ export default function Matches() {
       <div className="grid grid-cols-5 gap-2 max-sm:gap-6 max-md:grid-cols-2 max-sm:grid-cols-1">
         {matches?.map((match) => (
           <div
-            key={match._id}
+            key={match?.user?._id}
             className="bg-white rounded-lg   overflow-hidden border border-gray-300 "
           >
-            <Link to={"/profileDetails"} state={match} className="relative">
+            <Link to={"/profileDetails"} state={match.user} className="relative">
               <img
-                src={match.profilePhoto || "/placeholder.svg"}
-                alt={match.fullName}
+                src={match?.user?.profilePhoto || "/placeholder.svg"}
+                alt={match?.user?.fullName}
                 className="w-full h-54 object-cover"
               />
             </Link>
 
             <div className="p-3 pt-6 px-2 ">
               <h3 className=" font-semibold flex items-center leading-1   w-full justify-between">
-                <span> {match.fullName}</span>
-                <span> {match.age}</span>
+                <span> {match?.user?.fullName}</span>
+                <span> {match?.user?.age}</span>
               </h3>
               <br />
               <h3 className="capitalize text-sm leading-2">
@@ -56,28 +57,28 @@ export default function Matches() {
               <div className="flex items-center justify-start flex-wrap gap-1 py-4 max-lg:pb-2">
                 <p className="text-sm w-full capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
                   <span className="font-medium mr-1 ">height-</span>
-                  <span className="text-black">{match.height}&quot;</span>
+                  <span className="text-black">{match?.user?.height}&quot;</span>
                 </p>
                 <p className="text-sm w-full capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
                   <span className="font-medium mr-1 ">marriage status-</span>
-                  <span className="text-black">{match.marriageStatus}</span>
+                  <span className="text-black">{match?.user?.marriageStatus}</span>
                 </p>
                 <p className="text-sm w-full capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
                   <span className="font-medium mr-1 ">religion-</span>
-                  <span className="text-black">{match.religion}</span>
+                  <span className="text-black">{match?.user?.religion}</span>
                 </p>
                 <p className="text-sm w-full capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
                   <span className="font-medium mr-1 ">region-</span>
-                  <span className="text-black">{match.metroCities}</span>
+                  <span className="text-black">{match?.user?.metroCities}</span>
                 </p>
                 <p className="text-sm w-full capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
                   <span className="font-medium mr-1 ">working status-</span>
-                  <span className="text-black">{match.workingStatus}</span>
+                  <span className="text-black">{match?.user?.workingStatus}</span>
                 </p>
                 <p className="text-sm w-full capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
                   <span className="font-medium mr-1 ">education-</span>
                   <span className="text-black">
-                    {match.educationQualifications}
+                    {match?.user?.educationQualifications}
                   </span>
                 </p>
               </div>
