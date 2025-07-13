@@ -1,19 +1,7 @@
-"use client";
+import React from 'react'
 
-import { useState } from "react";
-import {
-  Search,
-  Send,
-  Phone,
-  Video,
-  MoreHorizontal,
-  Paperclip,
-  Smile,
-  MessageSquare,
-} from "lucide-react";
-
-export default function MessengerContent() {
-  const [activeChat, setActiveChat] = useState(1);
+const ChatPage = () => {
+      const [activeChat, setActiveChat] = useState(1);
   const [message, setMessage] = useState("");
 
   const contacts = [
@@ -89,72 +77,9 @@ export default function MessengerContent() {
   };
 
   const activeContact = contacts.find((contact) => contact.id === activeChat);
-
   return (
-    <div className="h-screen flex flex-col bg-white  ml-auto  max-lg:w-full max-xl:mt-18">
-      <div className="flex h-full rounded-lg overflow-hidden border border-gray-200 shadow-sm">
-        {/* Contacts sidebar */}
-        <div className="w-80 bg-white border-r border-gray-200 flex flex-col">
-          <div className="p-3 border-b border-gray-200">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search conversations..."
-                className="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
-              />
-              <Search
-                size={18}
-                className="absolute left-3 top-2.5 text-gray-400"
-              />
-            </div>
-          </div>
-
-          <div className="flex-1 overflow-y-auto">
-            {contacts.map((contact) => (
-              <div
-                key={contact.id}
-                onClick={() => setActiveChat(contact.id)}
-                className={`p-3 flex items-start gap-3 cursor-pointer hover:bg-gray-50 ${
-                  activeChat === contact.id ? "bg-rose-50" : ""
-                }`}
-              >
-                <div className="relative">
-                  <img
-                    src={contact.image || "/placeholder.svg"}
-                    alt={contact.name}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
-                  {contact.online && (
-                    <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
-                  )}
-                </div>
-
-                <div className="flex-1 min-w-0">
-                  <div className="flex justify-between items-baseline">
-                    <h3 className="font-medium truncate">{contact.name}</h3>
-                    <span className="text-xs text-gray-500">
-                      {contact.time}
-                    </span>
-                  </div>
-                  <p className="text-sm text-gray-600 truncate">
-                    {contact.lastMessage}
-                  </p>
-                </div>
-
-                {contact.unread > 0 && (
-                  <div className="flex-shrink-0 w-5 h-5 bg-rose-500 rounded-full flex items-center justify-center">
-                    <span className="text-xs text-white font-medium">
-                      {contact.unread}
-                    </span>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Chat area */}
-        <div className="flex-1 flex flex-col bg-gray-50">
+    <div>
+      <div className="flex-1 flex flex-col bg-gray-50">
           {activeContact ? (
             <>
               {/* Chat header */}
@@ -255,13 +180,14 @@ export default function MessengerContent() {
                   Your Messages
                 </h3>
                 <p className="text-gray-500 mt-1">
-                  Select a conversation to start chatting
+                  
                 </p>
               </div>
             </div>
           )}
         </div>
-      </div>
     </div>
-  );
+  )
 }
+
+export default ChatPage

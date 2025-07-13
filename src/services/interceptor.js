@@ -3,9 +3,9 @@ import { store } from "../Redux/Store";
 import { logOutUser, updateLoader } from "../Features/Userslice";
 
 // Base URL
-// const API_URL = "http://localhost:3040/api";
+const API_URL = "http://localhost:3040/api";
 
-const API_URL = "https://vivah-sanyog-backend.onrender.com/api";
+// const API_URL = "https://vivah-sanyog-backend.onrender.com/api";
 
 // Create Axios instance
 const apiClient = axios.create({

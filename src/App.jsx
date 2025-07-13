@@ -17,8 +17,6 @@ import VerifyEmail from "./pages/auth/Verify_Email";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
 import ProtectedRoute from "./components/ProtectedRoute";
-import MessengerContent from "./components/MessengerContent";
-import { useAuth } from "./context/AuthContext";
 import Packages from "./pages/Packages";
 import MyProfile from "./components/MyProfile";
 import ProfileDetails from "./components/ViewProfile";
@@ -30,6 +28,9 @@ import AcceptedProfiles from "./pages/AcceptedProfiles";
 import RejectedProfiles from "./pages/RejectedProfile";
 import ShortListedProfiles from "./pages/ShortListedProfiles";
 import ReportProfileForm from "./pages/ReportProfileForm";
+import ChatLayout from "./pages/Chat/ChatLayout";
+import ChatStartPage from "./pages/Chat/ChatStartPage";
+import ChatPage from "./components/ChatPage";
 
 
 const ScrollToTop = () => {
@@ -86,7 +87,10 @@ const App = () => {
             <Route path="activity" element={<ActivityContent />} />
             <Route path="search" element={<SearchContent />} />
             <Route path="editProfile" element={<EditProfile />} />
-            <Route path="chats" element={<MessengerContent/>}/>
+            <Route path="chats" element={<ChatLayout/>}>
+              <Route index  element={<ChatStartPage/>}/>
+              <Route path="chatpage" element={<ChatPage/>}/>
+            </Route>
             <Route path="myProfile" element={<MyProfile/>}/>
             <Route path="acceptProfile" element={<AcceptedProfiles/>}/>
             <Route path="rejectProfile" element={<RejectedProfiles/>}/>
