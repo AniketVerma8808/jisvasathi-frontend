@@ -13,8 +13,7 @@ export default function Matches() {
     const getMatchedUsers = async () => {
       if (!user?._id) return;
       const res = await getMatches(user._id);
-      console.log("matches", res);
-      setmatches(res.data.matches);
+      setmatches(res.data.data);
     };
     getMatchedUsers();
   }, [user]);
@@ -117,8 +116,9 @@ export default function Matches() {
                 </div>
               </div>
             </div>
-          );
-        })}
+          
+        }
+        
       </div>
     </div>
   );
