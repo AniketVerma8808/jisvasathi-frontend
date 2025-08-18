@@ -1,6 +1,6 @@
 import { Heart, X, Star, MessageSquare, PhoneCall } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getMatches } from "../services/api.service";
 import { useSelector } from "react-redux";
 import MatchesSkeleton from "./skeletons/MatchesSkeleton";
@@ -8,6 +8,7 @@ import MatchesSkeleton from "./skeletons/MatchesSkeleton";
 export default function Matches() {
   const user = useSelector((state) => state.user.user);
   const [matches, setmatches] = useState();
+  const navigate= useNavigate()
 
   useEffect(() => {
     const getMatchedUsers = async () => {
@@ -103,7 +104,9 @@ export default function Matches() {
                     <Heart size={20} className="text-rose-600" />
                   </button>
 
-                  <button className="p-2 rounded-lg bg-gray-100 px-4 flex-grow  max-xl:px-2 max-xl:py-1.5 cursor-pointer hover:bg-gray-200 flex items-center justify-center gap-2 transition-colors">
+                  <button onClick={()=>{
+                     navigate('/profile/chats/chatpage',{state:match.user})
+                  }} className="p-2 rounded-lg bg-gray-100 px-4 flex-grow  max-xl:px-2 max-xl:py-1.5 cursor-pointer hover:bg-gray-200 flex items-center justify-center gap-2 transition-colors">
                     <h2 className="text-xs font-medium capitalize  ">
                       Send Message
                     </h2>

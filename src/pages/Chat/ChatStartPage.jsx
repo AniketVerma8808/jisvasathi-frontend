@@ -2,7 +2,7 @@ import React from 'react';
 
 const ChatStartPage = () => {
   return (
-    <div className="min-h-screen bg-amber-50 flex items-center justify-center p-4 max-sm:p-2">
+    <div className="h-full bg-amber-50 flex items-center justify-center p-4 max-sm:p-2">
       <div className="text-center container">
         {/* Logo */}
         <div className="mb-8">
