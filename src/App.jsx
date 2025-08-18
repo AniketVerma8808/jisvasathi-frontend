@@ -31,6 +31,7 @@ import ReportProfileForm from "./pages/ReportProfileForm";
 import ChatLayout from "./pages/Chat/ChatLayout";
 import ChatStartPage from "./pages/Chat/ChatStartPage";
 import ChatPage from "./components/ChatPage";
+import { connectSocket } from "./Features/SocketSlice";
 
 
 const ScrollToTop = () => {
@@ -53,10 +54,14 @@ const App = () => {
  dispatch(fetchUser())
   }
  },[token])
-//  useEffect(() => {
-//   document.body.classList.toggle('overflow-hidden',loading)
-//   return document.body.classList.remove('overflow-hidden')
-// }, [loading])
+
+
+useEffect(() => {
+if(user){
+   dispatch(connectSocket(user._id))
+}
+}, [user])
+
   return (
     <>
       <ScrollToTop />

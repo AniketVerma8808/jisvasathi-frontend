@@ -14,6 +14,16 @@ export const getMatches = (uid) => {
 };
 
 
+export const getContacts=()=>{
+  return apiClient.get('/messages/getContacts')
+}
+
+export const sendMessages=(profileId,text)=>{
+ return apiClient.post(`/messages/sendmessage/${profileId}`,text)
+}
+export const getMessages=(profileId)=>{
+  return apiClient.get(`/messages/getMessages/${profileId}`)
+}
 // export const getMatches=()=>{
 //   return apiClient.get('/users/getMatchedUsers')
 // }

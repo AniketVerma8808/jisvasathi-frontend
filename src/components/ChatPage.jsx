@@ -1,9 +1,18 @@
-import React from 'react'
+import { useQuery } from '@tanstack/react-query';
+import { Paperclip, Send, Smile } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react'
+import { getMessages, sendMessages } from '../services/api.service';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import EmojiPicker from 'emoji-picker-react';
+import socket from '../services/socketInstance';
 
 const ChatPage = () => {
+  const {user}= useSearchParams((state)=>state.user)
       const [activeChat, setActiveChat] = useState(1);
-  const [message, setMessage] = useState("");
-
+      const [emojiPicker, setEmojiPicker] = useState(false);
+  const [message, setMessage] = useState(""); 
+  const [messages, setmessages] = useState();
+  const location=useLocation()
   const contacts = [
     {
       id: 1,
@@ -34,52 +43,57 @@ const ChatPage = () => {
     },
   ];
 
-  const messages = [
-    {
-      id: 1,
-      senderId: 1,
-      text: "Hi there! I noticed we have a lot in common.",
-      time: "10:15 AM",
-    },
-    {
-      id: 2,
-      senderId: "me",
-      text: "Hello! Yes, I noticed that too. I see you enjoy hiking?",
-      time: "10:17 AM",
-    },
-    {
-      id: 3,
-      senderId: 1,
-      text: "Yes! I try to go hiking at least once a month. What about you?",
-      time: "10:20 AM",
-    },
-    {
-      id: 4,
-      senderId: "me",
-      text: "I love hiking too! I usually go every other weekend when the weather is nice. I'd love to hear about your favorite trails.",
-      time: "10:25 AM",
-    },
-    {
-      id: 5,
-      senderId: 1,
-      text: "I'd love to meet for coffee sometime and talk more about our hiking adventures!",
-      time: "10:30 AM",
-    },
-  ];
 
-  const handleSendMessage = (e) => {
+
+  const handleSendMessage = async(e) => {
     e.preventDefault();
     if (message.trim() === "") return;
+try {
+     socket.emit('sendMessage',{text:message,profileId:location.state._id})
+     const res= await sendMessages(location.state._id,{text:message})
+     setMessage('')
+     callGetMessageAPI()
+} catch (error) {
+  console.log(error)
+}
 
-    // In a real app, you would send this message to your backend
-    console.log("Sending message:", message);
-    setMessage("");
+  
   };
+  useEffect(() => {
+   socket.on('replyMessage',(message)=>{
+    
+      setmessages((prev)=>[...prev,{text:message}])
+   })
+  }, [])
 
+  const handleEmoji=(e)=>{
+    const emoji=e.emoji
+    setMessage((prev)=>prev+emoji)
+  }
+ 
+  async function callGetMessageAPI(){
+try {
+       const res= await getMessages(location.state._id)
+       setmessages(res.data.messages)
+} catch (error) {
+  console.log(error)
+}
+     
+  }
+
+  useEffect(() => {
+     callGetMessageAPI()
+  }, [location.state._id])
+
+  const chatRef= useRef(null)
+    useEffect(()=>{
+    chatRef.current.scrollTop=chatRef.current.scrollHeight
+  },[messages])
+ console.log(location.state)
   const activeContact = contacts.find((contact) => contact.id === activeChat);
   return (
-    <div>
-      <div className="flex-1 flex flex-col bg-gray-50">
+   
+      <div className="flex-1 h-full  flex flex-col bg-gray-50">
           {activeContact ? (
             <>
               {/* Chat header */}
@@ -87,8 +101,8 @@ const ChatPage = () => {
                 <div className="flex items-center gap-3">
                   <div className="relative">
                     <img
-                      src={activeContact.image || "/placeholder.svg"}
-                      alt={activeContact.name}
+                      src={location?.state?.profile?.profilePhotos[0] || "/placeholder.svg"}
+                      alt={location.state.fullName}
                       className="w-10 h-10 rounded-full object-cover"
                     />
                     {activeContact.online && (
@@ -96,7 +110,7 @@ const ChatPage = () => {
                     )}
                   </div>
                   <div>
-                    <h3 className="font-medium">{activeContact.name}</h3>
+                    <h3 className="font-medium">{location.state.fullName}</h3>
                     <p className="text-xs text-gray-500">
                       {activeContact.online ? "Online" : "Offline"}
                     </p>
@@ -106,18 +120,18 @@ const ChatPage = () => {
               </div>
 
               {/* Messages */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                {messages.map((msg) => (
+              <div ref={chatRef} className="flex-1 overflow-y-scroll max-h-[calc(100vh-216px)] p-4 space-y-4 custom-scrollbar">
+                {messages?.map((msg) => (
                   <div
-                    key={msg.id}
+                    key={msg._id}
                     className={`flex ${
-                      msg.senderId === "me" ? "justify-end" : "justify-start"
+                      msg.userId !== location.state._id ? "justify-end" : "justify-start"
                     }`}
                   >
                     <div
                       className={`max-w-[70%] px-4 py-2 rounded-lg ${
                         msg.senderId === "me"
-                          ? "bg-rose-500 text-white rounded-br-none"
+                          ? "bg-amber-500 text-white rounded-br-none"
                           : "bg-white text-gray-800 rounded-bl-none shadow-sm"
                       }`}
                     >
@@ -125,7 +139,7 @@ const ChatPage = () => {
                       <p
                         className={`text-xs mt-1 ${
                           msg.senderId === "me"
-                            ? "text-rose-100"
+                            ? "text-amber-100"
                             : "text-gray-500"
                         }`}
                       >
@@ -137,33 +151,35 @@ const ChatPage = () => {
               </div>
 
               {/* Message input */}
-              <div className="p-3 bg-white border-t border-gray-200">
+              <div className="p-3 bg-white border-t border-gray-200 relative">
+                <div className='absolute bottom-full right-0 '>
+                  <EmojiPicker open={emojiPicker} onEmojiClick={handleEmoji} searchDisabled={true}/>
+                </div>
                 <form
                   onSubmit={handleSendMessage}
                   className="flex items-center gap-2"
                 >
-                  <button
-                    type="button"
-                    className="p-2 rounded-full hover:bg-gray-100"
-                  >
-                    <Paperclip size={18} className="text-gray-600" />
-                  </button>
+                
                   <input
                     type="text"
                     value={message}
-                    onChange={(e) => setMessage(e.target.value)}
+                    onChange={(e) => {
+                      setMessage(e.target.value)
+                      setEmojiPicker(false)                   
+                    }}
                     placeholder="Type a message..."
-                    className="flex-1 py-2 px-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
+                    className="flex-1 py-2 px-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                   />
                   <button
                     type="button"
                     className="p-2 rounded-full hover:bg-gray-100"
+                    onClick={()=>setEmojiPicker(!emojiPicker)}
                   >
                     <Smile size={18} className="text-gray-600" />
                   </button>
                   <button
                     type="submit"
-                    className="p-2 bg-rose-500 text-white rounded-full hover:bg-rose-600"
+                    className="p-2 bg-amber-500 text-white rounded-full hover:bg-amber-600"
                   >
                     <Send size={18} />
                   </button>
@@ -173,8 +189,8 @@ const ChatPage = () => {
           ) : (
             <div className="flex-1 flex items-center justify-center">
               <div className="text-center p-6">
-                <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <MessageSquare size={24} className="text-rose-500" />
+                <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <MessageSquare size={24} className="text-amber-500" />
                 </div>
                 <h3 className="text-lg font-medium text-gray-900">
                   Your Messages
@@ -186,7 +202,7 @@ const ChatPage = () => {
             </div>
           )}
         </div>
-    </div>
+   
   )
 }
 
