@@ -11,7 +11,7 @@ import { PersonStanding } from "lucide-react";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const {isAuthenticated}=useSelector((state)=>state.user)
+  const { isAuthenticated } = useSelector((state) => state.user);
   const [showNav, setshowNav] = useState(false);
   return (
     <>
@@ -25,7 +25,7 @@ const Navbar = () => {
                 Milan Sangam
               </h3>
               <p className="text-xs text-amber-600  ml-1 mt-1 capitalize max-sm:text-[11px]">
-             When Hearts Align, Sanyog Happens
+                When Hearts Align, Sanyog Happens
               </p>
             </div>
           </Link>
@@ -36,6 +36,47 @@ const Navbar = () => {
             {isAuthenticated && (
               <div className="hidden lg:flex items-center space-x-8 text-gray-700 text-sm  font-medium">
                 <Link to="/profile">Home</Link>
+
+                {/* Dropdown */}
+                <div className="group relative cursor-pointer">
+                  <span className="flex items-center gap-1">
+                    Relevent Profile ▾
+                  </span>
+                  <div className="absolute top-full left-0 hidden group-hover:flex flex-col bg-white shadow-xl rounded-md mt-2 w-44 z-50">
+                    
+                    <Link
+                      to="/under-25-profiles"
+                      className="px-4 py-2 hover:bg-gray-100"
+                    >
+                      Under 25 Profiles
+                    </Link>
+                    <Link
+                      to="/under-30-profiles"
+                      className="px-4 py-2 hover:bg-gray-100"
+                    >
+                      Under 30 Profiles
+                    </Link>
+                    <Link
+                      to="/under-35-profiles"
+                      className="px-4 py-2 hover:bg-gray-100"
+                    >
+                      Under 35 Profiles
+                    </Link>
+                    <Link
+                      to="/under-40-profiles"
+                      className="px-4 py-2 hover:bg-gray-100"
+                    >
+                      Under 40 Profiles
+                    </Link>
+                    <Link
+                      to="/divorce-profiles"
+                      className="px-4 py-2 hover:bg-gray-100"
+                    >
+                      Divorce Profiles
+                    </Link>
+                  </div>
+                </div>
+
                 <Link to="/profile/search">Search Your Partner</Link>
                 <Link to="/matches">Perfect Matches</Link>
                 <Link to="/profile/shortListProfile">Shortlisted Profiles</Link>
@@ -53,22 +94,22 @@ const Navbar = () => {
                 <FaUserCircle className="text-2xl" />
               </Link>
             ) : (
-             <div className="flex items-center justify-center gap-4">
-               <Link
-                to="/"
-                className="relative flex items-center gap-2 border border-primary hover:bg-amber-500 hover:text-white bg-white  text-secondary px-6 py-1.5 rounded font-semibold transition"
-              >
-                <PersonStanding fontSize={20} />
-                <span>Create your profile</span>
-              </Link>
-               <Link
-                to="/login"
-                className="relative flex items-center gap-2 border border-primary bg-amber-500 hover:bg-white text-white hover:text-secondary px-6 py-1.5 rounded font-semibold transition"
-              >
-                <AiOutlineLogin fontSize={20} />
-                <span>Login</span>
-              </Link>
-             </div>
+              <div className="flex items-center justify-center gap-4">
+                <Link
+                  to="/"
+                  className="relative flex items-center gap-2 border border-primary hover:bg-amber-500 hover:text-white bg-white  text-secondary px-6 py-1.5 rounded font-semibold transition"
+                >
+                  <PersonStanding fontSize={20} />
+                  <span>Create your profile</span>
+                </Link>
+                <Link
+                  to="/login"
+                  className="relative flex items-center gap-2 border border-primary bg-amber-500 hover:bg-white text-white hover:text-secondary px-6 py-1.5 rounded font-semibold transition"
+                >
+                  <AiOutlineLogin fontSize={20} />
+                  <span>Login</span>
+                </Link>
+              </div>
             )}
 
             {/* Mobile Menu Toggle */}
