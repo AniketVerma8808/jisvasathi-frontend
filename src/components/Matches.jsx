@@ -28,15 +28,15 @@ export default function Matches() {
     <div className="space-y-6  bg-white ml-auto  py-4 px-5 pb-10 shadow-sm max-sm:px-3  max-lg:w-full ">
       <h1 className="text-2xl font-bold text-gray-900">Your Matches</h1>
 
-      <div className="grid grid-cols-5 gap-2 max-sm:gap-6 max-md:grid-cols-2 max-sm:grid-cols-1">
+      <div className="grid grid-cols-2 gap-2 max-sm:gap-6 max-md:grid-cols-2 max-sm:grid-cols-1">
         {matches?.map((match) => {
           const user = match.user;
           return (
             <div
               key={match._id}
-              className="bg-white rounded-lg   overflow-hidden border border-gray-300 "
+              className="flex  items-center justify-center rounded-lg   overflow-hidden border border-gray-300 "
             >
-              <Link to={"/profileDetails"} state={match} className="relative">
+              <Link to={"/profileDetails"} state={match} className="relative w-1/3">
                 <img
                   src={match.profilePhotos?.[0] || "/placeholder.svg"}
                   alt={user.fullName}
@@ -44,7 +44,7 @@ export default function Matches() {
                 />
               </Link>
 
-              <div className="p-3 pt-6 px-2 ">
+              <div className="p-3 pt-6 px-2 w-2/3">
                 <h3 className=" font-semibold flex items-center leading-1   w-full justify-between">
                   <span>{user.fullName}</span>
                   <span>
@@ -65,23 +65,23 @@ export default function Matches() {
                 </h3>
 
                 <div className="flex items-center justify-start flex-wrap gap-1 py-4 max-lg:pb-2">
-                  <p className="text-sm w-full capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
+                  <p className="text-sm  capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
                     <span className="font-medium mr-1 ">height-</span>
                     <span className="text-black">{user.height}</span>
                   </p>
-                  <p className="text-sm w-full capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
+                  <p className="text-sm  capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
                     <span className="font-medium mr-1 ">marriage status-</span>
                     <span className="text-black">{user.marriageStatus}</span>
                   </p>
-                  <p className="text-sm w-full capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
+                  <p className="text-sm  capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
                     <span className="font-medium mr-1 ">religion-</span>
                     <span className="text-black">{user.religion}</span>
                   </p>
-                  <p className="text-sm w-full capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
+                  <p className="text-sm  capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
                     <span className="font-medium mr-1 ">region-</span>
                     <span className="text-black">{user.city}</span>
                   </p>
-                  <p className="text-sm w-full capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
+                  <p className="text-sm  capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
                     <span className="font-medium mr-1 ">working status-</span>
                     <span className="text-black">
                       {match.career?.employmentType}
@@ -95,7 +95,7 @@ export default function Matches() {
                   </p>
                 </div>
 
-                <div className="flex flex-col max-sm:grid max-sm:grid-cols-2 sm:space-y-2 max-sm:gap-1">
+                <div className="grid grid-cols-2 gap-2 max-sm:grid max-sm:grid-cols-2  max-sm:gap-1">
                   <button className="p-2 rounded-lg bg-rose-100 px-4 max-xl:px-2 max-xl:py-1.5 flex-grow cursor-pointer hover:bg-rose-200 flex items-center justify-center gap-2 transition-colors">
                     <h2 className="text-xs font-medium capitalize  ">
                       {" "}
