@@ -87,7 +87,7 @@ export default function Matches() {
                       {match.career?.employmentType}
                     </span>
                   </p>
-                  <p className="text-sm w-full capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
+                  <p className="text-sm  capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
                     <span className="font-medium mr-1 ">education-</span>
                     <span className="text-black">
                       {match.education?.highestQualification}
