@@ -47,3 +47,10 @@ export const ForgotPasswordService = (data) => {
 export const ResetPasswordService = (data) => {
   return apiClient.post("/users/reset-password", data);
 };
+
+
+//Short List profile
+
+export const shortListProfileService = (matchId) => {
+  return apiClient.post(`/profile/shortlist/${matchId}`);
+}
