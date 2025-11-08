@@ -16,7 +16,7 @@ const Home = () => {
       <Steps/>
       <JourneyBegins />
       <AboutVivah/>
-      <ConciergeSection />
+      {/* <ConciergeSection /> */}
       <TestimonialSection />
       <BlogSection />
       <Faqs />

@@ -1,5 +1,5 @@
 import React from 'react'
-import aboutBanner from '../assets/aboutBanner.jpg'
+import aboutBanner from '../assets/aboutBanner.avif'
 const AboutVivah = () => {
   return (
     <div>
