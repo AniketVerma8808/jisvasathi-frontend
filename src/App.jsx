@@ -66,7 +66,10 @@ if(user){
     <>
       <ScrollToTop />
       <Navbar />
-      <BottomNav/>
+      {
+        isAuthenticated &&    <BottomNav/>
+      }
+   
       <main className="antialiased">
         <Routes>
           <Route path="/"   element={<Home />} />

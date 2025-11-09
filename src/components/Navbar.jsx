@@ -9,6 +9,7 @@ import HiddenSideNav from "./HiddenSideNav";
 import { AnimatePresence } from "framer-motion";
 import { PersonStanding } from "lucide-react";
 import { useSelector } from "react-redux";
+import SideNav from "./SideNav";
 
 const Navbar = () => {
   const { isAuthenticated } = useSelector((state) => state.user);
@@ -34,7 +35,7 @@ const Navbar = () => {
           <div className="flex gap-4 items-center">
             {/* Static links (authenticated only) */}
             {isAuthenticated && (
-              <div className="hidden lg:flex items-center space-x-8 text-gray-700 text-sm  font-medium">
+              <div className="hidden lg:flex items-center space-x-8 max-xl:space-x-4 text-gray-700 text-sm  font-medium">
                 <Link to="/profile">Home</Link>
 
                 {/* Dropdown */}
@@ -76,7 +77,6 @@ const Navbar = () => {
                     </Link>
                   </div>
                 </div>
-
                 <Link to="/profile/search">Search Your Partner</Link>
                 <Link to="/matches">Perfect Matches</Link>
                 <Link to="/profile/shortListProfile">Shortlisted Profiles</Link>
@@ -97,14 +97,14 @@ const Navbar = () => {
               <div className="flex items-center justify-center gap-4">
                 <Link
                   to="/"
-                  className="relative flex items-center gap-2 border border-primary hover:bg-amber-500 hover:text-white bg-white  text-secondary px-6 py-1.5 rounded font-semibold transition"
+                  className="relative flex max-sm:hidden items-center gap-2 border border-primary hover:bg-amber-500 hover:text-white bg-white  text-secondary px-6 py-1.5 rounded font-semibold transition"
                 >
                   <PersonStanding fontSize={20} />
                   <span>Create your profile</span>
                 </Link>
                 <Link
                   to="/login"
-                  className="relative flex items-center gap-2 border border-primary bg-amber-500 hover:bg-white text-white hover:text-secondary px-6 py-1.5 rounded font-semibold transition"
+                  className="relative flex items-center gap-2 border border-primary bg-amber-500 hover:bg-white text-white hover:text-secondary px-6 py-1.5 rounded font-semibold transition "
                 >
                   <AiOutlineLogin fontSize={20} />
                   <span>Login</span>
@@ -113,7 +113,8 @@ const Navbar = () => {
             )}
 
             {/* Mobile Menu Toggle */}
-            <div className="lg:hidden">
+            {
+              isAuthenticated && <div className="lg:hidden h-6">
               {!showNav ? (
                 <button onClick={() => setshowNav(true)}>
                   <FaBars className="text-2xl text-gray-700 hover:text-amber-500 transition" />
@@ -124,6 +125,8 @@ const Navbar = () => {
                 </button>
               )}
             </div>
+            }
+            
           </div>
         </div>
       </nav>

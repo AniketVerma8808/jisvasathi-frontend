@@ -45,7 +45,7 @@ const BottomNav = () => {
               `;
   };
   return (
-    <div className='max-sm:block hidden fixed bottom-0 left-0  overflow-hidden rounded-t-md w-full z-100'>
+    <div className='max-md:block hidden fixed bottom-0 left-0  overflow-hidden rounded-t-md w-full z-100'>
        <ul className='flex items-center justify-center   bg-white'>
          {links.map((link) => {
           return (

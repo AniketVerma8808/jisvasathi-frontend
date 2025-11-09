@@ -1,11 +1,9 @@
 import { Heart, MessageSquare, PhoneCall, Star } from "lucide-react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom"
 import { shortListProfileService } from "../services/api.service";
 import { toast } from "react-toastify";
 
-const ProfileCard = ({match,showBtns=true}) => {
-     const user = useSelector((state) => state.user.user);
+const ProfileCard = ({match,showBtns=true,user}) => {
      const shortListProfile =async(matchId)=>{
        try {
          const res = await shortListProfileService(matchId);
@@ -17,21 +15,21 @@ const ProfileCard = ({match,showBtns=true}) => {
   return (
      <div
               key={match._id}
-              className="flex  items-center justify-center rounded-lg   overflow-hidden border border-gray-300 "
+              className="flex   items-center justify-center rounded-lg   overflow-hidden border border-gray-300 "
             >
               <Link to={"/profileDetails"} state={match} className="relative w-1/3">
                 <img
                   src={match.profilePhotos?.[0] || "/placeholder.svg"}
-                  alt={match.fullName}
+                  alt={user.fullName}
                   className="w-full h-54 object-cover"
                 />
               </Link>
 
               <div className="p-3 pt-6 px-2 w-2/3">
                 <h3 className=" font-semibold flex items-center leading-1   w-full justify-between">
-                  <span>{match.fullName}</span>
+                  <span>{user.fullName}</span>
                   <span>
-                    {match.dob &&
+                    {user.dob &&
                       new Date().getFullYear() -
                         new Date(user.dob).getFullYear()}
                   </span>

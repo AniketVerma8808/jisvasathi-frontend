@@ -1,13 +1,98 @@
 import React, { useState } from "react";
 import { CgProfile } from "react-icons/cg";
-import { Link, useNavigate } from "react-router-dom";
-import { GiUpgrade } from "react-icons/gi";
-import { RxCross1 } from "react-icons/rx";
-import { ChevronRight } from "lucide-react";
+import { Link, useNavigate, NavLink } from "react-router-dom";
+import { LiaUserFriendsSolid } from "react-icons/lia";
+import { SiActivitypub } from "react-icons/si";
+import { IoSearchSharp } from "react-icons/io5";
+import { MdOutlineModeEdit } from "react-icons/md";
 import { motion } from "framer-motion";
-import { useAuth } from "../context/AuthContext";
-import logo from "../assets/vivahLogo2.jpg";
-const backdropVariants = {
+import { FiLogOut } from "react-icons/fi";
+import { BsChatSquareDots } from "react-icons/bs";
+import { MdOutlineWorkspacePremium } from "react-icons/md";
+import { CiCircleCheck } from "react-icons/ci";
+import { RiUserReceivedLine } from "react-icons/ri";
+import { RxCrossCircled } from "react-icons/rx";
+import { TbUserShare } from "react-icons/tb";
+import { LuBrain } from "react-icons/lu";
+import { useDispatch, useSelector } from "react-redux";
+import { logOutUser } from "../Features/Userslice";
+const HiddenSideNav = () => {
+  const { profileData } = useSelector((state) => state.user);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const links = [
+    {
+      icon: <LiaUserFriendsSolid />,
+      text: "matches",
+      path: "/profile",
+    },
+    {
+      icon: <SiActivitypub />,
+      text: "activity",
+      path: "/profile/activity",
+    },
+    {
+      icon: <IoSearchSharp />,
+      text: "search",
+      path: "/profile/search",
+    },
+    {
+      icon: <CgProfile />,
+      text: "My Profile",
+      path: "/profile/myProfile",
+    },
+
+    {
+      icon: <MdOutlineModeEdit />,
+      text: "Edit Profile",
+      path: "/profile/editProfile",
+    },
+    {
+      icon: <BsChatSquareDots />,
+      text: "Chats/Message",
+      path: "/profile/chats",
+    },
+
+    {
+      icon: <CiCircleCheck />,
+      text: "Accepted Profiles",
+      path: "/profile/acceptProfile",
+    },
+    {
+      icon: <RxCrossCircled />,
+      text: "Rejected Profiles",
+      path: "/profile/rejectProfile",
+    },
+    {
+      icon: <RiUserReceivedLine />,
+      text: "Interests Recieved",
+      path: "/packages",
+    },
+    {
+      icon: <TbUserShare />,
+      text: "Interests Sent",
+      path: "/packages",
+    },
+    {
+      icon: <MdOutlineWorkspacePremium />,
+      text: "Packages",
+      path: "/packages",
+    },
+    {
+      icon: <LuBrain />,
+      text: "Intellectual Match",
+      path: "/intellectualMatch",
+    },
+  ];
+
+  const handleLogout = () => {
+    dispatch(logOutUser());
+    navigate("/");
+  };
+
+  const backdropVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
   exit: { opacity: 0 },
@@ -19,135 +104,85 @@ const panelVariants = {
   exit: { x: "-100%" },
 };
 
-const HiddenSideNav = ({ setShowNav }) => {
-  const navigate = useNavigate();
-  const { clearAuthData, authData } = useAuth();
-  const [current, setCurrent] = useState(null);
-
-  const handleLogout = () => {
-    clearAuthData();
-    setShowNav(false);
-    navigate("/");
+  const linkClasses = ({ isActive }) => {
+    return `py-2.5       rounded-md transition duration-75  px-4 flex items-center justify-start gap-4    ${
+      isActive ? "bg-primary text-white" : "hover:bg-amber-200"
+    }`;
   };
 
-  const links = authData?.isAuthenticated
-    ? [
-        { text: "About", path: "/about" },
-        { text: "Contact", path: "/contact" },
-        { text: "matches", path: "/profile" },
-        { text: "activity", path: "/profile/activity" },
-        { text: "search", path: "/profile/search" },
-        { text: "Edit Profile", path: "/profile/editProfile" },
-      ]
-    : [
-        { text: "Home", path: "/" },
-        { text: "About", path: "/about" },
-        { text: "Contact", path: "/contact" },
-        { text: "Login", path: "/login" },
-      ];
-
   return (
-    <div className="fixed left-0 top-0 w-full h-screen z-50">
-      {/* Backdrop */}
-      <motion.div
-        className="absolute left-0 top-0 w-full h-full bg-black/60 backdrop-blur-sm"
-        variants={backdropVariants}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        transition={{ duration: 0.3 }}
-        onClick={() => setShowNav(false)}
-      />
-
-      {/* Sliding Panel */}
-      <motion.div
-        className="relative z-20 w-[80%] bg-white h-full px-4 py-4"
-        variants={panelVariants}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        transition={{ duration: 0.4, ease: "easeInOut" }}
-      >
-        {/* Close Button */}
-        <button
-          onClick={() => setShowNav(false)}
-          className="absolute top-4 right-4 text-xl"
-        >
-          <RxCross1 />
-        </button>
-
-        {/* Profile or App Title */}
-        <div className="flex items-center gap-4 px-4">
-          {authData?.isAuthenticated ? (
-            <div className="flex items-center gap-4 px-4">
-              <div className="rounded-full w-16 h-16 border border-gray-100 text-4xl text-gray-400 flex items-center justify-center bg-gray-100">
-                <CgProfile />
-              </div>
-              <div>
-                <h1 className="text-2xl leading-5 font-semibold">
-                  Hi {authData?.user?.name || "User"}!
-                </h1>
-              </div>
-            </div>
-          ) : (
-            <Link to="/" className="flex items-center gap-4 px-4">
-              <img src={logo} alt="Logo" className="w-11" />
-              <div>
-                <h3 className="font-bold text-2xl text-amber-500 leading-5 max-sm:text-xl">
-                  TrueTies
-                </h3>
-                <p className="text-xs text-amber-600 ml-1 capitalize max-sm:text-[11px]">
-                  Helping to love
-                </p>
-              </div>
-            </Link>
-          )}
-        </div>
-
-        <hr className="text-gray-300 mt-5 w-[90%] mx-auto" />
-
-        {/* Links */}
-        <ul className="mt-4 font-secondaryHead">
-          {links.map((link, i) => (
-            <li
-              key={link.path}
-              onClick={() => {
-                setShowNav(false);
-                setCurrent(i);
-              }}
+    <div 
+    className=" fixed left-0 top-0 w-full  z-50 py-10  h-screen   "
+       >
+         {/* Backdrop */}
+              <motion.div
+                className="fixed left-0 top-0 w-full h-full bg-black/60 backdrop-blur-sm"
+                variants={backdropVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ duration: 0.3 }}
+                onClick={() => setShowNav(false)}
+              />
+       <motion.div
+              className="relative   bg-white w-[80%] pt-10 overflow-y-scroll h-full  custom-scrollbar px-4 py-4"
+              variants={panelVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              transition={{ duration: 0.4, ease: "easeInOut" }}
             >
-              <Link
-                to={link.path}
-                className="py-2.5 hover:bg-red-50 rounded-md transition duration-75 px-4 flex items-center justify-between gap-4"
-              >
-                <span className="capitalize text-sm">{link.text}</span>
-                <ChevronRight className="text-gray-500" />
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <Link
+          to={"/profile/myProfile"}
+          className="rounded-full w-16 h-16 border  mx-auto border-gray-100 flex items-center justify-center bg-gray-100"
+        >
+          {profileData?.profilePic?.[0] ? (
+            <img
+              src={profileData.profilePic[0]}
+              alt="Profile"
+              className="rounded-full w-16 h-16 object-cover"
+            />
+          ) : (
+            <CgProfile className="text-4xl text-gray-400" />
+          )}
+        </Link>
+     
+      <h1 className="text-2xl text-center leading-5 font-semibold mt-4">
+        {profileData?.personalInfo?.fullName}
+      </h1>
+      <hr className="text-gray-300 mt-5 w-[90%] m-auto" />
+    
+        {links.map((link) => {
+          return (
+            <NavLink
+              to={link.path}
+              key={link.text}
+              end={link.path === "/profile"}
+              className={linkClasses}
+            >
+              <span className="text-xl">{link.icon}</span>
+              <span className="capitalize">{link.text}</span>
+            </NavLink>
+          );
+        })}
+     
 
-        {/* Upgrade - only for authenticated users */}
-        {authData?.isAuthenticated && (
-          <Link
-            to="/upgrade"
-            className="px-5 mt-4 flex items-center justify-start gap-2 text-white tracking-wide font-bold rounded-lg py-2.5 bg-gradient-to-br from-orange-400 to-red-400"
-          >
-            <GiUpgrade />
-            <span>Upgrade to Pro</span>
-          </Link>
-        )}
+      <div className="mt-auto">
+        {/* <Link className="px-5 mt-4 flex items-center justify-start gap-2 text-white tracking-wide font-semibold text-lg rounded-lg py-2 bg-gradient-to-br from-orange-400 to-red-400 max-xl:text-base">
+          <GiUpgrade className="text-xl" />
+          <span>Upgrade to Pro</span>
+        </Link> */}
 
-        {/* Logout Button - only for authenticated users */}
-        {authData?.isAuthenticated && (
-          <button
-            onClick={handleLogout}
-            className="w-full mt-6 text-sm font-medium text-red-600 bg-red-100 hover:bg-red-200 rounded-md py-2.5 transition"
-          >
-            Logout
-          </button>
-        )}
-      </motion.div>
+        {/* Logout Button */}
+        <button
+          onClick={handleLogout}
+          className="mt-3 w-full cursor-pointer text-left px-5 py-2.5 flex items-center gap-2 rounded-lg text-red-500 font-semibold hover:bg-red-50 transition"
+        >
+          <FiLogOut className="text-xl" />
+          <span>Logout</span>
+        </button>
+      </div>
+       </motion.div>
     </div>
   );
 };
