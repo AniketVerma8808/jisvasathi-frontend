@@ -44,7 +44,7 @@ apiClient.interceptors.response.use(
   },
   (error) => {
     const status = error.response?.status;
-
+    store.dispatch(updateLoader(false));
     if (status === 401) {
       store.dispatch(logOutUser());
     }

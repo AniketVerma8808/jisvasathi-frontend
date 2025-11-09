@@ -22,16 +22,16 @@ const ProfileCard = ({match,showBtns=true}) => {
               <Link to={"/profileDetails"} state={match} className="relative w-1/3">
                 <img
                   src={match.profilePhotos?.[0] || "/placeholder.svg"}
-                  alt={user.fullName}
+                  alt={match.fullName}
                   className="w-full h-54 object-cover"
                 />
               </Link>
 
               <div className="p-3 pt-6 px-2 w-2/3">
                 <h3 className=" font-semibold flex items-center leading-1   w-full justify-between">
-                  <span>{user.fullName}</span>
+                  <span>{match.fullName}</span>
                   <span>
-                    {user.dob &&
+                    {match.dob &&
                       new Date().getFullYear() -
                         new Date(user.dob).getFullYear()}
                   </span>

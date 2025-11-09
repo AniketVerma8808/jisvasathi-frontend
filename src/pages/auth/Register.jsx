@@ -10,7 +10,6 @@ import { UserRegisterService } from "../../services/api.service";
 import { ChevronDownIcon } from "lucide-react";
 
 const Register = () => {
-  console.log('hello')
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 const [isOpen, setisOpen] = useState(false);
@@ -38,6 +37,7 @@ const [current, setcurrent] = useState(0);
       navigate('/login')
     } catch (error) {
       console.error("Error:", error);
+      toast.error(error.response.data.message);
     } finally {
       setLoading(false);
     }
