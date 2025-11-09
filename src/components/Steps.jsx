@@ -40,12 +40,12 @@ const Steps = () => {
       },
     ].map((step, index) => (
       <div key={index} className="flex items-start gap-6">
-        <div className="w-14 h-14 max-sm:w-12 max-sm:h-12 flex items-center justify-center rounded-full bg-primary text-white font-bold text-xl max-sm:text-base shrink-0">
+        <div className="w-14 h-14 max-sm:w-12 max-sm:h-12 flex items-center justify-center rounded-full bg-primary text-white font-bold text-xl  shrink-0">
           {index + 1}
         </div>
         <div>
           <h3 className="text-xl font-semibold mb-1">{step.heading}</h3>
-          <p className="text-lg leading-relaxed text-gray-700">{step.content}</p>
+          <p className="text-lg leading-relaxed text-gray-700 max-sm:text-base">{step.content}</p>
         </div>
       </div>
     ))}

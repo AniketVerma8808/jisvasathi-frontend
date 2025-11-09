@@ -23,9 +23,7 @@ const SideNav = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [current, setcurrent] = useState(
-    JSON.parse(sessionStorage.getItem("current") || 0)
-  );
+ 
   const links = [
     {
       icon: <LiaUserFriendsSolid />,
