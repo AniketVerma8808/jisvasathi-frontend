@@ -1,7 +1,7 @@
 import React from "react";
 import { stateOptions } from "../../constants/data";
 
-const PersonalInfoForm = ({ personalInfo, handleChange }) => {
+const PersonalInfoForm = ({ personalInfo, handleChange,maritalStatusOptions }) => {
   return (
     <div className="space-y-6 ">
       <h2 className="text-lg font-semibold text-gray-900">
@@ -168,11 +168,13 @@ const PersonalInfoForm = ({ personalInfo, handleChange }) => {
             onChange={(e) => handleChange(e, "personalInfo")}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
           >
-            <option value="">Select</option>
-            <option value="Never Married">Never Married</option>
-            <option value="Divorced">Divorced</option>
-            <option value="Widowed">Widowed</option>
-            <option value="Separated">Separated</option>
+            {
+              maritalStatusOptions.map((status) => (
+                <option key={status} value={status}>
+                  {status}
+                </option>
+              ))
+            }
           </select>
         </div>
       </div>

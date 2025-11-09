@@ -22,7 +22,7 @@ export default function MyProfile() {
   if (loading || !profileData) {
     return <ProfileSkeleton />;
   }
-
+  console.log(user)
   console.log(profileData);
   const {
     personalInfo = {},

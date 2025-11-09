@@ -124,7 +124,7 @@ const HiddenSideNav = ({ setShowNav }) => {
         onClick={() => setShowNav(false)}
       />
       <motion.div
-        className=" absolute left-0 top-0  bg-white w-[80%] pt-10 overflow-y-scroll h-full  custom-scrollbar px-4 py-4"
+        className=" absolute left-0 top-0  bg-white w-[80%] pt-25 overflow-y-scroll h-full  custom-scrollbar px-4 py-4"
         variants={panelVariants}
         initial="hidden"
         animate="visible"

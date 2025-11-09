@@ -31,14 +31,14 @@ export default function EditProfile() {
 
 
   const user = useSelector((state) => state.user);
-  const profileData=user.profileData
+  const profileData = user.profileData
 
 
 
   // console.log("profileData",profileData);
   const [formData, setFormData] = useState({});
   const [photos, setPhotos] = useState([])
- 
+
   const [activeTab, setActiveTab] = useState("personal");
   const fileInputRef = useRef(null);
 
@@ -61,9 +61,9 @@ export default function EditProfile() {
           religionCaste: { religion: "", caste: "" },
           location: { country: "", state: "", city: "" },
         },
-   
+
       }));
-      setPhotos( profileData?.profilePic);
+      setPhotos(profileData?.profilePic);
 
     }
   }, [profileData]);
@@ -80,26 +80,26 @@ export default function EditProfile() {
 
   const handlePhotoUpload = () => {
     console.log('hello')
-      const photo=[...fileInputRef.current.files]
-      console.log(photo)
-      const fileArr= [...photos]
-      let flag=false
-      fileArr.map((file,i)=>{
-          if(file=='null' && !flag){
-            fileArr[i]=photo[0]
-            flag=true
-           
-          }
-          else{
-            fileArr[i]==null
-          }
-      })
-      
-      setPhotos(fileArr)
-    
-    
+    const photo = [...fileInputRef.current.files]
+    console.log(photo)
+    const fileArr = [...photos]
+    let flag = false
+    fileArr.map((file, i) => {
+      if (file == 'null' && !flag) {
+        fileArr[i] = photo[0]
+        flag = true
+
+      }
+      else {
+        fileArr[i] == null
+      }
+    })
+
+    setPhotos(fileArr)
+
+
   };
- 
+
 
   const handleRemovePhoto = (index) => {
     const newPhotos = [...photos];
@@ -109,40 +109,40 @@ export default function EditProfile() {
 
   const handlePartnerPreferences = (e, field) => {
     const { name, value } = e.target;
-    if(field){
-setFormData((prev) => ({
-      ...prev,
-      partnerPreferences: {
-        ...prev.partnerPreferences,
-        [field]: {
-          ...prev.partnerPreferences[field],
-          [name]: value,
-        },
-      },
-    }));
-    }
-    else{
-      setFormData((prev)=>({
+    if (field) {
+      setFormData((prev) => ({
         ...prev,
-        partnerPreferences:{
+        partnerPreferences: {
           ...prev.partnerPreferences,
-          [name]:value
+          [field]: {
+            ...prev.partnerPreferences[field],
+            [name]: value,
+          },
+        },
+      }));
+    }
+    else {
+      setFormData((prev) => ({
+        ...prev,
+        partnerPreferences: {
+          ...prev.partnerPreferences,
+          [name]: value
         }
       }))
     }
-    
+
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formDataFinal= new FormData()
-    formDataFinal.append('formData',JSON.stringify(formData))
-    photos.forEach((photo)=>{
-       formDataFinal.append('profilePhotos',photo)
+    const formDataFinal = new FormData()
+    formDataFinal.append('formData', JSON.stringify(formData))
+    photos.forEach((photo) => {
+      formDataFinal.append('profilePhotos', photo)
     })
     // formDataFinal.append('profilePhotos',photos)
-    for (const [key,value] of formDataFinal.entries()) {
-      console.log(key,value)
+    for (const [key, value] of formDataFinal.entries()) {
+      console.log(key, value)
     }
 
     const res = await editProfile(formDataFinal);
@@ -180,23 +180,22 @@ setFormData((prev) => ({
             <button
               key={id}
               onClick={() => setActiveTab(id)}
-              className={`px-6 py-3 font-medium text-sm whitespace-nowrap ${
-                activeTab === id
+              className={`px-6 py-3 font-medium text-sm whitespace-nowrap ${activeTab === id
                   ? "border-b-2 border-rose-500 text-rose-600"
                   : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-              }`}
+                }`}
             >
               {id === "personal"
                 ? "Personal Info"
                 : id === "photos"
-                ? "Photos"
-                : id === "career"
-                ? "Career & Education"
-                : id === "about"
-                ? "About Me"
-                : id === "preferences"
-                ? "Partner Preferences"
-                : "Lifestyle"}
+                  ? "Photos"
+                  : id === "career"
+                    ? "Career & Education"
+                    : id === "about"
+                      ? "About Me"
+                      : id === "preferences"
+                        ? "Partner Preferences"
+                        : "Lifestyle"}
             </button>
           ))}
         </div>
@@ -207,6 +206,8 @@ setFormData((prev) => ({
           <PersonalInfoForm
             personalInfo={formData.personalInfo}
             handleChange={handleChange}
+            maritalStatusOptions={maritalStatusOptions}
+            
           />
         )}
         {activeTab === "photos" && (
@@ -222,6 +223,8 @@ setFormData((prev) => ({
           <CareerEducationForm
             formData={formData}
             handleChange={handleChange}
+            educationOptions={educationOptions}
+
           />
         )}
         {activeTab === "about" && (

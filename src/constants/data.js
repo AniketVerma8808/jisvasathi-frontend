@@ -6,7 +6,6 @@ export const maritalStatusOptions = [
   "Unmarried",
   "Divorced",
   "Awaiting Divorce",
-  "Nullified marriage",
   "Widow",
 ];
 

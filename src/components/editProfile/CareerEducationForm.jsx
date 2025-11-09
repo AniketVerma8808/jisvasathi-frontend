@@ -1,7 +1,7 @@
 import React from "react";
 import { incomeOptions } from "../../constants/data";
 
-const CareerEducationForm = ({ formData, handleChange }) => {
+const CareerEducationForm = ({ formData, handleChange,educationOptions }) => {
   return (
     <div className="space-y-6">
       <h2 className="text-lg font-semibold text-gray-900">Education</h2>
@@ -24,12 +24,11 @@ const CareerEducationForm = ({ formData, handleChange }) => {
             <option value="" disabled>
               Select Education
             </option>
-            <option value="High School">High School</option>
-            <option value="Associate Degree">Associate Degree</option>
-            <option value="Bachelor's Degree">Bachelor's Degree</option>
-            <option value="Master's Degree">Master's Degree</option>
-            <option value="Doctorate">Doctorate</option>
-            <option value="Professional Degree">Professional Degree</option>
+       {
+        educationOptions?.map((option,i)=>{
+          return <option key={i} value={option}>{option}</option>
+        } )
+       }
           </select>
         </div>
 
