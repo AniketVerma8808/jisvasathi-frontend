@@ -115,7 +115,7 @@ const HiddenSideNav = ({ setShowNav }) => {
     >
       {/* Backdrop */}
       <motion.div
-        className="fixed left-0 top-0 w-full h-full bg-black/60 backdrop-blur-sm"
+        className="absolute left-0 top-0 w-full h-full bg-black/60 backdrop-blur-sm"
         variants={backdropVariants}
         initial="hidden"
         animate="visible"
@@ -124,7 +124,7 @@ const HiddenSideNav = ({ setShowNav }) => {
         onClick={() => setShowNav(false)}
       />
       <motion.div
-        className="relative   bg-white w-[80%] pt-10 overflow-y-scroll h-full  custom-scrollbar px-4 py-4"
+        className=" absolute left-0 top-0  bg-white w-[80%] pt-10 overflow-y-scroll h-full  custom-scrollbar px-4 py-4"
         variants={panelVariants}
         initial="hidden"
         animate="visible"
