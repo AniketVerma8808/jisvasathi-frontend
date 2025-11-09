@@ -114,7 +114,7 @@ const Navbar = () => {
 
             {/* Mobile Menu Toggle */}
             {
-              isAuthenticated && <div className="lg:hidden h-6">
+              isAuthenticated && <div className="md:hidden h-6">
               {!showNav ? (
                 <button onClick={() => setshowNav(true)}>
                   <FaBars className="text-2xl text-gray-700 hover:text-amber-500 transition" />
