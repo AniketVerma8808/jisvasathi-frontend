@@ -5,36 +5,6 @@ import { getContacts } from '../services/api.service';
 import {useQuery} from '@tanstack/react-query'
 const ChatList = ({showChatList,setShowChatList}) => {
      const [activeChat, setActiveChat] = useState(1);
-
-  //   {
-  //     id: 1,
-  //     name: "Jessica Parker",
-  //     lastMessage: "I'd love to meet for coffee sometime",
-  //     time: "10:30 AM",
-  //     unread: 2,
-  //     online: true,
-  //     image: "/placeholder.svg?height=50&width=50",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Michael Chen",
-  //     lastMessage: "What are your hobbies?",
-  //     time: "Yesterday",
-  //     unread: 0,
-  //     online: false,
-  //     image: "/placeholder.svg?height=50&width=50",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Priya Sharma",
-  //     lastMessage: "Nice to meet you!",
-  //     time: "Yesterday",
-  //     unread: 0,
-  //     online: true,
-  //     image: "/placeholder.svg?height=50&width=50",
-  //   },
-  // ];
-  // const activeContact = contacts.find((contact) => contact.id === activeChat);
    const {data,isLoading,isError}= useQuery(({
      queryKey:['contacts'],
     queryFn: getContacts
@@ -43,7 +13,7 @@ const ChatList = ({showChatList,setShowChatList}) => {
    
   return (
    
-       <div className=" h-full bg-amber-50 border-r border-gray-200 flex flex-col">
+       <div className=" h-full bg-white border-r border-gray-200 flex flex-col">
           <div className="p-4.5 border-b border-gray-200 text-lg text-amber-600 max-sm:p-5 font-semibold text-center flex items-center justify-start">
            <PanelRightClose onClick={()=>setShowChatList(!showChatList)} className='max-xl:block hidden'/>
             <h1 className=' flex-grow max-sm:hidden'>Your Chats</h1>

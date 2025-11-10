@@ -6,7 +6,6 @@ import { useMediaQuery } from 'react-responsive'
 const ChatLayout = () => {
   const [showChatList,setShowChatList]=React.useState(false);
   const isMobile= useMediaQuery({maxWidth: 1024});
-  console.log(isMobile)
    const panelVariants = {
     visible: { x: isMobile ?  '-85%' : 0 },
     initial: { x: 0 },

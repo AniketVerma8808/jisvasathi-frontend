@@ -54,3 +54,7 @@ export const ResetPasswordService = (data) => {
 export const shortListProfileService = (matchId) => {
   return apiClient.post(`/profile/shortlist/${matchId}`);
 }
+
+export const getShortListedProfilesService = () => {
+  return apiClient.get('/profile/allshortlistedprofiles');
+}

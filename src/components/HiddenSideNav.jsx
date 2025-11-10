@@ -54,7 +54,11 @@ const HiddenSideNav = ({ setShowNav }) => {
       text: "Chats/Message",
       path: "/profile/chats",
     },
-
+    {
+      icon: <LiaUserFriendsSolid />,
+      text: "ShortListed Profiles",
+      path: "/profile/shortListProfile",
+    },
     {
       icon: <CiCircleCheck />,
       text: "Accepted Profiles",
