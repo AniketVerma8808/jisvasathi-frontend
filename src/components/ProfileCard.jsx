@@ -15,17 +15,17 @@ const ProfileCard = ({match,showBtns=true,user}) => {
   return (
      <div
               key={match._id}
-              className="flex   items-center justify-center rounded-lg   overflow-hidden border border-gray-300 "
+              className="flex  items-center justify-center rounded-lg max-sm:block  overflow-hidden border border-gray-300 "
             >
               <Link to={"/profileDetails"} state={match} className="relative w-1/3">
                 <img
                   src={match.profilePhotos?.[0] || "/placeholder.svg"}
                   alt={user.fullName}
-                  className="w-full h-54 object-cover"
+                  className="w-full h-54 object-cover max-sm:border-b border-gray-300 max-sm:h-64 "
                 />
               </Link>
 
-              <div className="p-3 pt-6 px-2 w-2/3">
+              <div className="p-3 pt-6 px-2 w-2/3 max-sm:w-full">
                 <h3 className=" font-semibold flex items-center leading-1   w-full justify-between">
                   <span>{user.fullName}</span>
                   <span>
