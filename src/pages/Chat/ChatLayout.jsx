@@ -2,11 +2,14 @@ import React from 'react'
 import ChatList from '../../components/ChatList'
 import { Outlet } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useMediaQuery } from 'react-responsive'
 const ChatLayout = () => {
   const [showChatList,setShowChatList]=React.useState(false);
+  const isMobile= useMediaQuery({maxWidth: 1024});
+  console.log(isMobile)
    const panelVariants = {
-    initial: { x: '-85%' },
-    visible: { x: 0 },
+    visible: { x: isMobile ?  '-85%' : 0 },
+    initial: { x: 0 },
   };
   return (
     <div className='flex h-full bg-gray-100 overflow-x-hidden relative z-80'>
