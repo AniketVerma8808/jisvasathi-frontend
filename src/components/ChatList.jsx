@@ -1,11 +1,11 @@
-import { Search } from 'lucide-react';
+import { PanelRightClose, Search, Sliders } from 'lucide-react';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { getContacts } from '../services/api.service';
 import {useQuery} from '@tanstack/react-query'
-const ChatList = () => {
+const ChatList = ({showChatList,setShowChatList}) => {
      const [activeChat, setActiveChat] = useState(1);
-  //    const contacts = [
+
   //   {
   //     id: 1,
   //     name: "Jessica Parker",
@@ -43,19 +43,10 @@ const ChatList = () => {
    
   return (
    
-       <div className="w-80 h-full bg-amber-50 border-r border-gray-200 flex flex-col">
-          <div className="p-3 border-b border-gray-200">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search conversations..."
-                className="w-full pl-9 pr-4 py-2 border bg-white border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-              />
-              <Search
-                size={18}
-                className="absolute left-3 top-2.5 text-gray-400"
-              />
-            </div>
+       <div className=" h-full bg-amber-50 border-r border-gray-200 flex flex-col">
+          <div className="p-4.5 border-b border-gray-200 text-lg text-amber-600 max-sm:p-5 font-semibold text-center flex items-center justify-start">
+           <PanelRightClose onClick={()=>setShowChatList(!showChatList)} className='max-xl:block hidden'/>
+            <h1 className=' flex-grow max-sm:hidden'>Your Chats</h1>
           </div>
 
           <div className="flex-1 overflow-y-auto">
@@ -63,8 +54,10 @@ const ChatList = () => {
               <Link to={'/profile/chats/chatpage'}
                 key={contact._id}
                 state={contact}
-                onClick={() => setActiveChat(contact._id)}
-                className={`p-3 flex items-start gap-3 cursor-pointer hover:bg-gray-50 ${
+                onClick={() => {
+                  setShowChatList(!showChatList);
+                  setActiveChat(contact._id)}}
+                className={`p-2 flex items-start gap-3 cursor-pointer hover:bg-gray-50 ${
                   activeChat === contact._id ? "bg-amber-100" : ""
                 }`}
               >
@@ -72,7 +65,7 @@ const ChatList = () => {
                   <img
                     src={contact.profile.profilePhotos[0] || "/placeholder.svg"}
                     alt={contact.fullName}
-                    className="w-12 h-12 rounded-full object-cover"
+                    className="w-12 h-12 max-sm:w-10 max-sm:h-10 rounded-full object-cover bg-white border border-amber-200"
                   />
                   {contact.online && (
                     <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
