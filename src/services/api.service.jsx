@@ -58,3 +58,14 @@ export const shortListProfileService = (matchId) => {
 export const getShortListedProfilesService = () => {
   return apiClient.get('/profile/allshortlistedprofiles');
 }
+
+// ✅ Send interest
+export const sendInterestService = (data) => {
+  return apiClient.post("/interest/send", data);
+};
+
+// ✅ Withdraw interest
+export const withdrawInterestService = (data) => {
+  // data = { senderId, receiverId }
+  return apiClient.post("/interest/withdraw", data);
+};

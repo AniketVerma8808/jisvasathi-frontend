@@ -29,7 +29,8 @@ const Login = () => {
       if (response?.data?.token) {
         localStorage.setItem('token',response.data.token)
         localStorage.setItem('isAuthenticated',true)
-         dispatch(loggedInUser({token:response.data.token,user:response.data.user}))
+        localStorage.setItem('user',JSON.stringify(response.data.user));
+        dispatch(loggedInUser({token:response.data.token,user:response.data.user}))
         toast.success("Login Successful!");
         navigate("/profile");
       } else {
