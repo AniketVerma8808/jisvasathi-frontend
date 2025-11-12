@@ -6,18 +6,16 @@ import { getShortListedProfilesService } from '../services/api.service'
 
 const ShortListedProfiles = () => {
     const [profiles, setprofiles] = useState(null);
-    console.log(profiles)
-    useEffect(() => {
-      const fetchShortListedProfiles = async () => {
+     const fetchShortListedProfiles = async () => {
         try { 
           const res = await getShortListedProfilesService();
-          console.log(res)
-          setprofiles(res.data.shortlistedProfiles);
+           setprofiles(res.data.shortlistedProfiles);
         }catch (error) {
           console.error("Error fetching shortlisted profiles:", error);
         }
       }
-      fetchShortListedProfiles();
+    useEffect(() => {
+    fetchShortListedProfiles();
     }, []);
 
   return (
@@ -32,7 +30,7 @@ const ShortListedProfiles = () => {
         {
          profiles?.map((match,i)=>{
           const user= match.user;
-            return <ProfileCard key={i} match={match} user={user}/>
+            return <ProfileCard key={i} match={match} user={user} removeShortListBtn={true} fetchShortListedProfiles={fetchShortListedProfiles}/>
          })
        }
        </div>

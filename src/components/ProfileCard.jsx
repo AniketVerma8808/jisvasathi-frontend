@@ -1,7 +1,8 @@
 import { Heart, MessageSquare, PhoneCall, Star } from "lucide-react";
-import { Link } from "react-router-dom"
-import { sendInterestService, shortListProfileService } from "../services/api.service";
+import { Link, useNavigate } from "react-router-dom"
+import { removeFromShortListService, sendInterestService, shortListProfileService } from "../services/api.service";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -16,6 +17,16 @@ const ProfileCard = ({ match, showBtns = true, user }) => {
       toast(error.response.data.message, { type: "error" })
     }
   }
+  const removeShortListProfile = async(matchId)=>{
+      console.log('matchId',matchId)
+      try {
+        const res = await removeFromShortListService(matchId);
+        toast(res.data.message,{type:"success"})
+        props.fetchShortListedProfiles()
+      } catch (error) {
+       toast(error.response.data.message,{type:"error"})
+      }
+     }
 
   const handleSendInterest = async () => {
     try {
@@ -38,24 +49,24 @@ const ProfileCard = ({ match, showBtns = true, user }) => {
   };
   return (
     <div
-      key={match._id}
+      key={match?._id}
       className="flex  items-center justify-center rounded-lg max-sm:block  overflow-hidden border border-gray-300 "
     >
       <Link to={"/profileDetails"} state={match} className="relative w-1/3">
         <img
-          src={match.profilePhotos?.[0] || "/placeholder.svg"}
-          alt={user.fullName}
+          src={match?.profilePhotos?.[0] || "/placeholder.svg"}
+          alt={user?.fullName}
           className="w-full h-54 object-cover max-sm:border-b border-gray-300 max-sm:h-64 "
         />
       </Link>
 
       <div className="p-3 pt-6 px-2 w-2/3 max-sm:w-full">
         <h3 className=" font-semibold flex items-center leading-1   w-full justify-between">
-          <span>{user.fullName}</span>
+          <span>{user?.fullName}</span>
           <span>
-            {user.dob &&
+            {user?.dob &&
               new Date().getFullYear() -
-              new Date(user.dob).getFullYear()}
+              new Date(user?.dob).getFullYear()}
           </span>
         </h3>
         <br />
@@ -65,37 +76,37 @@ const ProfileCard = ({ match, showBtns = true, user }) => {
           </span>
           <span className="font-semibold">
             {" "}
-            {match.matchPercentage}%
+            {match?.matchPercentage}%
           </span>
         </h3>
 
         <div className="flex items-center justify-start flex-wrap gap-1 py-4 max-lg:pb-2">
           <p className="text-sm  capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
             <span className="font-medium mr-1 ">height-</span>
-            <span className="text-black">{user.height}</span>
+            <span className="text-black">{user?.height}</span>
           </p>
           <p className="text-sm  capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
             <span className="font-medium mr-1 ">marriage status-</span>
-            <span className="text-black">{user.marriageStatus}</span>
+            <span className="text-black">{user?.marriageStatus}</span>
           </p>
           <p className="text-sm  capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
             <span className="font-medium mr-1 ">religion-</span>
-            <span className="text-black">{user.religion}</span>
+            <span className="text-black">{user?.religion}</span>
           </p>
           <p className="text-sm  capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
             <span className="font-medium mr-1 ">region-</span>
-            <span className="text-black">{user.city}</span>
+            <span className="text-black">{user?.city}</span>
           </p>
           <p className="text-sm  capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
             <span className="font-medium mr-1 ">working status-</span>
             <span className="text-black">
-              {match.career?.employmentType}
+              {match?.career?.employmentType}
             </span>
           </p>
           <p className="text-sm  capitalize text-gray-600 px-2 py-1 border border-gray-200 rounded-lg bg-gray-50">
             <span className="font-medium mr-1 ">education-</span>
             <span className="text-black">
-              {match.education?.highestQualification}
+              {match?.education?.highestQualification}
             </span>
           </p>
         </div>
@@ -111,33 +122,41 @@ const ProfileCard = ({ match, showBtns = true, user }) => {
               <Heart size={20} className="text-rose-600" />
             </button>
 
-            <button onClick={() => {
-              navigate('/profile/chats/chatpage', { state: match.user })
-            }} className="p-2 rounded-lg bg-gray-100 px-4 flex-grow  max-xl:px-2 max-xl:py-1.5 cursor-pointer hover:bg-gray-200 flex items-center justify-center gap-2 transition-colors">
-              <h2 className="text-xs font-medium capitalize  ">
-                Send Message
-              </h2>
-              <MessageSquare size={20} className="text-blue-500" />
-            </button>
-
-            <button onClick={() => shortListProfile(match._id)} className="p-2 rounded-lg bg-gray-100 px-4 flex-grow max-xl:px-2 max-xl:py-1.5 cursor-pointer hover:bg-gray-200 flex items-center justify-center gap-2 transition-colors">
-              <h2 className="text-xs font-medium capitalize  ">
-                Shortlist Profile
-              </h2>
-              <Star size={20} className="text-amber-500" />
-            </button>
-
-            <button className="p-2 rounded-lg bg-green-100 px-4 flex-grow max-xl:px-2 max-xl:py-1.5 cursor-pointer hover:bg-green-200 flex items-center justify-center gap-2 transition-colors">
-              <h2 className="text-xs font-medium capitalize  ">
-                {" "}
-                See Phone Number
-              </h2>
-              <PhoneCall size={20} className="text-green-600" />
-            </button>
-          </div>
-        }
-      </div>
-    </div>
+                  <button onClick={()=>{
+                    console.log('hello navigate')
+                     navigate(`/profile/chats/chatpage/${match?.user?._id}`,{state:match});
+                  }} className="p-2 rounded-lg bg-gray-100 px-4 flex-grow  max-xl:px-2 max-xl:py-1.5 cursor-pointer hover:bg-gray-200 flex items-center justify-center gap-2 transition-colors">
+                    <h2 className="text-xs font-medium capitalize  ">
+                      Send Message
+                    </h2>
+                    <MessageSquare size={20} className="text-blue-500" />
+                  </button>
+               {
+    removeShortListBtn ?  <button onClick={()=>removeShortListProfile(match?._id)} className="p-2 rounded-lg bg-gray-100 px-4 flex-grow max-xl:px-2 max-xl:py-1.5 cursor-pointer hover:bg-gray-200 flex items-center justify-center gap-2 transition-colors">
+                    <h2 className="text-xs font-medium capitalize  ">
+                      Remove Profile
+                    </h2>
+                    <Star size={20} className="text-amber-500" />
+                  </button>
+               :
+                  <button onClick={()=>shortListProfile(match?._id)} className="p-2 rounded-lg bg-gray-100 px-4 flex-grow max-xl:px-2 max-xl:py-1.5 cursor-pointer hover:bg-gray-200 flex items-center justify-center gap-2 transition-colors">
+                    <h2 className="text-xs font-medium capitalize  ">
+                      Shortlist Profile
+                    </h2>
+                    <Star    size={20} className="text-amber-500" />
+                  </button>
+}
+                  <button className="p-2 rounded-lg bg-green-100 px-4 flex-grow max-xl:px-2 max-xl:py-1.5 cursor-pointer hover:bg-green-200 flex items-center justify-center gap-2 transition-colors">
+                    <h2 className="text-xs font-medium capitalize  ">
+                      {" "}
+                      See Phone Number
+                    </h2>
+                    <PhoneCall size={20} className="text-green-600" />
+                  </button>
+                </div>
+}
+              </div>
+            </div>
   )
 }
 

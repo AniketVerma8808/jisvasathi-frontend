@@ -9,7 +9,7 @@ const ChatList = ({showChatList,setShowChatList}) => {
      queryKey:['contacts'],
     queryFn: getContacts
    }))
-
+console.log(data)
    
   return (
    
@@ -18,10 +18,13 @@ const ChatList = ({showChatList,setShowChatList}) => {
            <PanelRightClose onClick={()=>setShowChatList(!showChatList)} className='max-xl:block hidden'/>
             <h1 className=' flex-grow max-sm:hidden'>Your Chats</h1>
           </div>
+{
+  isLoading ? <div className=' flex-1 flex items-center justify-center text-primary font-bold'>Loading Chats...</div> :
+          data?.data?.contacts?.length===0 ? <div className=' flex-1 flex items-center justify-center text-gray-500 font-bold'>No Chats Available</div> :
 
           <div className="flex-1 overflow-y-auto">
             {data?.data?.contacts?.map((contact) => (
-              <Link to={'/profile/chats/chatpage'}
+              <Link to={`/profile/chats/chatpage/${contact.user._id}`}
                 key={contact._id}
                 state={contact}
                 onClick={() => {
@@ -33,8 +36,8 @@ const ChatList = ({showChatList,setShowChatList}) => {
               >
                 <div className="relative">
                   <img
-                    src={contact.profile.profilePhotos[0] || "/placeholder.svg"}
-                    alt={contact.fullName}
+                    src={contact.profilePhotos[0] || "/placeholder.svg"}
+                    alt={contact.user.fullName}
                     className="w-12 h-12 max-sm:w-10 max-sm:h-10 rounded-full object-cover bg-white border border-amber-200"
                   />
                   {contact.online && (
@@ -44,7 +47,7 @@ const ChatList = ({showChatList,setShowChatList}) => {
 
                 <div className="flex-1 min-w-0">
                   <div className="flex justify-between items-baseline">
-                    <h3 className="font-medium truncate">{contact.fullName}</h3>
+                    <h3 className="font-medium truncate">{contact.user.fullName}</h3>
                     <span className="text-xs text-gray-500">
                       {contact.time}
                     </span>
@@ -64,6 +67,7 @@ const ChatList = ({showChatList,setShowChatList}) => {
               </Link>
             ))}
           </div>
+}
         </div>
   
   )

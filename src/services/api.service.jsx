@@ -69,3 +69,7 @@ export const withdrawInterestService = (data) => {
   // data = { senderId, receiverId }
   return apiClient.post("/interest/withdraw", data);
 };
+
+export const removeFromShortListService = (matchId) => {
+  return apiClient.delete(`/profile/removeshortlist/${matchId}`);
+}

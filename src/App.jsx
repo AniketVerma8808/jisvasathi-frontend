@@ -95,7 +95,7 @@ if(user){
             <Route path="editProfile" element={<EditProfile />} />
             <Route path="chats" element={<ChatLayout/>}>
               <Route index  element={<ChatStartPage/>}/>
-              <Route path="chatpage" element={<ChatPage/>}/>
+              <Route path="chatpage/:userId" element={<ChatPage/>}/>
             </Route>
             <Route path="myProfile" element={<MyProfile/>}/>
             <Route path="acceptProfile" element={<AcceptedProfiles/>}/>

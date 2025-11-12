@@ -3,13 +3,11 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getMatches } from "../services/api.service";
 import { useSelector } from "react-redux";
-import MatchesSkeleton from "./skeletons/MatchesSkeleton";
 import ProfileCard from "./ProfileCard";
 
 export default function Matches() {
   const user = useSelector((state) => state.user.user);
   const [matches, setmatches] = useState();
-  const navigate= useNavigate()
 
   useEffect(() => {
     const getMatchedUsers = async () => {
@@ -21,9 +19,7 @@ export default function Matches() {
     getMatchedUsers();
   }, [user]);
 
-  if (!matches) {
-    return <MatchesSkeleton />;
-  }
+
 
   return (
     <div className="space-y-6  bg-white ml-auto  py-4 px-5 pb-10 shadow-sm max-sm:px-3  max-lg:w-full ">

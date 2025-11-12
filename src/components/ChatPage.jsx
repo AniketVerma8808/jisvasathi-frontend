@@ -1,18 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
-import { Paperclip, Send, Smile } from 'lucide-react';
+import { Loader, Paperclip, Send, Smile } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react'
 import { getMessages, sendMessages } from '../services/api.service';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import EmojiPicker from 'emoji-picker-react';
 import socket from '../services/socketInstance';
+import { set } from 'react-hook-form';
 
 const ChatPage = () => {
-  const {user}= useSearchParams((state)=>state.user)
-      const [activeChat, setActiveChat] = useState(1);
+  const {userId}= useParams()
+      const [loadingMessage, setLoadingMessage] = useState(true);
+      const [sendLoading, setSendLoading] = useState(false);
       const [emojiPicker, setEmojiPicker] = useState(false);
   const [message, setMessage] = useState(""); 
   const [messages, setmessages] = useState();
   const location=useLocation()
+  console.log(location.state)
+
   const contacts = [
     {
       id: 1,
@@ -49,21 +53,27 @@ const ChatPage = () => {
     e.preventDefault();
     if (message.trim() === "") return;
 try {
-     socket.emit('sendMessage',{text:message,profileId:location.state._id})
-     const res= await sendMessages(location.state._id,{text:message})
+     socket.emit('sendMessage',{text:message,profileId:userId})
+     setSendLoading(true)
+     const res= await sendMessages(userId,{text:message})
      setMessage('')
      callGetMessageAPI()
+     
 } catch (error) {
   console.log(error)
+}finally{
+  setSendLoading(false)
 }
 
   
   };
   useEffect(() => {
    socket.on('replyMessage',(message)=>{
-    
-      setmessages((prev)=>[...prev,{text:message}])
+   setmessages((prev)=>[...prev,{text:message}])
    })
+   return ()=>{
+    socket.off('replyMessage')
+   }
   }, [])
 
   const handleEmoji=(e)=>{
@@ -73,28 +83,31 @@ try {
  
   async function callGetMessageAPI(){
 try {
-       const res= await getMessages(location.state._id)
+       const res= await getMessages(userId)
        setmessages(res.data.messages)
 } catch (error) {
   console.log(error)
+}finally{
+  setLoadingMessage(false)
 }
      
   }
 
   useEffect(() => {
      callGetMessageAPI()
-  }, [location.state._id])
+  }, [userId])
 
   const chatRef= useRef(null)
     useEffect(()=>{
+      if(chatRef.current){
     chatRef.current.scrollTop=chatRef.current.scrollHeight
+      }
   },[messages])
- console.log(location.state)
-  const activeContact = contacts.find((contact) => contact.id === activeChat);
+
   return (
    
       <div className="flex-1 h-full  flex flex-col bg-gray-50">
-          {activeContact ? (
+         
             <>
               {/* Chat header */}
               <div className="p-3 bg-white border-b border-gray-200 flex items-center justify-between">
@@ -102,30 +115,32 @@ try {
                   <div className="relative">
                     <img
                       src={location?.state?.profile?.profilePhotos[0] || "/placeholder.svg"}
-                      alt={location.state.fullName}
+                      alt={location.state.user.fullName}
                       className="w-10 h-10 rounded-full object-cover"
                     />
-                    {activeContact.online && (
-                      <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"></span>
-                    )}
+                  
                   </div>
                   <div>
-                    <h3 className="font-medium">{location.state.fullName}</h3>
-                    <p className="text-xs text-gray-500">
-                      {activeContact.online ? "Online" : "Offline"}
-                    </p>
+                    <h3 className="font-medium">{location.state.user.fullName}</h3>
+                    
                   </div>
                 </div>
 
               </div>
 
               {/* Messages */}
-              <div ref={chatRef} className="flex-1 overflow-y-scroll max-h-[calc(100vh-216px)] p-4 space-y-4 custom-scrollbar">
+              {
+                loadingMessage ? <div className=' flex-1 flex items-center justify-center text-primary font-bold'>Loading Messages...</div> :
+              
+              <div ref={chatRef} className="flex-1  overflow-y-scroll max-h-[calc(100vh-216px)] p-4 space-y-4 custom-scrollbar">
+                {
+                  (messages?.length===0 || !messages) && <div className=' text-center text-gray-500 mt-10'>No messages yet. Say hello!</div>
+                }
                 {messages?.map((msg) => (
                   <div
                     key={msg._id}
                     className={`flex ${
-                      msg.userId !== location.state._id ? "justify-end" : "justify-start"
+                      msg.userId !== userId ? "justify-end" : "justify-start"
                     }`}
                   >
                     <div
@@ -149,7 +164,7 @@ try {
                   </div>
                 ))}
               </div>
-
+}
               {/* Message input */}
               <div className="p-3 bg-white border-t border-gray-200 relative">
                 <div className='absolute bottom-full right-0 '>
@@ -181,26 +196,18 @@ try {
                     type="submit"
                     className="p-2 bg-amber-500 text-white rounded-full hover:bg-amber-600"
                   >
+                    {
+                      sendLoading ? <Loader size={18} className='animate-spin'/> :
+                    
                     <Send size={18} />
+}
                   </button>
                 </form>
               </div>
             </>
-          ) : (
-            <div className="flex-1 flex items-center justify-center">
-              <div className="text-center p-6">
-                <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <MessageSquare size={24} className="text-amber-500" />
-                </div>
-                <h3 className="text-lg font-medium text-gray-900">
-                  Your Messages
-                </h3>
-                <p className="text-gray-500 mt-1">
-                  
-                </p>
-              </div>
-            </div>
-          )}
+          
+            
+          
         </div>
    
   )

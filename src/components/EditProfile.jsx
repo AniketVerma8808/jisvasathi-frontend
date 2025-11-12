@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Save, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { editProfile } from "../services/api.service";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {
   ageOptions,
@@ -26,10 +26,11 @@ import CareerEducationForm from "./editProfile/CareerEducationForm";
 import AboutMeForm from "./editProfile/AboutMeForm";
 import LifestyleForm from "./editProfile/LifestyleForm";
 import PartnerPreferencesForm from "./editProfile/PartnerPreferencesForm";
+import { fetchUser } from "../Features/Userslice";
 
 export default function EditProfile() {
 
-
+  const dispatch= useDispatch();
   const user = useSelector((state) => state.user);
   const profileData = user.profileData
 
@@ -147,6 +148,7 @@ export default function EditProfile() {
 
     const res = await editProfile(formDataFinal);
     toast.success("Profile updated successfully!");
+    dispatch(fetchUser());
   };
 
   return (
