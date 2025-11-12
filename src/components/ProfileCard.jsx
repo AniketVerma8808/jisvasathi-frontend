@@ -3,10 +3,8 @@ import { Link, useNavigate } from "react-router-dom"
 import { removeFromShortListService, sendInterestService, shortListProfileService } from "../services/api.service";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
-const ProfileCard = ({ match, showBtns = true, user }) => {
+const ProfileCard = ({ match, showBtns = true, user,removeShortListBtn=false }) => {
   const navigate = useNavigate();
   const data = useSelector((state)=> state.user)
   const shortListProfile = async (matchId) => {
